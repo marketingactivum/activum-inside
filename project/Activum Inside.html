@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activum Inside — Revista interna</title>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@500&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Roboto Serif';
+  src: url('fonts/RobotoSerif-VariableFont_GRAD_opsz_wdth_wght.ttf') format('truetype');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto Serif';
+  src: url('fonts/RobotoSerif-Italic-VariableFont_GRAD_opsz_wdth_wght.ttf') format('truetype');
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/Roboto-VariableFont_wdth_wght.ttf') format('truetype');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/Roboto-Italic-VariableFont_wdth_wght.ttf') format('truetype');
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #F5F3F2; font-family: 'Roboto', sans-serif; -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: #EBE3DB; }
+::-webkit-scrollbar-thumb { background: #D4C3B3; border-radius: 4px; }
+::selection { background: rgba(142,45,68,0.18); }
+/* image-slot — estética Activum */
+image-slot::part(frame) { background: var(--slot-bg, #EBE3DB) !important; }
+image-slot::part(empty) { color: var(--slot-ink, #8F8D8C) !important; font-family: 'Roboto', sans-serif; }
+image-slot::part(ring) { border-color: rgba(31,29,26,0.22) !important; }
+/* Modo edición de textos */
+#edit-toggle { position: fixed; right: 18px; bottom: 18px; z-index: 200;
+  font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; background: #1F1D1A; color: #F5F3F2; border: none;
+  border-radius: 9999px; padding: 12px 22px; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(31,29,26,0.28); transition: background 200ms; }
+#edit-toggle:hover { background: #8E2D44; }
+body.editing #edit-toggle { background: #8E2D44; }
+body.editing [contenteditable="true"] { outline: 1px dashed rgba(142,45,68,0.45);
+  outline-offset: 3px; border-radius: 2px; cursor: text; transition: outline-color 150ms; }
+body.editing [contenteditable="true"]:hover { outline-color: rgba(142,45,68,0.85); }
+body.editing [contenteditable="true"]:focus { outline: 2px solid #8E2D44;
+  background: rgba(142,45,68,0.05); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+</style>
+<script src="image-slot.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="inside-core.jsx"></script>
+<script type="text/babel" src="inside-portada.jsx"></script>
+<script type="text/babel" src="inside-articles.jsx"></script>
+<script type="text/babel">
+
+const HEADER_H = 92;
+const NAV_W = 290;
+
+/* ════════ Cabecera superior (a todo el ancho) ════════ */
+const Masthead = ({ go }) => (
+  <header style={{ position: 'fixed', top: 0, left: 0, right: 0, height: HEADER_H + 'px',
+    zIndex: 60, background: T.blanco, borderBottom: `1px solid ${T.beige2}`,
+    display: 'flex', alignItems: 'stretch', justifyContent: 'space-between' }}>
+    {/* Logo (sobre la columna del menú) */}
+    <div onClick={() => go('portada')}
+      style={{ width: NAV_W + 'px', flexShrink: 0, display: 'flex', alignItems: 'center',
+        padding: '0 26px', cursor: 'pointer' }}>
+      <img src="assets/logo-positive.svg" alt="Activum" style={{ height: '54px', display: 'block' }} />
+    </div>
+    {/* Edición / fecha (derecha) */}
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',
+      alignItems: 'flex-end', textAlign: 'right', padding: '0 36px' }}>
+      <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 500, letterSpacing: '0.14em',
+        textTransform: 'uppercase', color: T.negro, whiteSpace: 'nowrap' }}>Edición {EDITION.num}</div>
+      <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 300, color: T.negro50,
+        marginTop: '4px', whiteSpace: 'nowrap' }}>{EDITION.date}</div>
+    </div>
+    {/* Inside (centrado en la página) */}
+    <div onClick={() => go('portada')}
+      style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
+        cursor: 'pointer', fontFamily: T.serif, fontSize: '32px', fontWeight: 300, fontStyle: 'italic',
+        color: T.negro, letterSpacing: '0.01em' }}>
+      Inside
+    </div>
+  </header>
+);
+
+/* ════════ Menú lateral ════════ */
+const navItemStyle = (active) => ({
+  width: '100%', textAlign: 'left', display: 'flex', gap: '12px', alignItems: 'baseline',
+  background: active ? 'rgba(142,45,68,0.28)' : 'transparent', border: 'none',
+  borderLeft: active ? `3px solid ${T.acento}` : '3px solid transparent',
+  cursor: 'pointer', padding: '11px 23px', transition: 'background 200ms',
+});
+const sectionLabel = {
+  fontFamily: T.sans, fontSize: '9px', fontWeight: 600, letterSpacing: '0.18em',
+  textTransform: 'uppercase', color: 'rgba(245,243,242,0.4)', padding: '16px 26px 8px',
+};
+
+const Sidebar = ({ view, go }) => {
+  const NavBtn = ({ s, mark }) => {
+    const active = view === s.id;
+    return (
+      <button onClick={() => go(s.id)} style={navItemStyle(active)}
+        onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(245,243,242,0.06)'; }}
+        onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent'; }}>
+        <span style={{ fontFamily: T.serif, fontSize: '13px', fontWeight: 400,
+          color: active ? T.acentoLight : (mark ? T.acentoLight : 'rgba(245,243,242,0.45)'),
+          minWidth: '18px', fontVariantNumeric: 'tabular-nums' }}>{mark || s.num}</span>
+        <span style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: active ? 500 : 300,
+          color: active ? T.blanco : 'rgba(245,243,242,0.78)', lineHeight: 1.3 }}>
+          {s.section}
+        </span>
+      </button>
+    );
+  };
+  return (
+    <aside style={{ position: 'fixed', top: HEADER_H + 'px', left: 0, bottom: 0, width: NAV_W + 'px',
+      background: T.negro, backgroundImage: 'url("assets/pattern-dark.svg")',
+      backgroundSize: '420px', zIndex: 50 }}>
+      <div style={{ position: 'absolute', inset: 0, background: 'rgba(31,29,26,0.90)' }} />
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column',
+        height: '100%', overflowY: 'auto', paddingBottom: '24px' }}>
+        <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 300, color: T.blanco,
+          padding: '24px 26px 6px' }}>Menú</div>
+
+        <div style={sectionLabel}>Sumario</div>
+        <nav style={{ flexShrink: 0 }}>
+          {SECTIONS.filter(s => s.id !== 'voz').map(s => <NavBtn key={s.id} s={s} />)}
+        </nav>
+
+        <div style={sectionLabel}>Promoción</div>
+        {PROMOS.map(s => <NavBtn key={s.id} s={s} mark="◆" />)}
+      </div>
+    </aside>
+  );
+};
+
+/* ════════ App shell ════════ */
+const App = () => {
+  const [view, setView] = React.useState(() => localStorage.getItem('inside_view') || 'portada');
+  const go = v => {
+    setView(v);
+    localStorage.setItem('inside_view', v);
+    const main = document.getElementById('main-scroll');
+    if (main) main.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0 });
+  };
+
+  return (
+    <div>
+      <Masthead go={go} />
+      <Sidebar view={view} go={go} />
+      <main id="main-scroll" style={{ marginLeft: NAV_W + 'px', paddingTop: HEADER_H + 'px',
+        minHeight: '100vh', background: T.blanco }}>
+        <div key={view}
+          style={{ maxWidth: '1080px', margin: '0 auto', padding: '44px 56px 80px', opacity: 1 }}>
+          {view === 'portada'
+            ? <Portada go={go} />
+            : <Article id={view} go={go} />}
+        </div>
+      </main>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<!-- ════════ Edición directa de textos (persistente) ════════ -->
+<script>
+(function () {
+  const FILE = '.text-edits.state.json';
+  let store = {};
+  const canWrite = () => !!(window.omelette && window.omelette.writeFile);
+
+  fetch(FILE).then(r => r.ok ? r.json() : null).then(j => {
+    if (j && typeof j === 'object') store = j;
+    instrument();
+  }).catch(() => {});
+
+  let saveT = null;
+  function save() {
+    if (!canWrite()) return;
+    clearTimeout(saveT);
+    saveT = setTimeout(() => { try { window.omelette.writeFile(FILE, JSON.stringify(store)); } catch (e) {} }, 400);
+  }
+
+  const INLINE = new Set(['A','B','I','EM','STRONG','SPAN','BR','U','SMALL','SUP','SUB','MARK']);
+  function collect(node, out) {
+    for (const el of node.children) {
+      const tag = el.tagName;
+      if (tag === 'IMAGE-SLOT' || tag === 'IMG' || tag === 'SVG' || tag === 'INPUT' ||
+          tag === 'TEXTAREA' || tag === 'SELECT') continue;
+      const kids = [...el.children];
+      const inlineOnly = kids.every(c => INLINE.has(c.tagName));
+      const hasText = [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim());
+      if (hasText && inlineOnly) out.push(el);
+      else collect(el, out);
+    }
+    return out;
+  }
+  const viewKey = () => localStorage.getItem('inside_view') || 'portada';
+  const content = () => { const m = document.getElementById('main-scroll'); return m && m.firstElementChild; };
+
+  let applying = false;
+  function instrument() {
+    const root = content(); if (!root) return;
+    const editing = canWrite() && document.body.classList.contains('editing');
+    const vk = viewKey();
+    applying = true;
+    collect(root, []).forEach((el, i) => {
+      const tid = vk + '::' + i;
+      el.dataset.tid = tid;
+      if (store[tid] != null && document.activeElement !== el && el.innerHTML !== store[tid]) {
+        el.innerHTML = store[tid];
+      }
+      if (editing) el.setAttribute('contenteditable', 'true');
+      else el.removeAttribute('contenteditable');
+    });
+    applying = false;
+  }
+
+  // Guardar al escribir
+  document.addEventListener('input', e => {
+    const el = e.target.closest && e.target.closest('[data-tid][contenteditable="true"]');
+    if (el) { store[el.dataset.tid] = el.innerHTML; save(); }
+  });
+
+  // En modo edición, el clic en un texto editable no navega
+  document.addEventListener('click', e => {
+    if (!document.body.classList.contains('editing')) return;
+    const t = e.target;
+    if (t.closest && t.closest('[contenteditable="true"]')) {
+      e.stopPropagation();
+      const a = t.closest('a'); if (a) e.preventDefault();
+    }
+  }, true);
+
+  // Reaplicar tras cambios de vista o re-render de React (sin pisar lo que se escribe)
+  let obsT = null;
+  function watch() {
+    const m = document.getElementById('main-scroll');
+    if (!m) { setTimeout(watch, 150); return; }
+    new MutationObserver(() => {
+      if (applying) return;
+      clearTimeout(obsT);
+      obsT = setTimeout(instrument, 80);
+    }).observe(m, { childList: true, subtree: true, characterData: true });
+    instrument();
+  }
+  watch();
+
+  // Botón de modo edición (solo en el editor)
+  if (canWrite()) {
+    const btn = document.createElement('button');
+    btn.id = 'edit-toggle';
+    const label = () => { btn.textContent = document.body.classList.contains('editing') ? '✓ Hecho' : '✎ Editar textos'; };
+    if (localStorage.getItem('inside_editing') === '1') document.body.classList.add('editing');
+    btn.onclick = () => {
+      document.body.classList.toggle('editing');
+      localStorage.setItem('inside_editing', document.body.classList.contains('editing') ? '1' : '0');
+      label(); instrument();
+    };
+    document.body.appendChild(btn);
+    label();
+  }
+})();
+</script>
+</body>
+</html>
