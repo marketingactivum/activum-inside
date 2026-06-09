@@ -45,6 +45,12 @@ image-slot::part(ring) { border-color: rgba(31,29,26,0.22) !important; }
   box-shadow: 0 6px 20px rgba(31,29,26,0.28); transition: background 200ms; }
 #edit-toggle:hover { background: #8E2D44; }
 body.editing #edit-toggle { background: #8E2D44; }
+#save-images { position: fixed; right: 18px; bottom: 70px; z-index: 200;
+  font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; background: #4B4845; color: #F5F3F2; border: none;
+  border-radius: 9999px; padding: 12px 22px; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(31,29,26,0.28); transition: background 200ms; }
+#save-images:hover { background: #8E2D44; }
 body.editing [contenteditable="true"] { outline: 1px dashed rgba(142,45,68,0.45);
   outline-offset: 3px; border-radius: 2px; cursor: text; transition: outline-color 150ms; }
 body.editing [contenteditable="true"]:hover { outline-color: rgba(142,45,68,0.85); }
@@ -280,6 +286,36 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     document.body.appendChild(btn);
     label();
   }
+})();
+</script>
+<!-- ════════ Exportar imágenes al repositorio ════════ -->
+<script>
+(function () {
+  var NS = 'activum_inside:';
+  var IMAGES_KEY = NS + '.image-slots.state.json';
+
+  var btn = document.createElement('button');
+  btn.id = 'save-images';
+  btn.textContent = '⬇ Guardar imágenes';
+  btn.title = 'Descarga el fichero de imágenes para commitear al repositorio';
+
+  btn.onclick = function () {
+    var data = localStorage.getItem(IMAGES_KEY);
+    if (!data || data === '{}') {
+      alert('No hay imágenes subidas aún en este navegador.');
+      return;
+    }
+    var blob = new Blob([data], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = '.image-slots.state.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    btn.textContent = '✓ Descargado — ahora commitea el fichero';
+    setTimeout(function () { btn.textContent = '⬇ Guardar imágenes'; }, 4000);
+  };
+
+  document.body.appendChild(btn);
 })();
 </script>
 </body>

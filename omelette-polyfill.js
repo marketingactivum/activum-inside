@@ -36,6 +36,7 @@
     if (SIDECARS.has(basename)) {
       var stored = localStorage.getItem(NS + basename);
       if (stored) {
+        // localStorage tiene prioridad (edición local)
         var parsed = null;
         try { parsed = JSON.parse(stored); } catch (_e) { /* ignore */ }
         return Promise.resolve({
@@ -44,10 +45,9 @@
           text: function () { return Promise.resolve(stored); }
         });
       }
-      return Promise.resolve({
-        ok: false,
-        json: function () { return Promise.resolve(null); },
-        text: function () { return Promise.resolve(''); }
+      // Sin localStorage → intentar fetch real al servidor (estado commiteado)
+      return _fetch(input, init).catch(function () {
+        return { ok: false, json: function () { return Promise.resolve(null); }, text: function () { return Promise.resolve(''); } };
       });
     }
     return _fetch(input, init);
