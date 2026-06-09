@@ -72,19 +72,17 @@ const AperturaBody = () => {
   return (
     <div style={{ maxWidth: '900px' }}>
 
-      {/* Vídeo */}
-      <div style={{ position: 'relative' }}>
-        <Slot id="aperturaMain" ratio="16 / 9" dark radius={8} label="Sube el póster del vídeo" />
-        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
-          justifyContent: 'center', pointerEvents: 'none' }}>
-          <div style={{ width: '74px', height: '74px', borderRadius: '9999px', background: T.acento,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 8px 30px rgba(31,29,26,0.28)' }}>
-            <div style={{ width: 0, height: 0, marginLeft: '6px',
-              borderTop: '13px solid transparent', borderBottom: '13px solid transparent',
-              borderLeft: `21px solid ${T.blanco}` }} />
-          </div>
-        </div>
+      {/* Vídeo YouTube */}
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9',
+        borderRadius: '8px', overflow: 'hidden', background: T.negro,
+        boxShadow: '0 8px 40px rgba(31,29,26,0.14)' }}>
+        <iframe
+          src="https://www.youtube.com/embed/tolNFjKYdcQ?rel=0&modestbranding=1"
+          title="Mensaje de Cristina Balaguer — Activum Inside Nº1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+        />
       </div>
 
       {/* Autora + texto introductorio */}
