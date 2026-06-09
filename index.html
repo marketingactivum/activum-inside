@@ -96,12 +96,14 @@ const Masthead = ({ go }) => (
       <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 300, color: T.negro50,
         marginTop: '4px', whiteSpace: 'nowrap' }}>{EDITION.date}</div>
     </div>
-    {/* Inside (centrado en la página) */}
+    {/* Activum Inside (centrado en la página) */}
     <div onClick={() => go('portada')}
       style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
-        cursor: 'pointer', fontFamily: T.serif, fontSize: '32px', fontWeight: 300, fontStyle: 'italic',
-        color: T.negro, letterSpacing: '0.01em' }}>
-      Inside
+        cursor: 'pointer', display: 'flex', alignItems: 'baseline', gap: '9px' }}>
+      <span style={{ fontFamily: T.albert, fontSize: '20px', fontWeight: 500,
+        letterSpacing: '0.08em', textTransform: 'uppercase', color: T.negro }}>Activum</span>
+      <span style={{ fontFamily: T.serif, fontSize: '32px', fontWeight: 300, fontStyle: 'italic',
+        color: T.negro, letterSpacing: '0.01em' }}>Inside</span>
     </div>
   </header>
 );

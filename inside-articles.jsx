@@ -528,14 +528,27 @@ const CuerpoBody = ({ go }) => (
 /* ════════ 05 · Beneficios para Empleados ════════ */
 const BeneficiosBody = () => {
   const ofertas = [
-    { cat: 'Moda y deporte', marca: 'Adidas', desc: '30% en artículos seleccionados de la tienda online oficial y un 5% adicional en outlet ya rebajado. Ideal para nuestro reto de convertir km en becas.' },
-    { cat: 'Tecnología', marca: 'Samsung', desc: 'Hasta un 29% en televisores seleccionados y hasta un 62% en otros modelos y barras de sonido. El Mundial, mejor en grande.' },
-    { cat: 'Viajes', marca: 'lastminute.com', desc: 'Descuento exclusivo en vuelos y escapadas. Para esa escapada improvisada o el viaje que llevas tiempo queriendo hacer.' },
-    { cat: 'Formación · Idiomas', marca: 'Babbel', desc: 'Hasta un 60% en el aprendizaje de idiomas. Solo necesitas 10 minutos al día… y un poco de valentía.' },
+    {
+      cat: 'Moda y deporte', marca: 'Adidas', slotId: 'benImg0',
+      desc: 'Prepárate para nuestro reto de convertir km en becas escolares en Honduras con este descuento del 30% en artículos seleccionados en la tienda online oficial de Adidas y un 5% adicional en artículos outlet ya rebajados. La actitud y las ganas de ayudar ya las tenemos… ahora sólo te faltan las zapatillas y la ropa. Corre (y nunca mejor dicho) y no dejes escapar este descuento.',
+    },
+    {
+      cat: 'Tecnología', marca: 'Samsung', slotId: 'benImg1',
+      desc: 'El Mundial, mejor en grande. Aprovecha los descuentos exclusivos de Samsung para empleados y disfruta de hasta un 29% en televisores seleccionados y hasta un 62% en otros modelos y barras de sonido. Porque hay goles, paradas… y polémicas arbitrales que merecen verse con la mejor calidad posible.',
+    },
+    {
+      cat: 'Viajes', marca: 'lastminute.com', slotId: 'benImg2',
+      desc: 'Seguro que ya hay muchos de vosotros que ya tienen cerrado el verano… y luego estamos el resto, mirando vuelos un martes a las 23:47 "solo por curiosidad". Sea para una escapada improvisada, unas vacaciones en la playa o ese viaje que llevas tiempo queriendo hacer, aprovecha este descuento exclusivo de lastminute.com y empieza a preparar la maleta. Ámsterdam, Baleares, Nueva York… el problema no será encontrar destino, sino decidir cuál elegir.',
+    },
+    {
+      cat: 'Formación · Idiomas', marca: 'Babbel', slotId: 'benImg3',
+      desc: 'Siempre decimos que algún día aprenderemos inglés, italiano o francés… hasta que llega el verano y acabamos comunicándonos con un "thank you", una sonrisa y lenguaje de signos. Aunque, viendo que hasta Antonio Lodeiro se ha lanzado ya con el holandés, quizá ha llegado el momento de dejar las excusas atrás. Aprovecha este descuento de hasta el 60% en Babbel. Solo necesitas 10 minutos al día… y un poco de valentía.',
+    },
   ];
   return (
     <div style={{ maxWidth: '960px' }}>
-      {/* Banner publicitario */}
+
+      {/* Banner */}
       <div style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden',
         background: T.acento, backgroundImage: 'url("assets/pattern-dark.svg")',
         backgroundSize: 'cover' }}>
@@ -555,27 +568,49 @@ const BeneficiosBody = () => {
         </div>
       </div>
 
-      {/* Intro + acceso a la plataforma */}
+      {/* Pregunta titular */}
+      <p style={{ fontFamily: T.serif, fontSize: '26px', fontWeight: 400, fontStyle: 'italic',
+        lineHeight: 1.35, color: T.negro, margin: '40px 0 20px', maxWidth: '60ch' }}>
+        ¿Todavía no conoces la plataforma de descuentos para empleados de Activum?
+      </p>
+
+      {/* Intro + acceso */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '32px',
-        alignItems: 'center', margin: '36px 0 40px' }}>
+        alignItems: 'start', marginBottom: '44px' }}>
         <div>
           <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
-            color: T.negro80, margin: '0 0 12px' }}>
-            Todos los empleados tenemos acceso gratuito a una plataforma exclusiva con descuentos
-            y ventajas en primeras marcas de moda, tecnología, viajes, ocio y formación. Solo
-            necesitas registrarte con tu <b>correo corporativo</b> y empezar a disfrutar.
+            color: T.negro80, margin: '0 0 14px' }}>
+            Desde hace unas semanas todos los empleados tenemos acceso gratuito a una plataforma
+            exclusiva con descuentos y ventajas en primeras marcas de moda, tecnología, viajes,
+            ocio, formación y mucho más.
           </p>
-          <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.6,
+          <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+            color: T.negro80, margin: '0 0 14px' }}>
+            El acceso es muy sencillo: solo necesitas registrarte con tu <strong>correo
+            corporativo</strong> y comenzar a disfrutar de todas las ventajas disponibles.
+          </p>
+          <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.7,
             color: T.negro50, margin: 0 }}>
-            Cada mes se incorporan nuevas ofertas: merece la pena echar un vistazo antes de
-            reservar vacaciones, renovar tecnología o darte un capricho.
+            Además, cada mes se incorporan nuevas ofertas y promociones, por lo que merece la
+            pena echarle un vistazo de vez en cuando… especialmente antes de reservar unas
+            vacaciones, renovar tecnología o darte algún capricho.
           </p>
         </div>
-        <div style={{ background: T.beige1, borderRadius: '8px', padding: '24px' }}>
+        <div style={{ background: T.beige1, borderRadius: '8px', padding: '26px' }}>
           <Kicker color={T.acento} style={{ fontSize: '10px' }}>Cómo acceder</Kicker>
-          <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.55,
-            color: T.negro80, margin: '10px 0 16px' }}>
-            Desde la web o el apartado de enlaces de Factorial.
+          <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.6,
+            color: T.negro80, margin: '12px 0 8px' }}>
+            Desde la web:
+          </p>
+          <a href="https://activum.benefitsatwork.es" target="_blank" rel="noopener"
+            style={{ display: 'block', fontFamily: T.sans, fontSize: '13px', fontWeight: 500,
+              color: T.acento, textDecoration: 'none', marginBottom: '16px',
+              wordBreak: 'break-all' }}>
+            activum.benefitsatwork.es →
+          </a>
+          <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.6,
+            color: T.negro80, margin: '0 0 20px' }}>
+            O directamente desde el apartado de enlaces de la pantalla de inicio de <strong>Factorial</strong>.
           </p>
           <a href="https://activum.benefitsatwork.es" target="_blank" rel="noopener"
             style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontFamily: T.sans,
@@ -587,28 +622,36 @@ const BeneficiosBody = () => {
         </div>
       </div>
 
-      {/* Ofertas destacadas */}
+      {/* Descuentos destacados */}
       <Kicker color={T.acento}>Descuentos destacados de esta edición</Kicker>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '18px',
-        marginTop: '18px' }}>
+      <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.65,
+        color: T.negro80, margin: '12px 0 28px', maxWidth: '70ch' }}>
+        Y para ponértelo todavía más fácil, hemos seleccionado algunos de los descuentos
+        destacados que puedes encontrar ahora mismo en la plataforma:
+      </p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {ofertas.map((o, i) => (
-          <div key={i} style={{ display: 'grid', gridTemplateColumns: '130px 1fr',
+          <div key={i} style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '0',
             background: T.beige0, border: '1px solid rgba(31,29,26,0.10)', borderRadius: '8px',
             overflow: 'hidden' }}>
-            <Slot id={`benLogo${i}`} ratio="1 / 1" shape="rect" radius={0} label="Logo" style={{ height: '100%' }} />
-            <div style={{ padding: '18px 20px' }}>
+            <Slot id={o.slotId} ratio="4 / 3" shape="rect" radius={0} label={`Imagen ${o.marca}`}
+              style={{ height: '100%' }} />
+            <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column',
+              justifyContent: 'center', gap: '10px' }}>
               <Kicker color={T.acento} style={{ fontSize: '10px' }}>{o.cat}</Kicker>
-              <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 400, color: T.negro,
-                margin: '7px 0 9px' }}>{o.marca}</div>
-              <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.55,
+              <div style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 400,
+                color: T.negro, lineHeight: 1.1 }}>{o.marca}</div>
+              <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.65,
                 color: T.negro80, margin: 0 }}>{o.desc}</p>
             </div>
           </div>
         ))}
       </div>
+
       <p style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 300, color: T.negro50,
-        margin: '20px 0 0', textAlign: 'center' }}>
-        Cada empleado encuentra el código de descuento en su cuenta personal de la plataforma.
+        margin: '24px 0 0', textAlign: 'center' }}>
+        Encuentra el código de descuento en tu cuenta personal de la plataforma.
       </p>
     </div>
   );
