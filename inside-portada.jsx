@@ -5,7 +5,7 @@
    ============================================================ */
 
 /* ── Tarjeta de portada (imagen subible + titular navegable) ── */
-const FrontCard = ({ s, go, size = 'md', imgId }) => {
+const FrontCard = ({ s, go, size = 'md', imgId, imgSrc }) => {
   const [hov, setHov] = React.useState(false);
   const conf = {
     sm: { ratio: '16 / 11', title: '19px', titleLh: 1.22 },
@@ -14,8 +14,12 @@ const FrontCard = ({ s, go, size = 'md', imgId }) => {
   }[size];
   return (
     <article style={{ display: 'flex', flexDirection: 'column' }}>
-      <Slot id={imgId || `front-${s.id}`} ratio={conf.ratio} dark={s.tone === 'dark'}
-        radius={4} label="Sube una imagen" />
+      {imgSrc
+        ? <img src={imgSrc} alt={s.title} style={{ width: '100%', aspectRatio: conf.ratio,
+            objectFit: 'cover', display: 'block', borderRadius: '4px' }} />
+        : <Slot id={imgId || `front-${s.id}`} ratio={conf.ratio} dark={s.tone === 'dark'}
+            radius={4} label="Sube una imagen" />
+      }
       <div onClick={() => go(s.id)}
         onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
         style={{ paddingTop: '14px', cursor: 'pointer' }}>
@@ -201,7 +205,9 @@ const Portada = ({ go }) => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',
         gap: '40px 36px', paddingBottom: '44px',
         borderBottom: `1px solid ${T.beige2}`, marginBottom: '44px' }}>
-        {grid.map(s => <FrontCard key={s.id} s={s} go={go} size="md" imgId={`${s.id}Main`} />)}
+        {grid.map(s => <FrontCard key={s.id} s={s} go={go} size="md"
+          imgId={`${s.id}Main`}
+          imgSrc={s.id === 'primera' ? 'assets/daniel-portada.jpg' : undefined} />)}
       </div>
 
       {/* Banner publicidad — La Nucía One */}

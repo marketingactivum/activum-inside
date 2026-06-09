@@ -688,7 +688,9 @@ const PrimeraBody = () => {
       <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '40px',
         alignItems: 'start' }}>
         <div style={{ position: 'sticky', top: '40px' }}>
-          <Slot id="primeraMain" ratio="4 / 5" radius={6} label="Foto de Daniel" />
+          <img src="assets/daniel-ovejero.jpg" alt="Daniel Ovejero"
+            style={{ width: '100%', aspectRatio: '4 / 5', objectFit: 'cover',
+              objectPosition: 'center top', display: 'block', borderRadius: '6px' }} />
           <div style={{ marginTop: '16px' }}>
             <div style={{ fontFamily: T.serif, fontSize: '22px', fontWeight: 400, color: T.negro }}>
               Daniel Ovejero
