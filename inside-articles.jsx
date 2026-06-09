@@ -739,85 +739,109 @@ const QABlock = ({ q, a }) => (
 
 /* ════════ 07 · Bit a Bit (infografía de phishing) ════════ */
 const BitabitBody = () => {
-  const alertas = [
-    { n: '1', t: 'El remitente improbable', d: '¿Realmente esa persona se pondría en contacto conmigo para pedirme esto? Dirección no te pide comprar tarjetas regalo ni enviar dinero.' },
-    { n: '2', t: 'La composición del mensaje', d: 'Qué dice, cómo lo dice, quién lo manda y el @dominio desde el que se envía. Todo el conjunto importa.' },
-    { n: '3', t: 'Enlaces y peticiones', d: 'La inclusión de enlaces y cualquier petición de dinero o de datos personales debe ponerte en alerta.' },
-  ];
-  const senales = [
-    ['El remitente', 'Antes de escribirte a ti, Dirección se escribiría entre ellos. Si algo no es lógico, sospecha.'],
-    ['El dominio (tras la @)', 'Fíjate en lo que aparece detrás —y a veces delante— de la @. En el 95% de los casos no tiene sentido.'],
-    ['El cuerpo del correo', 'Escueto, sin formato, con faltas de ortografía, palabras poco habituales o traducciones literales del inglés.'],
-    ['La urgencia', '«Actúa ya», «último aviso», «tu cuenta será bloqueada». Buscan que actúes sin pensar. Tómate un minuto.'],
-  ];
   const pasos = [
     'No sigas interactuando: cierra la web o el mensaje abierto.',
     'Elimina el correo (Mayús + Supr lo borra del todo, sin pasar por Eliminados).',
     'Pasa un examen completo con Defender (Seguridad de Windows).',
     'Avísanos para cerrar sesiones, revisar el doble factor y cambiar contraseñas.',
   ];
+  const Screenshot = ({ src, caption }) => (
+    <figure style={{ margin: 0 }}>
+      <img src={src} alt={caption} style={{ width: '100%', display: 'block',
+        borderRadius: '6px', border: '1px solid rgba(31,29,26,0.12)',
+        boxShadow: '0 2px 12px rgba(31,29,26,0.08)' }} />
+      {caption && <figcaption style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 300,
+        color: T.negro50, marginTop: '6px', letterSpacing: '0.02em' }}>{caption}</figcaption>}
+    </figure>
+  );
   return (
     <div style={{ maxWidth: '900px' }}>
+
+      {/* Intro */}
       <p style={{ fontFamily: T.serif, fontSize: '21px', fontStyle: 'italic', fontWeight: 300,
         lineHeight: 1.55, color: T.negro, maxWidth: '62ch', margin: '0 0 14px' }}>
         Un correo urgente. Un supuesto mensaje de Dirección. Un enlace que parece legítimo.
         Así empiezan muchos fraudes.
       </p>
       <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.7,
-        color: T.negro80, maxWidth: '62ch', margin: '0 0 36px' }}>
-        El <b>phishing</b> (del inglés, «pescar») es el engaño para robar información
-        haciéndose pasar por alguien de confianza —por correo, SMS o WhatsApp—. La buena
-        noticia: casi siempre deja pistas. Aprender a verlas evita incidentes.
+        color: T.negro80, maxWidth: '66ch', margin: '0 0 44px' }}>
+        El <strong>phishing</strong> es el engaño para robar información haciéndose pasar por
+        alguien de confianza. La buena noticia: casi siempre deja pistas. Aprender a verlas
+        evita incidentes. Aquí tienes ejemplos reales que han llegado a nuestros buzones.
       </p>
 
-      {/* 3 alertas rojas */}
-      <Kicker color={T.acento}>Tres alertas rojas</Kicker>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px',
-        margin: '16px 0 40px' }}>
-        {alertas.map(a => (
-          <div key={a.n} style={{ background: T.negro, borderRadius: '8px', padding: '24px',
-            position: 'relative', overflow: 'hidden' }}>
-            <div style={{ fontFamily: T.serif, fontSize: '52px', fontWeight: 300,
-              color: T.acentoLight, lineHeight: 0.9, marginBottom: '12px' }}>{a.n}</div>
-            <div style={{ fontFamily: T.serif, fontSize: '18px', fontWeight: 400, color: T.blanco,
-              marginBottom: '8px', lineHeight: 1.25 }}>{a.t}</div>
-            <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.6,
-              color: 'rgba(245,243,242,0.7)', margin: 0 }}>{a.d}</p>
-          </div>
-        ))}
+      {/* Bloque 1 — El remitente */}
+      <div style={{ marginBottom: '44px' }}>
+        <Kicker color={T.acento}>Señal 1 — El remitente</Kicker>
+        <h3 style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 400, color: T.negro,
+          margin: '10px 0 12px' }}>¿Quién te escribe realmente?</h3>
+        <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.7,
+          color: T.negro80, margin: '0 0 20px', maxWidth: '66ch' }}>
+          Fíjate en el dominio que aparece entre los símbolos <code style={{ background: T.beige1,
+          padding: '1px 5px', borderRadius: '3px', fontSize: '13px' }}>&lt; &gt;</code>. En el 95%
+          de los casos no tiene ninguna relación con la empresa que supuestamente te escribe.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <Screenshot src="assets/bitabit/remitente-1-grupovia.png"
+            caption="Grupo Vía escribe a Daniel Ovejero desde @grupovia.eu — dominio desconocido." />
+          <Screenshot src="assets/bitabit/remitente-2-vikasrana.png"
+            caption="vikasrana880@yahoo.com — una cuenta personal de Yahoo haciéndose pasar por empresa." />
+          <Screenshot src="assets/bitabit/remitente-3-advancedfleet.png"
+            caption="Advanced Fleet Management Consulting desde @advancedfleetmanagementconsult.mdrctr.com — dominio largo y sin sentido." />
+        </div>
       </div>
 
-      {/* Señales en un correo */}
-      <Kicker color={T.acento}>Dónde fijarse</Kicker>
-      <h3 style={{ fontFamily: T.serif, fontSize: '26px', fontWeight: 400, color: T.negro,
-        margin: '10px 0 20px' }}>Anatomía de un correo sospechoso</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px',
-        marginBottom: '20px' }}>
-        {senales.map(([t, d], i) => (
-          <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start',
-            background: T.beige0, border: '1px solid rgba(31,29,26,0.10)', borderRadius: '6px',
-            padding: '18px 20px' }}>
-            <span style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 600, color: T.acento,
-              fontVariantNumeric: 'tabular-nums', marginTop: '2px' }}>0{i + 1}</span>
-            <div>
-              <div style={{ fontFamily: T.serif, fontSize: '17px', fontWeight: 400, color: T.negro }}>{t}</div>
-              <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.55,
-                color: T.negro80, margin: '4px 0 0' }}>{d}</p>
-            </div>
-          </div>
-        ))}
+      {/* Bloque 2 — El cuerpo */}
+      <div style={{ marginBottom: '44px' }}>
+        <Kicker color={T.acento}>Señal 2 — El cuerpo del mensaje</Kicker>
+        <h3 style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 400, color: T.negro,
+          margin: '10px 0 12px' }}>Escueto, en inglés y lleno de enlaces raros</h3>
+        <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.7,
+          color: T.negro80, margin: '0 0 20px', maxWidth: '66ch' }}>
+          Los mensajes de phishing suelen ser muy cortos, mal redactados o directamente en
+          otro idioma. Si incluyen enlaces largos o piden datos personales, para y sospecha.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <Screenshot src="assets/bitabit/cuerpo-email.png"
+            caption="Mensaje en inglés, tono formal forzado. Nadie legítimo te escribe así en frío." />
+          <Screenshot src="assets/bitabit/cuerpo-email-completo.png"
+            caption="El mismo correo completo: URLs de tracking, cursos FUNDAE inventados y teléfono de contacto falso." />
+        </div>
       </div>
-      <Slot id="bitabitEj" ratio="16 / 6" radius={6} label="Ejemplo de dominio sospechoso" />
+
+      {/* Bloque 3 — Cómo reportarlo */}
+      <div style={{ marginBottom: '44px' }}>
+        <Kicker color={T.acento}>Qué hacer</Kicker>
+        <h3 style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 400, color: T.negro,
+          margin: '10px 0 12px' }}>Repórtalo en Outlook en tres clics</h3>
+        <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.7,
+          color: T.negro80, margin: '0 0 20px', maxWidth: '66ch' }}>
+          No lo borres sin más. Reportarlo ayuda a que los filtros de toda la empresa lo
+          bloqueen automáticamente en el futuro.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px',
+          marginBottom: '12px' }}>
+          <div>
+            <Screenshot src="assets/bitabit/outlook-informe-boton.png"
+              caption="1. Selecciona el correo y haz clic en «Informe» en la barra superior." />
+          </div>
+          <div>
+            <Screenshot src="assets/bitabit/outlook-informe-desplegable.png"
+              caption="2. En el desplegable, elige «Informar de suplantación de identidad (phishing)»." />
+          </div>
+        </div>
+        <Screenshot src="assets/bitabit/outlook-confirmar-eliminar.png"
+          caption="3. Confirma y el correo se eliminará de forma permanente del buzón." />
+      </div>
 
       {/* Si ya has hecho clic */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px',
-        margin: '40px 0 0', alignItems: 'start' }}>
+        margin: '0 0 0 0', alignItems: 'start' }}>
         <div style={{ background: T.beige1, borderRadius: '8px', padding: '26px' }}>
           <Kicker color={T.acento}>Ante la duda</Kicker>
           <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.65,
             color: T.negro80, margin: '12px 0 14px' }}>
-            No contestes al mensaje. Llama a tu responsable o al CAU para aclararlo, e infórmalo
-            como suplantación de identidad (botón derecho → <i>Informar de phishing</i>).
+            No contestes al mensaje. Llama a tu responsable o al CAU para aclararlo.
           </p>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px',
             background: T.blanco, border: '1px solid rgba(31,29,26,0.12)', borderRadius: '6px',
@@ -830,8 +854,7 @@ const BitabitBody = () => {
         <div style={{ background: T.beige0, border: '1px solid rgba(31,29,26,0.10)',
           borderRadius: '8px', padding: '26px' }}>
           <Kicker color={T.acento}>Si ya has hecho clic</Kicker>
-          <ol style={{ margin: '14px 0 0', padding: 0, listStyle: 'none',
-            counterReset: 'step' }}>
+          <ol style={{ margin: '14px 0 0', padding: 0, listStyle: 'none' }}>
             {pasos.map((p, i) => (
               <li key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start',
                 padding: '9px 0', borderTop: i ? `1px solid ${T.beige2}` : 'none' }}>
@@ -839,8 +862,8 @@ const BitabitBody = () => {
                   background: T.negro, color: T.blanco, fontFamily: T.sans, fontSize: '11px',
                   fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {i + 1}</span>
-                <span style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.5,
-                  color: T.negro80 }}>{p}</span>
+                <span style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300,
+                  lineHeight: 1.5, color: T.negro80 }}>{p}</span>
               </li>
             ))}
           </ol>
