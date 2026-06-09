@@ -108,8 +108,8 @@ const SECTIONS = [
   {
     id: 'apertura', num: '01', kind: 'video', fixed: true, icon: 1,
     section: 'Apertura de Dirección',
-    title: 'El mensaje de Cristina Balaguer abre la primera edición',
-    dek: 'Vídeo de Cristina Balaguer con los hitos del trimestre y los próximos objetivos de Activum.',
+    title: 'Activum mira al futuro: crecimiento, diversificación y nuevas oportunidades de negocio',
+    dek: 'La directora general, Cristina Balaguer, repasa los principales hitos del trimestre y comparte la visión que está guiando la evolución de la compañía.',
     tone: 'dark',
   },
   {

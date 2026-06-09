@@ -42,15 +42,39 @@ const PendingNote = ({ children }) => (
 /* ════════ 01 · Apertura de Dirección (vídeo + hitos) ════════ */
 const AperturaBody = () => {
   const hitos = [
-    { mes: 'Ene 2026', titulo: 'Título del hito (máx. 6 palabras)' },
-    { mes: 'Feb 2026', titulo: 'Título del hito (máx. 6 palabras)' },
-    { mes: 'Mar 2026', titulo: 'Título del hito (máx. 6 palabras)' },
-    { mes: 'Abr 2026', titulo: 'Título del hito (máx. 6 palabras)' },
+    {
+      tag: 'Living',
+      titulo: 'Dos activos operativos y rumbo a las 1.000 camas en 2027',
+      texto: 'Activum ya cuenta con dos activos preparados para operar dentro del segmento Living y avanza en la hoja de ruta que marca como objetivo las 1.000 camas operativas en 2027.',
+    },
+    {
+      tag: 'Asset Management',
+      titulo: 'Residencia de estudiantes en Sevilla con Straco y Yugo',
+      texto: 'La compañía desarrolla trabajos de asset management en una residencia de estudiantes en Sevilla, propiedad de Straco y operada por Yugo, optimizando su gestión y maximizando su valor.',
+    },
+    {
+      tag: 'Build to Sell',
+      titulo: 'Nuevo proyecto BTS en A Xubias, A Coruña',
+      texto: 'Se abre una nueva oportunidad en el modelo Build to Sell con el desarrollo previsto en A Xubias (A Coruña), ampliando la presencia de Activum en mercados estratégicos.',
+    },
+    {
+      tag: 'Carteras en alquiler',
+      titulo: 'Privatización de la cartera residencial de Argis',
+      texto: 'Activum está comercializando la privatización de una importante cartera de viviendas en alquiler propiedad de Argis, reforzando su capacidad para acompañar a propietarios institucionales en procesos complejos.',
+    },
+    {
+      tag: 'Iniciativa solidaria',
+      titulo: 'Kilómetros que se convierten en becas comedor para Honduras',
+      texto: 'Próximo lanzamiento de una iniciativa que transformará los kilómetros recorridos por los empleados en una aportación de hasta 1.500 € para becas comedor, de la mano de la Fundación Almas Inquietas y la Fundación Verón.',
+    },
   ];
+
   return (
     <div style={{ maxWidth: '900px' }}>
+
+      {/* Vídeo */}
       <div style={{ position: 'relative' }}>
-        <Slot id="aperturaMain" ratio="4 / 3" dark radius={6} label="Sube el póster del vídeo" />
+        <Slot id="aperturaMain" ratio="16 / 9" dark radius={8} label="Sube el póster del vídeo" />
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
           justifyContent: 'center', pointerEvents: 'none' }}>
           <div style={{ width: '74px', height: '74px', borderRadius: '9999px', background: T.acento,
@@ -62,64 +86,91 @@ const AperturaBody = () => {
           </div>
         </div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: '32px',
-        alignItems: 'start', marginTop: '32px' }}>
-        <div style={{ background: T.beige0, border: '1px solid rgba(31,29,26,0.10)',
-          borderRadius: '6px', padding: '20px', textAlign: 'center' }}>
+
+      {/* Autora + texto introductorio */}
+      <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '36px',
+        alignItems: 'start', marginTop: '36px' }}>
+        <div style={{ background: T.beige0, border: `1px solid rgba(31,29,26,0.10)`,
+          borderRadius: '8px', padding: '24px 20px', textAlign: 'center' }}>
           <Slot id="aperturaFoto" ratio="1 / 1" shape="circle" radius={9999} label="Foto"
-            style={{ width: '150px', height: '150px', margin: '0 auto 16px' }} />
-          <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 400, color: T.negro }}>
-            Cristina Balaguer
-          </div>
-          <Kicker color={T.negro50} style={{ fontSize: '10px', marginTop: '6px' }}>Dirección</Kicker>
+            style={{ width: '130px', height: '130px', margin: '0 auto 16px' }} />
+          <div style={{ fontFamily: T.serif, fontSize: '18px', fontWeight: 400, color: T.negro,
+            lineHeight: 1.25 }}>Cristina Balaguer</div>
+          <Kicker color={T.negro50} style={{ fontSize: '10px', marginTop: '6px' }}>Directora General</Kicker>
         </div>
+
         <div>
-          <p style={{ fontFamily: T.serif, fontSize: '21px', fontStyle: 'italic',
-            fontWeight: 300, lineHeight: 1.55, color: T.negro, margin: '0 0 20px' }}>
-            Texto de apoyo del mensaje de esta edición (máx. 3-4 líneas). Tono cercano,
-            inspirador y directo.
+          <p style={{ fontFamily: T.serif, fontSize: '22px', fontStyle: 'italic',
+            fontWeight: 300, lineHeight: 1.55, color: T.negro, margin: '0 0 24px' }}>
+            La primera edición de Activum Inside llega en un momento especialmente relevante para la compañía.
           </p>
-          <TextPh lines={4} />
-          <PendingNote>
-            Material a aportar por Comunicación: <b>vídeo</b> (≈1 min 30 s), <b>foto del
-            protagonista</b> y <b>título del mensaje</b>. Sustituyo el reproductor por el
-            embed de YouTube/Vimeo cuando me pases el enlace.
-          </PendingNote>
+          <p style={{ fontFamily: T.sans, fontSize: '16px', fontWeight: 300,
+            lineHeight: 1.75, color: T.negro80, margin: '0 0 16px' }}>
+            Durante los últimos meses, Activum ha continuado avanzando en su estrategia de crecimiento,
+            ampliando su presencia en nuevos mercados y consolidando nuevas líneas de actividad que
+            marcarán el futuro de la organización.
+          </p>
+          <p style={{ fontFamily: T.sans, fontSize: '16px', fontWeight: 300,
+            lineHeight: 1.75, color: T.negro80, margin: '0 0 16px' }}>
+            Uno de los ámbitos que está adquiriendo un peso cada vez más relevante es el <em>Living</em>.
+            La transformación de las formas de habitar, la movilidad profesional y el auge de nuevos
+            modelos residenciales están generando oportunidades que Activum lleva tiempo incorporando
+            a su estrategia.
+          </p>
+          <p style={{ fontFamily: T.sans, fontSize: '16px', fontWeight: 300,
+            lineHeight: 1.75, color: T.negro80, margin: 0 }}>
+            Esta diversificación responde a una estrategia clara: seguir ampliando las capacidades
+            de la compañía para acompañar a inversores, propietarios y operadores en distintos
+            momentos del ciclo inmobiliario, reforzando al mismo tiempo el posicionamiento de Activum
+            como socio de referencia en el ámbito residencial.
+          </p>
         </div>
       </div>
 
+      {/* Párrafos de cierre */}
+      <div style={{ marginTop: '36px', padding: '32px 36px', background: T.beige0,
+        borderRadius: '8px', border: `1px solid rgba(31,29,26,0.08)` }}>
+        <p style={{ fontFamily: T.sans, fontSize: '16px', fontWeight: 300,
+          lineHeight: 1.75, color: T.negro80, margin: '0 0 16px' }}>
+          Pero el crecimiento de la compañía no se mide únicamente en proyectos y operaciones.
+          Cristina también aprovecha este primer número de Activum Inside para poner en valor uno
+          de los aspectos que considera fundamentales para el futuro de la organización: <strong>las personas</strong>.
+        </p>
+        <p style={{ fontFamily: T.sans, fontSize: '16px', fontWeight: 300,
+          lineHeight: 1.75, color: T.negro80, margin: 0 }}>
+          Con el lanzamiento de Activum Inside, la compañía da un paso más en su apuesta por la
+          comunicación interna, creando un espacio para compartir proyectos, reconocer el trabajo
+          de los equipos y reforzar una cultura corporativa basada en la colaboración, el conocimiento
+          y una visión compartida de futuro.
+        </p>
+      </div>
+
       {/* Hitos del trimestre */}
-      <div style={{ marginTop: '48px', paddingTop: '40px',
-        borderTop: `1px solid ${T.beige2}` }}>
-        <Kicker color={T.acento}>Los hitos del trimestre</Kicker>
-        <h3 style={{ fontFamily: T.serif, fontSize: '27px', fontWeight: 400,
-          color: T.negro, margin: '10px 0 28px', lineHeight: 1.2, maxWidth: '24ch' }}>
+      <div style={{ marginTop: '56px', paddingTop: '44px', borderTop: `1px solid ${T.beige2}` }}>
+        <Kicker color={T.acento}>Hitos del trimestre</Kicker>
+        <h3 style={{ fontFamily: T.serif, fontSize: '28px', fontWeight: 400,
+          color: T.negro, margin: '12px 0 36px', lineHeight: 1.2 }}>
           Un trimestre en movimiento
         </h3>
-        <div style={{ position: 'relative', paddingLeft: '34px' }}>
+        <div style={{ position: 'relative', paddingLeft: '36px' }}>
           <div style={{ position: 'absolute', left: '7px', top: '8px', bottom: '8px',
             width: '2px', background: T.beige2 }} />
           {hitos.map((h, i) => (
-            <div key={i} style={{ position: 'relative', paddingBottom: i === hitos.length - 1 ? 0 : '38px' }}>
-              <div style={{ position: 'absolute', left: '-34px', top: '4px', width: '16px',
+            <div key={i} style={{ position: 'relative',
+              paddingBottom: i === hitos.length - 1 ? 0 : '40px' }}>
+              <div style={{ position: 'absolute', left: '-36px', top: '5px', width: '16px',
                 height: '16px', borderRadius: '9999px', background: T.acento,
-                border: `3px solid ${T.blanco}`, boxShadow: '0 0 0 1px ' + T.beige2 }} />
-              <Kicker color={T.acento} style={{ fontSize: '10px' }}>{h.mes}</Kicker>
-              <h4 style={{ fontFamily: T.serif, fontSize: '23px', fontWeight: 400,
-                color: T.negro, margin: '6px 0 12px', lineHeight: 1.2 }}>{h.titulo}</h4>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 180px', gap: '24px',
-                alignItems: 'start' }}>
-                <TextPh lines={2} />
-                <Slot id={`accionHito${i}`} ratio="4 / 3" radius={4} label="Imagen (opcional)" />
-              </div>
+                border: `3px solid ${T.blanco}`, boxShadow: `0 0 0 1px ${T.beige2}` }} />
+              <Kicker color={T.acento} style={{ fontSize: '10px' }}>{h.tag}</Kicker>
+              <h4 style={{ fontFamily: T.serif, fontSize: '22px', fontWeight: 400,
+                color: T.negro, margin: '7px 0 10px', lineHeight: 1.25 }}>{h.titulo}</h4>
+              <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300,
+                lineHeight: 1.7, color: T.negro80, margin: 0, maxWidth: '68ch' }}>{h.texto}</p>
             </div>
           ))}
         </div>
-        <PendingNote>
-          Material a aportar por Comunicación: listado de <b>3 a 5 hitos</b> con fecha,
-          título (máx. 6 palabras) y descripción (2-3 líneas). Imágenes opcionales por hito.
-        </PendingNote>
       </div>
+
     </div>
   );
 };

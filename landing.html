@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activum Inside — Kiosco de ediciones</title>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@500&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Roboto Serif';
+  src: url('fonts/RobotoSerif-VariableFont_GRAD_opsz_wdth_wght.ttf') format('truetype');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto Serif';
+  src: url('fonts/RobotoSerif-Italic-VariableFont_GRAD_opsz_wdth_wght.ttf') format('truetype');
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/Roboto-VariableFont_wdth_wght.ttf') format('truetype');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/Roboto-Italic-VariableFont_wdth_wght.ttf') format('truetype');
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: #1F1D1A;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  color: #F5F3F2;
+}
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: #1F1D1A; }
+::-webkit-scrollbar-thumb { background: #4B4845; border-radius: 4px; }
+::selection { background: rgba(142,45,68,0.35); }
+
+/* ── Layout ── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.header {
+  position: relative;
+  z-index: 10;
+  padding: 36px 64px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-logo {
+  height: 42px;
+  display: block;
+  /* logo negativo (blanco) sobre fondo oscuro */
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+.header-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: rgba(245,243,242,0.38);
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 72px 64px 64px;
+  overflow: hidden;
+}
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/pattern-dark.svg');
+  background-size: 380px;
+  opacity: 0.10;
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+}
+.hero-eyebrow {
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8E2D44;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: #8E2D44;
+  opacity: 0.6;
+}
+.hero-title {
+  font-family: 'Roboto Serif', Georgia, serif;
+  font-size: clamp(52px, 7vw, 88px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #F5F3F2;
+  margin-bottom: 28px;
+}
+.hero-subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(245,243,242,0.58);
+  max-width: 480px;
+}
+
+/* ── Divisor ── */
+.divider {
+  height: 1px;
+  background: rgba(245,243,242,0.08);
+  margin: 0 64px;
+}
+
+/* ── Kiosco de ediciones ── */
+.kiosco {
+  flex: 1;
+  padding: 56px 64px 96px;
+}
+.kiosco-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245,243,242,0.35);
+  margin-bottom: 36px;
+}
+.editions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
+  gap: 28px;
+}
+
+/* ── Tarjeta de edición ── */
+.edition-card {
+  position: relative;
+  background: rgba(245,243,242,0.04);
+  border: 1px solid rgba(245,243,242,0.09);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  transition: border-color 300ms, background 300ms, transform 300ms;
+  transform-origin: bottom center;
+}
+.edition-card:hover {
+  border-color: rgba(245,243,242,0.18);
+  background: rgba(245,243,242,0.07);
+  transform: translateY(-3px);
+}
+.edition-card:hover .card-cta {
+  color: #F5F3F2;
+}
+.edition-card:hover .card-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Portada simulada de la revista */
+.card-cover {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: #EBE3DB;
+  background-image: url('assets/pattern-light.svg');
+  background-size: 260px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+}
+.card-cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    170deg,
+    rgba(31,29,26,0.08) 0%,
+    rgba(31,29,26,0.55) 100%
+  );
+}
+.card-cover-logo {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+  opacity: 0.90;
+  z-index: 2;
+}
+.card-cover-inside {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Roboto Serif', Georgia, serif;
+  font-size: 42px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,243,242,0.18);
+  letter-spacing: 0.01em;
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+.card-cover-meta {
+  position: relative;
+  z-index: 2;
+}
+.card-cover-num {
+  font-family: 'Roboto Serif', Georgia, serif;
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(245,243,242,0.55);
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.card-cover-title {
+  font-family: 'Roboto Serif', Georgia, serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: #F5F3F2;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+/* Pie de la tarjeta */
+.card-body {
+  padding: 22px 24px 24px;
+}
+.card-date {
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(245,243,242,0.40);
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+.card-cta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,243,242,0.50);
+  transition: color 300ms;
+}
+.card-cta-arrow {
+  display: inline-block;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  font-size: 14px;
+}
+
+/* Próximas ediciones (placeholder) */
+.edition-card.coming-soon {
+  cursor: default;
+  opacity: 0.4;
+  pointer-events: none;
+}
+.edition-card.coming-soon .card-cover {
+  background: #2A2724;
+  background-image: none;
+}
+
+/* ── Acento strip ── */
+.accent-strip {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #8E2D44 0%, #C06078 60%, transparent 100%);
+  opacity: 0.7;
+}
+
+/* ── Footer ── */
+.footer {
+  padding: 32px 64px;
+  border-top: 1px solid rgba(245,243,242,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-brand {
+  font-family: 'Roboto Serif', Georgia, serif;
+  font-size: 13px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,243,242,0.28);
+}
+.footer-copy {
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(245,243,242,0.22);
+  letter-spacing: 0.04em;
+}
+
+/* ── Animación de entrada ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-content  { animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.kiosco-label  { animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
+.editions-grid { animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Franja de acento superior -->
+  <div class="accent-strip"></div>
+
+  <!-- Cabecera -->
+  <header class="header">
+    <img src="assets/logo-positive.svg" alt="Activum" class="header-logo">
+    <span class="header-label">Revista interna</span>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Activum Inside</div>
+      <h1 class="hero-title">La revista<br>del equipo</h1>
+      <p class="hero-subtitle">
+        Un espacio propio para compartir lo que somos, lo que hacemos
+        y las personas que hacen posible Activum cada día.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Kiosco -->
+  <section class="kiosco">
+    <div class="kiosco-label">Ediciones disponibles</div>
+
+    <div class="editions-grid">
+
+      <!-- Edición Nº1 — disponible -->
+      <a href="index.html" class="edition-card">
+        <div class="card-cover">
+          <div class="card-cover-overlay"></div>
+          <img src="assets/logo-positive.svg" alt="Activum" class="card-cover-logo">
+          <div class="card-cover-inside">Inside</div>
+          <div class="card-cover-meta">
+            <div class="card-cover-num">Edición Nº1</div>
+            <div class="card-cover-title">Primer número.<br>Primer paso.</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-date">9 junio 2026</div>
+          <div class="card-cta">
+            Leer edición
+            <span class="card-cta-arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Próxima edición — placeholder -->
+      <div class="edition-card coming-soon">
+        <div class="card-cover">
+          <div class="card-cover-overlay"></div>
+          <div class="card-cover-meta">
+            <div class="card-cover-num">Edición Nº2</div>
+            <div class="card-cover-title">Próximamente</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-date">Septiembre 2026</div>
+          <div class="card-cta">En preparación</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span class="footer-brand">Activum Inside</span>
+    <span class="footer-copy">Comunicación interna · Activum © 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
