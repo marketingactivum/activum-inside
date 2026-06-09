@@ -62,13 +62,17 @@ const FrontListItem = ({ s, go, last }) => {
 };
 
 /* ── Fila editorial grande (imagen subible + texto navegable) ── */
-const LeadRow = ({ s, go, imageSide = 'left', imgId }) => {
+const LeadRow = ({ s, go, imageSide = 'left', imgId, imgSrc }) => {
   const [hov, setHov] = React.useState(false);
   const isVideo = s.kind === 'video';
   const image = (
     <div style={{ position: 'relative', borderRadius: '4px', overflow: 'hidden' }}>
-      <Slot id={imgId} ratio="16 / 10" dark={s.tone === 'dark'} radius={4}
-        label={isVideo ? 'Sube el póster del vídeo' : 'Sube una imagen'} />
+      {imgSrc
+        ? <img src={imgSrc} alt={s.title} style={{ width: '100%', aspectRatio: '16 / 10',
+            objectFit: 'cover', display: 'block', borderRadius: '4px' }} />
+        : <Slot id={imgId} ratio="16 / 10" dark={s.tone === 'dark'} radius={4}
+            label={isVideo ? 'Sube el póster del vídeo' : 'Sube una imagen'} />
+      }
       {isVideo && (
         <div style={{ position: 'absolute', top: '14px', left: '14px', pointerEvents: 'none',
           display: 'flex', alignItems: 'center', gap: '8px', background: T.acento,
@@ -181,7 +185,7 @@ const Portada = ({ go }) => {
       {/* Dos primeras secciones — lead alternado */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '48px',
         paddingBottom: '48px', borderBottom: `1px solid ${T.beige2}`, marginBottom: '44px' }}>
-        <LeadRow s={apertura} go={go} imageSide="left" imgId="aperturaMain" />
+        <LeadRow s={apertura} go={go} imageSide="left" imgSrc="assets/cristina-thumbnail.jpg" />
         <LeadRow s={mundo} go={go} imageSide="right" imgId="mundoMain" />
       </div>
 
