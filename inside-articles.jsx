@@ -173,46 +173,377 @@ const AperturaBody = () => {
   );
 };
 
-/* ════════ 03 · Activum en el Mundo (RSC) ════════ */
-const MundoBody = () => (
-  <div style={{ maxWidth: '900px' }}>
-    <Slot id="mundoMain" ratio="4 / 3" radius={6} label="Sube la imagen del reto" />
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px',
-      margin: '28px 0 36px' }}>
-      {[['—', 'Kilómetros recorridos'], ['—', 'Becas escolares'], ['—', 'Personas implicadas']].map(([n, l], i) => (
-        <div key={i} style={{ background: T.beige1, borderRadius: '6px', padding: '24px 20px',
-          textAlign: 'center' }}>
-          <div style={{ fontFamily: T.serif, fontSize: '40px', fontWeight: 300, color: T.acento,
-            lineHeight: 1 }}>{n}</div>
-          <Kicker color={T.negro50} style={{ fontSize: '10px', marginTop: '8px' }}>{l}</Kicker>
+/* ════════ 02 · Activum en el Mundo (RSC — Ride the Wave) ════════ */
+
+/* Placeholder con forma de teléfono móvil para el vídeo tutorial */
+const PhonePlaceholder = ({ slotId }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+    <div style={{ position: 'relative', width: '160px' }}>
+      {/* Marco del teléfono */}
+      <svg viewBox="0 0 160 300" xmlns="http://www.w3.org/2000/svg"
+        style={{ width: '100%', display: 'block', position: 'absolute', top: 0, left: 0,
+          zIndex: 2, pointerEvents: 'none' }}>
+        <rect x="4" y="4" width="152" height="292" rx="22" ry="22"
+          fill="none" stroke={T.negro} strokeWidth="8" />
+        <rect x="12" y="12" width="136" height="276" rx="16" ry="16"
+          fill="none" stroke={T.beige2} strokeWidth="2" />
+        <rect x="60" y="15" width="40" height="6" rx="3"
+          fill={T.beige2} />
+        <rect x="56" y="278" width="48" height="6" rx="3"
+          fill={T.beige2} />
+      </svg>
+      {/* Slot de vídeo dentro del teléfono */}
+      <div style={{ margin: '24px 16px 22px', borderRadius: '10px', overflow: 'hidden',
+        position: 'relative', zIndex: 1 }}>
+        <Slot id={slotId} ratio="9 / 16" radius={10}
+          label="Vídeo tutorial" dark={false} />
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center', gap: '10px', pointerEvents: 'none',
+          background: 'rgba(245,243,242,0.0)' }}>
         </div>
-      ))}
-    </div>
-    <p style={{ fontFamily: T.serif, fontSize: '21px', fontStyle: 'italic', fontWeight: 300,
-      lineHeight: 1.55, color: T.negro, maxWidth: '60ch', margin: '0 0 22px' }}>
-      Cada kilómetro que recorremos se transforma en becas escolares para Honduras. Un reto
-      solidario que une al equipo en torno a un propósito común.
-    </p>
-    <TextPh lines={4} />
-    <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: `1px solid ${T.beige2}` }}>
-      <Kicker color={T.negro50} style={{ fontSize: '10px' }}>Entidades colaboradoras</Kicker>
-      <div style={{ display: 'flex', gap: '16px', marginTop: '14px' }}>
-        {[0, 1].map(i => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px',
-            background: T.beige0, border: '1px solid rgba(31,29,26,0.10)', borderRadius: '6px',
-            padding: '12px 18px' }}>
-            <Slot id={`mundoEnt${i}`} ratio="1 / 1" radius={4} label="Logo" style={{ width: '40px' }} />
-            <span style={{ fontFamily: T.serif, fontSize: '15px', color: T.negro50 }}>Entidad pendiente</span>
-          </div>
-        ))}
       </div>
     </div>
-    <PendingNote>
-      Me falta el texto completo de <b>Activum en el Mundo</b> (descripción del reto, datos de
-      impacto, entidades colaboradoras y fotos). Esta página queda preparada con esa estructura.
-    </PendingNote>
+    <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em',
+      textTransform: 'uppercase', color: T.negro50, textAlign: 'center', marginTop: '6px' }}>
+      Próximamente · Tutorial en vídeo
+    </div>
   </div>
 );
+
+const MundoBody = () => {
+  const hitos = [
+    { km: '150 km', emoji: '🌊', label: 'Hito 1' },
+    { km: '350 km', emoji: '🌊', label: 'Hito 2' },
+    { km: '650 km', emoji: '🌊', label: 'Hito 3' },
+    { km: '1.000 km', emoji: '🏁', label: 'Meta' },
+  ];
+  const clubs = [
+    { nombre: 'Activum Sobre Ruedas', deporte: 'Ciclistas', url: 'https://www.strava.com/clubs/2165995' },
+    { nombre: 'Activum en Ruta', deporte: 'Runners, senderistas y caminantes', url: 'https://www.strava.com/clubs/2165992' },
+    { nombre: 'Activum Bajo el Agua', deporte: 'Nadadores', url: 'https://www.strava.com/clubs/2165990' },
+  ];
+  return (
+    <div style={{ maxWidth: '900px' }}>
+
+      {/* Imagen principal */}
+      <Slot id="mundoMain" ratio="16 / 7" radius={6} label="Imagen del reto Ride the Wave" />
+
+      {/* Kicker de entrega */}
+      <p style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 500, letterSpacing: '0.14em',
+        textTransform: 'uppercase', color: T.negro50, margin: '28px 0 0' }}>
+        Primera entrega · Verano 2026
+      </p>
+
+      {/* Párrafo de apertura */}
+      <p style={{ fontFamily: T.serif, fontSize: '22px', fontStyle: 'italic', fontWeight: 300,
+        lineHeight: 1.55, color: T.negro, margin: '14px 0 22px', maxWidth: '62ch' }}>
+        Este verano, cada paso que damos tiene un destino. Y ese destino está en Honduras.
+      </p>
+
+      <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+        color: T.negro80, margin: '0 0 14px', maxWidth: '70ch' }}>
+        Hay personas que un día se dan cuenta de que vivir es urgente. Que el tiempo pasa y las
+        excusas también. Y entonces deciden que sí. Que merece la pena. Que el cuerpo aguanta y el
+        propósito empuja. Alejandro es una de esas personas. El 4 de julio sale de Praga en bicicleta.
+        Su destino es Madrid. Son 4.000 kilómetros. Setenta días. Solo él, la bici y el camino.
+      </p>
+      <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+        color: T.negro80, margin: '0 0 14px', maxWidth: '70ch' }}>
+        Pero detrás de ese reto hay algo que lo hace diferente a cualquier aventura deportiva:
+        cada kilómetro que Alejandro recorra tiene un destinatario. Dieciséis niños y niñas en
+        Honduras que este año, gracias a lo que se recaude, tendrán asegurada su beca comedor
+        durante un curso entero.
+      </p>
+
+      {/* Cita destacada */}
+      <blockquote style={{ fontFamily: T.serif, fontSize: '26px', fontStyle: 'italic',
+        fontWeight: 300, lineHeight: 1.35, color: T.negro, margin: '28px 0 36px',
+        paddingLeft: '22px', borderLeft: `3px solid ${T.acento}` }}>
+        «Un kilómetro. Una beca. Un curso. Una vida que cambia de dirección.»
+      </blockquote>
+
+      {/* Almas Inquietas */}
+      <div style={{ borderTop: `1px solid ${T.beige2}`, paddingTop: '36px', marginTop: '8px' }}>
+        <Kicker color={T.acento}>Almas Inquietas</Kicker>
+        <h3 style={{ fontFamily: T.serif, fontSize: '26px', fontWeight: 400, color: T.negro,
+          margin: '10px 0 14px', lineHeight: 1.2 }}>
+          La asociación que convierte movimiento en impacto
+        </h3>
+        <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+          color: T.negro80, margin: '0 0 14px', maxWidth: '70ch' }}>
+          Alejandro pertenece a Almas Inquietas, una asociación que nació con una idea tan sencilla
+          como transformadora: el movimiento une. No hace falta ser deportista de élite. No hace
+          falta cruzar Europa. Hace falta creer que cuando nos movemos juntos, el mundo se mueve
+          con nosotros.
+        </p>
+        <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+          color: T.negro80, margin: 0, maxWidth: '70ch' }}>
+          Han organizado retos solidarios, torneos, rutas. Y ahora lanzan su iniciativa más
+          ambiciosa: <strong>Ride the Wave</strong>. Un reto que une deporte, comunidad y causa
+          en una sola ola.
+        </p>
+      </div>
+
+      {/* Fundación Verón */}
+      <div style={{ borderTop: `1px solid ${T.beige2}`, paddingTop: '36px', marginTop: '36px' }}>
+        <Kicker color={T.acento}>La causa</Kicker>
+        <h3 style={{ fontFamily: T.serif, fontSize: '26px', fontWeight: 400, color: T.negro,
+          margin: '10px 0 14px', lineHeight: 1.2 }}>
+          Fundación Verón y las becas comedor de Honduras
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 200px', gap: '32px',
+          alignItems: 'start' }}>
+          <div>
+            <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+              color: T.negro80, margin: '0 0 14px' }}>
+              Al otro lado del océano, la Fundación Verón trabaja en Honduras para que la educación
+              sea una puerta abierta para todos. Su programa de Beca Comedor garantiza que los
+              alumnos puedan ir al colegio con las condiciones que necesitan para aprender. Porque
+              a veces lo que un niño necesita para llegar lejos es, simplemente, que alguien le
+              asegure el punto de partida.
+            </p>
+            <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+              color: T.negro80, margin: 0 }}>
+              El objetivo de Ride the Wave es recaudar <strong>4.000 euros</strong>: una cifra que
+              cubre las becas comedor de dieciséis alumnos durante un año completo.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '12px' }}>
+            {[['4.000 €', 'Objetivo de recaudación'], ['16', 'Becas comedor'], ['1 año', 'Cobertura completa']].map(([n, l], i) => (
+              <div key={i} style={{ background: T.beige1, borderRadius: '6px',
+                padding: '18px 16px', textAlign: 'center' }}>
+                <div style={{ fontFamily: T.serif, fontSize: '28px', fontWeight: 300,
+                  color: T.acento, lineHeight: 1 }}>{n}</div>
+                <Kicker color={T.negro50} style={{ fontSize: '9px', marginTop: '6px' }}>{l}</Kicker>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Activum + Clubs */}
+      <div style={{ borderTop: `1px solid ${T.beige2}`, paddingTop: '36px', marginTop: '36px' }}>
+        <Kicker color={T.acento}>Y aquí entramos nosotros</Kicker>
+        <h3 style={{ fontFamily: T.serif, fontSize: '26px', fontWeight: 400, color: T.negro,
+          margin: '10px 0 14px', lineHeight: 1.2 }}>
+          Los Clubs Deportivos Activum en Strava
+        </h3>
+        <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+          color: T.negro80, margin: '0 0 22px', maxWidth: '70ch' }}>
+          Activum se suma a Ride the Wave como empresa colaboradora. Por eso este verano nacen los
+          Clubs Deportivos Activum en Strava. Tres espacios, un mismo propósito. Da igual cuál sea
+          tu deporte: hay un sitio para ti.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px',
+          marginBottom: '36px' }}>
+          {clubs.map((c, i) => (
+            <a key={i} href={c.url} target="_blank" rel="noopener"
+              style={{ display: 'block', background: T.beige0,
+                border: '1px solid rgba(31,29,26,0.10)', borderRadius: '8px', padding: '22px 18px',
+                textDecoration: 'none' }}>
+              <div style={{ fontFamily: T.serif, fontSize: '17px', fontWeight: 400,
+                color: T.negro, marginBottom: '6px', lineHeight: 1.2 }}>{c.nombre}</div>
+              <div style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 300,
+                color: T.negro50, marginBottom: '14px' }}>{c.deporte}</div>
+              <span style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 500,
+                color: T.acento, letterSpacing: '0.06em' }}>Unirse al club →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* ── RECUADRO — Cómo unirte en 3 pasos ── */}
+      <div style={{ background: T.negro, borderRadius: '10px', overflow: 'hidden',
+        boxShadow: '0 4px 28px rgba(31,29,26,0.16)', margin: '0 0 44px' }}>
+        <div style={{ padding: '36px 40px 32px',
+          backgroundImage: 'url("assets/pattern-dark.svg")', backgroundSize: '420px',
+          position: 'relative' }}>
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(31,29,26,0.82)' }} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <Kicker color={T.acentoLight}>Únete ahora</Kicker>
+            <h3 style={{ fontFamily: T.serif, fontSize: '28px', fontWeight: 400, color: T.blanco,
+              margin: '10px 0 28px', lineHeight: 1.2 }}>Cómo unirte en 3 pasos</h3>
+
+            {/* Paso 1 */}
+            <div style={{ display: 'grid', gridTemplateColumns: '48px 1fr', gap: '16px',
+              alignItems: 'start', marginBottom: '28px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '9999px',
+                background: T.acento, display: 'flex', alignItems: 'center',
+                justifyContent: 'center', flexShrink: 0 }}>
+                <span style={{ fontFamily: T.serif, fontSize: '22px', fontWeight: 300,
+                  color: T.blanco }}>1</span>
+              </div>
+              <div>
+                <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 400,
+                  color: T.blanco, marginBottom: '6px' }}>Descarga Strava</div>
+                <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.65,
+                  color: 'rgba(245,243,242,0.78)', margin: 0 }}>
+                  Si aún no la tienes, descarga la app gratuita en App Store o Google Play y crea
+                  tu cuenta.
+                </p>
+              </div>
+            </div>
+
+            {/* Paso 2 */}
+            <div style={{ display: 'grid', gridTemplateColumns: '48px 1fr', gap: '16px',
+              alignItems: 'start', marginBottom: '28px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '9999px',
+                background: T.acento, display: 'flex', alignItems: 'center',
+                justifyContent: 'center', flexShrink: 0 }}>
+                <span style={{ fontFamily: T.serif, fontSize: '22px', fontWeight: 300,
+                  color: T.blanco }}>2</span>
+              </div>
+              <div>
+                <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 400,
+                  color: T.blanco, marginBottom: '6px' }}>Únete a tu club</div>
+                <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.65,
+                  color: 'rgba(245,243,242,0.78)', margin: '0 0 12px' }}>
+                  Accede al club que corresponda a tu deporte principal (o a los tres, que todo suma):
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {clubs.map((c, i) => (
+                    <a key={i} href={c.url} target="_blank" rel="noopener"
+                      style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 400,
+                        color: T.acentoLight, textDecoration: 'none' }}>
+                      {c.nombre} →
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Paso 3 */}
+            <div style={{ display: 'grid', gridTemplateColumns: '48px 1fr', gap: '16px',
+              alignItems: 'start' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '9999px',
+                background: T.acento, display: 'flex', alignItems: 'center',
+                justifyContent: 'center', flexShrink: 0 }}>
+                <span style={{ fontFamily: T.serif, fontSize: '22px', fontWeight: 300,
+                  color: T.blanco }}>3</span>
+              </div>
+              <div>
+                <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 400,
+                  color: T.blanco, marginBottom: '6px' }}>Registra tus actividades</div>
+                <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.65,
+                  color: 'rgba(245,243,242,0.78)', margin: '0 0 12px' }}>
+                  Tienes dos opciones:
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div style={{ background: 'rgba(245,243,242,0.07)', borderRadius: '6px',
+                    padding: '14px 16px' }}>
+                    <div style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 600,
+                      letterSpacing: '0.1em', textTransform: 'uppercase',
+                      color: T.acentoLight, marginBottom: '4px' }}>En directo</div>
+                    <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.6,
+                      color: 'rgba(245,243,242,0.75)', margin: 0 }}>
+                      Abre Strava antes de empezar, pulsa el botón de grabación y deja que registre
+                      tu recorrido automáticamente.
+                    </p>
+                  </div>
+                  <div style={{ background: 'rgba(245,243,242,0.07)', borderRadius: '6px',
+                    padding: '14px 16px' }}>
+                    <div style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 600,
+                      letterSpacing: '0.1em', textTransform: 'uppercase',
+                      color: T.acentoLight, marginBottom: '4px' }}>A posteriori</div>
+                    <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.6,
+                      color: 'rgba(245,243,242,0.75)', margin: 0 }}>
+                      Si has salido sin el móvil, ve a «+» en la app, selecciona «Registrar actividad
+                      manualmente», elige el tipo de deporte, añade la distancia y la fecha.
+                    </p>
+                  </div>
+                </div>
+                <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 400, lineHeight: 1.6,
+                  color: T.acentoLight, margin: '14px 0 0' }}>
+                  En ambos casos, añade <strong style={{ color: T.blanco }}>#ActivumRidesTheWave</strong> en la
+                  descripción de tu actividad.
+                </p>
+              </div>
+            </div>
+
+            {/* Nota de inicio */}
+            <div style={{ marginTop: '28px', paddingTop: '24px',
+              borderTop: '1px solid rgba(245,243,242,0.12)' }}>
+              <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, lineHeight: 1.65,
+                color: 'rgba(245,243,242,0.65)', margin: 0 }}>
+                El contador oficial arranca el <strong style={{ color: T.blanco }}>4 de julio</strong>,
+                pero no esperes hasta entonces. Descárgate Strava ahora, únete a tu club y
+                familiarízate con la app. ¡Así el día que Alejandro salga de Praga, tú ya estarás
+                listo para sumar desde el primer kilómetro!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Placeholder vídeo tutorial + texto lateral */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 200px', gap: '36px',
+        alignItems: 'center', marginBottom: '44px' }}>
+        <div>
+          <Kicker color={T.acento}>Tutorial</Kicker>
+          <h3 style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 400, color: T.negro,
+            margin: '10px 0 14px', lineHeight: 1.2 }}>
+            ¿Tienes dudas con Strava?
+          </h3>
+          <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.75,
+            color: T.negro80, margin: 0 }}>
+            Próximamente publicaremos un vídeo tutorial paso a paso para que no te quedes
+            sin sumar. Aprenderás a descargarte la app, unirte a los clubs y registrar
+            actividades sin complicaciones.
+          </p>
+        </div>
+        <PhonePlaceholder slotId="mundoTutorial" />
+      </div>
+
+      {/* Nuestro reto — hitos */}
+      <div style={{ borderTop: `1px solid ${T.beige2}`, paddingTop: '36px', marginTop: '8px' }}>
+        <Kicker color={T.acento}>Nuestro reto colectivo</Kicker>
+        <h3 style={{ fontFamily: T.serif, fontSize: '26px', fontWeight: 400, color: T.negro,
+          margin: '10px 0 14px', lineHeight: 1.2 }}>
+          1.000 km entre todos
+        </h3>
+        <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
+          color: T.negro80, margin: '0 0 28px', maxWidth: '70ch' }}>
+          Mientras Alejandro pedalea de Praga a Madrid, nosotros pedaleamos, corremos y nadamos
+          desde aquí. El objetivo del equipo Activum este verano es llegar a 1.000 km colectivos
+          entre todos los clubs. Cada vez que alcancemos un hito, Activum libera una parte de su
+          donación a la Fundación Verón.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+          {hitos.map((h, i) => (
+            <div key={i} style={{ background: i === hitos.length - 1 ? T.acento : T.beige1,
+              borderRadius: '8px', padding: '22px 16px', textAlign: 'center' }}>
+              <div style={{ fontSize: '22px', marginBottom: '8px' }}>{h.emoji}</div>
+              <div style={{ fontFamily: T.sans, fontSize: '10px', fontWeight: 600,
+                letterSpacing: '0.14em', textTransform: 'uppercase',
+                color: i === hitos.length - 1 ? 'rgba(245,243,242,0.75)' : T.negro50,
+                marginBottom: '6px' }}>{h.label}</div>
+              <div style={{ fontFamily: T.serif, fontSize: '26px', fontWeight: 300,
+                color: i === hitos.length - 1 ? T.blanco : T.negro,
+                lineHeight: 1 }}>{h.km}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Cierre */}
+      <div style={{ background: T.beige1, borderRadius: '8px', padding: '32px 36px',
+        marginTop: '36px', textAlign: 'center' }}>
+        <p style={{ fontFamily: T.serif, fontSize: '22px', fontStyle: 'italic', fontWeight: 300,
+          color: T.negro, margin: '0 0 14px', lineHeight: 1.4 }}>
+          Porque cada kilómetro que recorremos se transforma en algo real.
+        </p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          {['#RideTheWave', '#ActivumRidesTheWave', '#CadaKMSuma'].map(tag => (
+            <span key={tag} style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 500,
+              color: T.acento, background: 'rgba(142,45,68,0.09)', borderRadius: '9999px',
+              padding: '6px 14px' }}>{tag}</span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  );
+};
 
 /* ════════ 04 · Wellbeing ════════ */
 const wbHeadCell = {
