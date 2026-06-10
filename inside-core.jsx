@@ -115,8 +115,8 @@ const SECTIONS = [
   {
     id: 'mundo', num: '02', kind: 'rsc', fixed: false, icon: 3,
     section: 'Activum en el Mundo',
-    title: 'Kilómetros que se convierten en becas escolares',
-    dek: 'Activum se suma a un reto solidario: cada kilómetro recorrido se transforma en becas escolares para Honduras.',
+    title: 'Kilómetros que se convierten en becas comedor',
+    dek: 'Activum se suma a un reto solidario: cada kilómetro recorrido se transforma en becas comedor para Honduras.',
     tone: 'accent',
   },
   {

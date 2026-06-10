@@ -124,13 +124,8 @@ const BeneficiosBanner = ({ s, go }) => {
       display: 'grid', gridTemplateColumns: '0.92fr 1.08fr', minHeight: '232px',
       boxShadow: '0 6px 28px rgba(31,29,26,0.14)' }}>
       {/* Imagen divertida (la suelta el usuario) */}
-      <image-slot
-        id="ben-banner-img"
-        shape="rect"
-        fit="cover"
-        placeholder="Suelta aquí una imagen divertida (compras, ahorro…)"
-        style={{ width: '100%', height: '100%', display: 'block' }}>
-      </image-slot>
+      <img src="assets/beneficios.webp" alt=""
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
 
       {/* Copy publicitario */}
       <div onClick={() => go(s.id)}
@@ -190,7 +185,7 @@ const Portada = ({ go }) => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '48px',
         paddingBottom: '48px', borderBottom: `1px solid ${T.beige2}`, marginBottom: '44px' }}>
         <LeadRow s={apertura} go={go} imageSide="left" imgSrc="assets/cristina-thumbnail.jpg" />
-        <LeadRow s={mundo} go={go} imageSide="right" imgId="mundoMain" />
+        <LeadRow s={mundo} go={go} imageSide="right" imgSrc="assets/mundo-portada.png" />
       </div>
 
       {/* Banner publicidad — Beneficios (a todo el ancho) */}
@@ -206,8 +201,12 @@ const Portada = ({ go }) => {
         gap: '40px 36px', paddingBottom: '44px',
         borderBottom: `1px solid ${T.beige2}`, marginBottom: '44px' }}>
         {grid.map(s => <FrontCard key={s.id} s={s} go={go} size="md"
-          imgId={`${s.id}Main`}
-          imgSrc={s.id === 'primera' ? 'assets/daniel-portada.jpg' : undefined} />)}
+          imgSrc={
+            s.id === 'primera'    ? 'assets/daniel-portada.jpg' :
+            s.id === 'wellbeing'  ? 'assets/estres.jpg' :
+            s.id === 'cuerpo'     ? 'assets/estirar.jpg' :
+            s.id === 'bitabit'    ? 'assets/ciberseguridad.jpg' : undefined
+          } />)}
       </div>
 
       {/* Banner publicidad — La Nucía One */}
@@ -222,7 +221,11 @@ const Portada = ({ go }) => {
             margin: '9px 0 16px', maxWidth: '24ch' }}>{galeria.title}</h3>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
-          {[0, 1, 2, 3].map(i => <Slot key={i} id={`gal${i}`} ratio="1 / 1" radius={3} label="Foto" />)}
+          {[1, 2, 3, 4].map(i => (
+            <img key={i} src={`assets/galeria/gal-${i}.jpg`} alt=""
+              style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover',
+                objectPosition: 'center top', borderRadius: '3px', display: 'block' }} />
+          ))}
         </div>
       </div>
 
@@ -239,8 +242,8 @@ const LaNuciaBanner = ({ s, go }) => {
     <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr',
       background: T.beige1, borderRadius: '6px', overflow: 'hidden',
       border: `1px solid ${T.beige2}` }}>
-      <Slot id="lanuciaMain" ratio="16 / 10" radius={0} label="Sube el render de La Nucía One"
-        style={{ height: '100%' }} />
+      <img src="assets/video-lanucia-one.png" alt="La Nucía One"
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
       <div onClick={() => go(s.id)}
         onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
         style={{ cursor: 'pointer', padding: '36px 40px', display: 'flex', flexDirection: 'column',

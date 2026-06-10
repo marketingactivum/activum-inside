@@ -90,8 +90,10 @@ const AperturaBody = () => {
         alignItems: 'start', marginTop: '36px' }}>
         <div style={{ background: T.beige0, border: `1px solid rgba(31,29,26,0.10)`,
           borderRadius: '8px', padding: '24px 20px', textAlign: 'center' }}>
-          <Slot id="aperturaFoto" ratio="1 / 1" shape="circle" radius={9999} label="Foto"
-            style={{ width: '130px', height: '130px', margin: '0 auto 16px' }} />
+          <img src="assets/cristina-balaguer.jpg" alt="Cristina Balaguer"
+            style={{ width: '130px', height: '130px', borderRadius: '9999px',
+              objectFit: 'cover', objectPosition: 'center top',
+              display: 'block', margin: '0 auto 16px' }} />
           <div style={{ fontFamily: T.serif, fontSize: '18px', fontWeight: 400, color: T.negro,
             lineHeight: 1.25 }}>Cristina Balaguer</div>
           <Kicker color={T.negro50} style={{ fontSize: '10px', marginTop: '6px' }}>Directora General</Kicker>
@@ -173,42 +175,79 @@ const AperturaBody = () => {
   );
 };
 
+
 /* ════════ 02 · Activum en el Mundo (RSC — Ride the Wave) ════════ */
 
-/* Placeholder con forma de teléfono móvil para el vídeo tutorial */
-const PhonePlaceholder = ({ slotId }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-    <div style={{ position: 'relative', width: '160px' }}>
-      {/* Marco del teléfono */}
-      <svg viewBox="0 0 160 300" xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', display: 'block', position: 'absolute', top: 0, left: 0,
-          zIndex: 2, pointerEvents: 'none' }}>
-        <rect x="4" y="4" width="152" height="292" rx="22" ry="22"
-          fill="none" stroke={T.negro} strokeWidth="8" />
-        <rect x="12" y="12" width="136" height="276" rx="16" ry="16"
-          fill="none" stroke={T.beige2} strokeWidth="2" />
-        <rect x="60" y="15" width="40" height="6" rx="3"
-          fill={T.beige2} />
-        <rect x="56" y="278" width="48" height="6" rx="3"
-          fill={T.beige2} />
-      </svg>
-      {/* Slot de vídeo dentro del teléfono */}
-      <div style={{ margin: '24px 16px 22px', borderRadius: '10px', overflow: 'hidden',
-        position: 'relative', zIndex: 1 }}>
-        <Slot id={slotId} ratio="9 / 16" radius={10}
-          label="Vídeo tutorial" dark={false} />
-        <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center', gap: '10px', pointerEvents: 'none',
-          background: 'rgba(245,243,242,0.0)' }}>
-        </div>
-      </div>
-    </div>
-    <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em',
-      textTransform: 'uppercase', color: T.negro50, textAlign: 'center', marginTop: '6px' }}>
-      Próximamente · Tutorial en vídeo
+/* Vídeo tutorial con marco de teléfono móvil + botón pantalla completa */
+const PhoneFrame = ({ src, width }) => (
+  <div style={{ position: 'relative', width }}>
+    <svg viewBox="0 0 260 486" xmlns="http://www.w3.org/2000/svg"
+      style={{ width: '100%', display: 'block', position: 'absolute', top: 0, left: 0,
+        zIndex: 2, pointerEvents: 'none' }}>
+      <rect x="5" y="5" width="250" height="476" rx="32" ry="32"
+        fill="none" stroke={T.negro} strokeWidth="10" />
+      <rect x="14" y="14" width="232" height="458" rx="24" ry="24"
+        fill="none" stroke={T.beige2} strokeWidth="2" />
+      <rect x="98" y="19" width="64" height="9" rx="4.5" fill={T.beige2} />
+      <rect x="92" y="455" width="76" height="9" rx="4.5" fill={T.beige2} />
+    </svg>
+    <div style={{ margin: '38px 24px 34px', borderRadius: '18px', overflow: 'hidden',
+      position: 'relative', zIndex: 1, background: T.negro }}>
+      <video src={src} controls playsInline
+        style={{ width: '100%', height: '100%', display: 'block',
+          objectFit: 'cover', objectPosition: 'center center' }} />
     </div>
   </div>
 );
+
+const PhoneTutorial = ({ src }) => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+      <div style={{ position: 'relative' }}>
+        <PhoneFrame src={src} width="200px" />
+        {/* Botón pantalla completa */}
+        <button onClick={() => setOpen(true)}
+          title="Pantalla completa"
+          style={{ position: 'absolute', bottom: '44px', right: '-12px', zIndex: 10,
+            width: '36px', height: '36px', borderRadius: '9999px',
+            background: T.negro, border: `2px solid ${T.beige2}`,
+            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 2px 10px rgba(31,29,26,0.22)' }}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+            stroke={T.blanco} strokeWidth="1.6" strokeLinecap="round">
+            <path d="M1 5V1h4M9 1h4v4M13 9v4H9M5 13H1V9" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Modal pantalla completa */}
+      {open && (
+        <div onClick={() => setOpen(false)}
+          style={{ position: 'fixed', inset: 0, zIndex: 9999,
+            background: 'rgba(31,29,26,0.88)', display: 'flex',
+            alignItems: 'center', justifyContent: 'center' }}>
+          <div onClick={e => e.stopPropagation()}
+            style={{ position: 'relative' }}>
+            {/* El teléfono tiene ratio 260:486 ≈ 1:1.87 — limitamos ancho a 44vh para que quepa en el 85% de la pantalla */}
+            <PhoneFrame src={src} width="min(280px, 44vh)" />
+            <button onClick={() => setOpen(false)}
+              style={{ position: 'absolute', top: '-16px', right: '-16px',
+                width: '36px', height: '36px', borderRadius: '9999px',
+                background: T.blanco, border: 'none', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 2px 12px rgba(31,29,26,0.3)', zIndex: 1 }}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                stroke={T.negro} strokeWidth="2" strokeLinecap="round">
+                <path d="M1 1l10 10M11 1L1 11" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const MundoBody = () => {
   const hitos = [
@@ -226,7 +265,9 @@ const MundoBody = () => {
     <div style={{ maxWidth: '900px' }}>
 
       {/* Imagen principal */}
-      <Slot id="mundoMain" ratio="16 / 7" radius={6} label="Imagen del reto Ride the Wave" />
+      <img src="assets/mundo-portada.png" alt="Ride the Wave — Súbete a la Ola"
+        style={{ width: '100%', aspectRatio: '16 / 7', objectFit: 'cover', objectPosition: 'center top',
+          borderRadius: '8px', display: 'block' }} />
 
       {/* Kicker de entrega */}
       <p style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 500, letterSpacing: '0.14em',
@@ -355,10 +396,8 @@ const MundoBody = () => {
       {/* ── RECUADRO — Cómo unirte en 3 pasos ── */}
       <div style={{ background: T.negro, borderRadius: '10px', overflow: 'hidden',
         boxShadow: '0 4px 28px rgba(31,29,26,0.16)', margin: '0 0 44px' }}>
-        <div style={{ padding: '36px 40px 32px',
-          backgroundImage: 'url("assets/pattern-dark.svg")', backgroundSize: '420px',
-          position: 'relative' }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(31,29,26,0.82)' }} />
+        <div style={{ padding: '36px 40px 32px', position: 'relative' }}>
+          <div style={{ position: 'absolute', inset: 0, background: T.negro }} />
           <div style={{ position: 'relative', zIndex: 1 }}>
             <Kicker color={T.acentoLight}>Únete ahora</Kicker>
             <h3 style={{ fontFamily: T.serif, fontSize: '28px', fontWeight: 400, color: T.blanco,
@@ -475,8 +514,8 @@ const MundoBody = () => {
         </div>
       </div>
 
-      {/* Placeholder vídeo tutorial + texto lateral */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 200px', gap: '36px',
+      {/* Tutorial vídeo — texto + móvil */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 220px', gap: '36px',
         alignItems: 'center', marginBottom: '44px' }}>
         <div>
           <Kicker color={T.acento}>Tutorial</Kicker>
@@ -486,12 +525,12 @@ const MundoBody = () => {
           </h3>
           <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.75,
             color: T.negro80, margin: 0 }}>
-            Próximamente publicaremos un vídeo tutorial paso a paso para que no te quedes
-            sin sumar. Aprenderás a descargarte la app, unirte a los clubs y registrar
-            actividades sin complicaciones.
+            Hemos preparado un vídeo tutorial paso a paso para que no te quedes sin sumar.
+            Aprenderás a descargarte la app, unirte a los clubs y registrar actividades
+            sin complicaciones.
           </p>
         </div>
-        <PhonePlaceholder slotId="mundoTutorial" />
+        <PhoneTutorial src="assets/tutorial-strava.mp4" />
       </div>
 
       {/* Nuestro reto — hitos */}
@@ -512,7 +551,10 @@ const MundoBody = () => {
           {hitos.map((h, i) => (
             <div key={i} style={{ background: i === hitos.length - 1 ? T.acento : T.beige1,
               borderRadius: '8px', padding: '22px 16px', textAlign: 'center' }}>
-              <div style={{ fontSize: '22px', marginBottom: '8px' }}>{h.emoji}</div>
+              <img src={i === hitos.length - 1 ? 'assets/icono-meta.png' : 'assets/hito.png'} alt=""
+                style={{ height: '28px', objectFit: 'contain', display: 'block',
+                  margin: '0 auto 8px',
+                  filter: i === hitos.length - 1 ? 'brightness(0) invert(1)' : 'none' }} />
               <div style={{ fontFamily: T.sans, fontSize: '10px', fontWeight: 600,
                 letterSpacing: '0.14em', textTransform: 'uppercase',
                 color: i === hitos.length - 1 ? 'rgba(245,243,242,0.75)' : T.negro50,
@@ -532,12 +574,24 @@ const MundoBody = () => {
           color: T.negro, margin: '0 0 14px', lineHeight: 1.4 }}>
           Porque cada kilómetro que recorremos se transforma en algo real.
         </p>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap',
+          marginBottom: '28px' }}>
           {['#RideTheWave', '#ActivumRidesTheWave', '#CadaKMSuma'].map(tag => (
             <span key={tag} style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 500,
               color: T.acento, background: 'rgba(142,45,68,0.09)', borderRadius: '9999px',
               padding: '6px 14px' }}>{tag}</span>
           ))}
+        </div>
+        {/* Logos entidades */}
+        <div style={{ borderTop: `1px solid ${T.beige2}`, paddingTop: '24px' }}>
+          <Kicker color={T.negro50} style={{ fontSize: '9px' }}>Entidades colaboradoras</Kicker>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',
+            gap: '40px', marginTop: '18px', flexWrap: 'wrap' }}>
+            <img src="assets/logo-almas-inquietas.png" alt="Almas Inquietas"
+              style={{ height: '60px', objectFit: 'contain', display: 'block' }} />
+            <img src="assets/logo-fundacion-veron.png" alt="Fundación Verón"
+              style={{ height: '80px', objectFit: 'contain', display: 'block' }} />
+          </div>
         </div>
       </div>
 
@@ -643,7 +697,9 @@ const WBCrossLink = ({ go, to, label, title, desc }) => (
 
 const WellbeingBody = ({ go }) => (
   <div style={{ maxWidth: '860px' }}>
-    <Slot id="wellbeingMain" ratio="4 / 3" radius={6} label="Imagen de apoyo" />
+    <img src="assets/estres.jpg" alt=""
+      style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
+        borderRadius: '6px', display: 'block' }} />
 
     <p style={{ fontFamily: T.serif, fontSize: '22px', fontStyle: 'italic', fontWeight: 300,
       lineHeight: 1.5, color: T.negro, margin: '30px 0 18px', maxWidth: '60ch' }}>
@@ -770,7 +826,9 @@ const WellbeingBody = ({ go }) => (
 /* ════════ 05 · El cuerpo también trabaja ════════ */
 const CuerpoBody = ({ go }) => (
   <div style={{ maxWidth: '860px' }}>
-    <Slot id="cuerpoMain" ratio="4 / 3" radius={6} label="Imagen de apoyo" />
+    <img src="assets/estirar.jpg" alt=""
+      style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
+        borderRadius: '6px', display: 'block' }} />
     <p style={{ fontFamily: T.serif, fontSize: '22px', fontStyle: 'italic', fontWeight: 300,
       lineHeight: 1.5, color: T.negro, margin: '30px 0 8px', maxWidth: '60ch' }}>
       Segunda entrega de bienestar de Personas y Talento. Esta vez, el cuerpo: por qué moverse
@@ -858,19 +916,19 @@ const CuerpoBody = ({ go }) => (
 const BeneficiosBody = () => {
   const ofertas = [
     {
-      cat: 'Moda y deporte', marca: 'Adidas', slotId: 'benImg0',
-      desc: 'Prepárate para nuestro reto de convertir km en becas escolares en Honduras con este descuento del 30% en artículos seleccionados en la tienda online oficial de Adidas y un 5% adicional en artículos outlet ya rebajados. La actitud y las ganas de ayudar ya las tenemos… ahora sólo te faltan las zapatillas y la ropa. Corre (y nunca mejor dicho) y no dejes escapar este descuento.',
+      cat: 'Moda y deporte', marca: 'Adidas', img: 'assets/logo-adidas.png',
+      desc: 'Prepárate para nuestro reto de convertir km en becas comedor en Honduras con este descuento del 30% en artículos seleccionados en la tienda online oficial de Adidas y un 5% adicional en artículos outlet ya rebajados. La actitud y las ganas de ayudar ya las tenemos… ahora sólo te faltan las zapatillas y la ropa. Corre (y nunca mejor dicho) y no dejes escapar este descuento.',
     },
     {
-      cat: 'Tecnología', marca: 'Samsung', slotId: 'benImg1',
+      cat: 'Tecnología', marca: 'Samsung', img: 'assets/samsung.png',
       desc: 'El Mundial, mejor en grande. Aprovecha los descuentos exclusivos de Samsung para empleados y disfruta de hasta un 29% en televisores seleccionados y hasta un 62% en otros modelos y barras de sonido. Porque hay goles, paradas… y polémicas arbitrales que merecen verse con la mejor calidad posible.',
     },
     {
-      cat: 'Viajes', marca: 'lastminute.com', slotId: 'benImg2',
+      cat: 'Viajes', marca: 'lastminute.com', img: 'assets/lastminute.jpg',
       desc: 'Seguro que ya hay muchos de vosotros que ya tienen cerrado el verano… y luego estamos el resto, mirando vuelos un martes a las 23:47 "solo por curiosidad". Sea para una escapada improvisada, unas vacaciones en la playa o ese viaje que llevas tiempo queriendo hacer, aprovecha este descuento exclusivo de lastminute.com y empieza a preparar la maleta. Ámsterdam, Baleares, Nueva York… el problema no será encontrar destino, sino decidir cuál elegir.',
     },
     {
-      cat: 'Formación · Idiomas', marca: 'Babbel', slotId: 'benImg3',
+      cat: 'Formación · Idiomas', marca: 'Babbel', img: 'assets/babbel.jpg',
       desc: 'Siempre decimos que algún día aprenderemos inglés, italiano o francés… hasta que llega el verano y acabamos comunicándonos con un "thank you", una sonrisa y lenguaje de signos. Aunque, viendo que hasta Antonio Lodeiro se ha lanzado ya con el holandés, quizá ha llegado el momento de dejar las excusas atrás. Aprovecha este descuento de hasta el 60% en Babbel. Solo necesitas 10 minutos al día… y un poco de valentía.',
     },
   ];
@@ -964,8 +1022,9 @@ const BeneficiosBody = () => {
           <div key={i} style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '0',
             background: T.beige0, border: '1px solid rgba(31,29,26,0.10)', borderRadius: '8px',
             overflow: 'hidden' }}>
-            <Slot id={o.slotId} ratio="4 / 3" shape="rect" radius={0} label={`Imagen ${o.marca}`}
-              style={{ height: '100%' }} />
+            <img src={o.img} alt={o.marca}
+              style={{ width: '260px', height: '100%', objectFit: 'cover',
+                display: 'block', flexShrink: 0 }} />
             <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column',
               justifyContent: 'center', gap: '10px' }}>
               <Kicker color={T.acento} style={{ fontSize: '10px' }}>{o.cat}</Kicker>
@@ -1222,17 +1281,25 @@ const BitabitBody = () => {
 };
 
 /* ════════ 08 · Galería Activum ════════ */
-const GaleriaBody = () => (
+const GaleriaBody = () => {
+  const fotos = [
+    { src: 'assets/galeria/gal-1.jpg', alt: 'Equipo Activum' },
+    { src: 'assets/galeria/gal-2.jpg', alt: 'Equipo Activum' },
+    { src: 'assets/galeria/gal-3.jpg', alt: 'Equipo Activum' },
+    { src: 'assets/galeria/gal-4.jpg', alt: 'Equipo Activum' },
+    { src: 'assets/galeria/gal-5.jpg', alt: 'Equipo Activum' },
+    { src: 'assets/galeria/gal-6.jpg', alt: 'Equipo Activum' },
+    { src: 'assets/galeria/gal-7.jpg', alt: 'Equipo Activum' },
+  ];
+  return (
   <div>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-      {Array.from({ length: 9 }).map((_, i) => (
-        <Slot key={i} id={`gal${i}`} ratio="4 / 3" radius={4} label="Foto" />
+      {fotos.map((f, i) => (
+        <img key={i} src={f.src} alt={f.alt}
+          style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
+            objectPosition: 'center top', borderRadius: '6px', display: 'block' }} />
       ))}
     </div>
-    <PendingNote>
-      Material a aportar por Comunicación: selección de <b>6 a 12 fotos</b> en alta resolución
-      y pies de foto opcionales (máx. 10 palabras). Priorizar fotos de personas.
-    </PendingNote>
 
     {/* Llamada a participar — sube tu foto */}
     <div style={{ marginTop: '40px', background: T.negro, borderRadius: '8px',
@@ -1263,7 +1330,8 @@ const GaleriaBody = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 /* ── Formulario del buzón (envía por correo a comunicación) ── */
 const BuzonForm = () => {
@@ -1408,7 +1476,9 @@ const LaNuciaBody = () => {
     'Áreas infantiles', 'Zonas ajardinadas'];
   return (
     <div style={{ maxWidth: '960px' }}>
-      <Slot id="lanuciaMain" ratio="4 / 3" radius={8} label="Sube el render de La Nucía One" />
+      <img src="assets/video-lanucia-one.png" alt="La Nucía One"
+        style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
+          borderRadius: '8px', display: 'block' }} />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px',
         margin: '28px 0 36px' }}>
