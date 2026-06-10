@@ -135,24 +135,38 @@ const BeneficiosBanner = ({ s, go }) => {
         boxShadow: '0 3px 16px rgba(31,29,26,0.12)' }}>
       {!mob && <img src="assets/beneficios.webp" alt=""
         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
-      <div style={{ background: T.acento, display: 'flex', alignItems: 'center',
-        justifyContent: 'space-between', gap: '24px', padding: '18px 32px',
+      <div style={{ background: T.acento,
+        display: 'flex', flexDirection: mob ? 'column' : 'row',
+        alignItems: mob ? 'flex-start' : 'center',
+        justifyContent: 'space-between', gap: mob ? '14px' : '24px',
+        padding: mob ? '20px 24px 20px' : '18px 32px',
         position: 'relative', overflow: 'hidden' }}>
-        {/* Badge */}
-        <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '90px',
-          height: '90px', borderRadius: '9999px', background: T.beige2,
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          justifyContent: 'center', transform: 'rotate(8deg)' }}>
-          <span style={{ fontFamily: T.sans, fontSize: '9px', fontWeight: 700,
-            letterSpacing: '0.1em', color: T.negro, marginTop: '14px' }}>HASTA</span>
-          <span style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 500,
-            color: T.acentoDark, lineHeight: 0.9 }}>−60%</span>
-        </div>
+        {/* Badge — solo desktop */}
+        {!mob && (
+          <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '90px',
+            height: '90px', borderRadius: '9999px', background: T.beige2,
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            justifyContent: 'center', transform: 'rotate(8deg)' }}>
+            <span style={{ fontFamily: T.sans, fontSize: '9px', fontWeight: 700,
+              letterSpacing: '0.1em', color: T.negro, marginTop: '14px' }}>HASTA</span>
+            <span style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 500,
+              color: T.acentoDark, lineHeight: 0.9 }}>−60%</span>
+          </div>
+        )}
         <div>
-          <span style={{ fontFamily: T.sans, fontSize: '10px', fontWeight: 600,
-            letterSpacing: '0.18em', textTransform: 'uppercase',
-            color: 'rgba(245,243,242,0.78)' }}>Ventajas para empleados</span>
-          <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 400,
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: T.sans, fontSize: '10px', fontWeight: 600,
+              letterSpacing: mob ? '0.06em' : '0.18em', textTransform: 'uppercase',
+              color: 'rgba(245,243,242,0.78)', whiteSpace: mob ? 'normal' : 'nowrap' }}>
+              Ventajas para empleados
+            </span>
+            {mob && (
+              <span style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 700,
+                color: T.acentoDark, background: T.beige2, padding: '2px 8px',
+                borderRadius: '4px' }}>HASTA −60%</span>
+            )}
+          </div>
+          <div style={{ fontFamily: T.serif, fontSize: mob ? '18px' : '20px', fontWeight: 400,
             color: T.blanco, marginTop: '4px', lineHeight: 1.1 }}>{s.title}</div>
           <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 400,
             color: 'rgba(245,243,242,0.75)', marginTop: '4px', letterSpacing: '0.04em' }}>
@@ -162,7 +176,8 @@ const BeneficiosBanner = ({ s, go }) => {
         <span style={{ flexShrink: 0, fontFamily: T.sans, fontSize: '11px', fontWeight: 600,
           letterSpacing: '0.12em', textTransform: 'uppercase', color: T.acento,
           background: hov ? T.beige1 : T.blanco, padding: '10px 22px',
-          borderRadius: '4px', transition: 'background 200ms', marginRight: '16px' }}>
+          borderRadius: '4px', transition: 'background 200ms',
+          marginRight: mob ? '0' : '16px' }}>
           Ver descuentos →
         </span>
       </div>
@@ -283,17 +298,26 @@ const LaNuciaBanner = ({ s, go }) => {
 };
 
 /* ── Franja del buzón en portada ── */
-const BuzonStrip = ({ s, go }) => (
+const BuzonStrip = ({ s, go }) => {
+  const mob = useIsMobile();
+  return (
   <div style={{ position: 'relative', borderRadius: '4px', overflow: 'hidden',
     background: T.negro, backgroundImage: 'url("assets/activum-lab.png")',
     backgroundSize: 'cover', backgroundPosition: 'center' }}>
     <div style={{ position: 'absolute', inset: 0,
-      background: 'linear-gradient(90deg, rgba(31,29,26,0.9) 0%, rgba(31,29,26,0.55) 38%, rgba(31,29,26,0.15) 60%, rgba(31,29,26,0.45) 100%)' }} />
-    <div style={{ position: 'relative', zIndex: 1, padding: '44px 44px', minHeight: '150px',
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '32px' }}>
+      background: mob
+        ? 'rgba(31,29,26,0.82)'
+        : 'linear-gradient(90deg, rgba(31,29,26,0.9) 0%, rgba(31,29,26,0.55) 38%, rgba(31,29,26,0.15) 60%, rgba(31,29,26,0.45) 100%)' }} />
+    <div style={{ position: 'relative', zIndex: 1,
+      padding: mob ? '28px 24px' : '44px 44px',
+      minHeight: mob ? 'auto' : '150px',
+      display: 'flex', flexDirection: mob ? 'column' : 'row',
+      justifyContent: 'space-between',
+      alignItems: mob ? 'flex-start' : 'center',
+      gap: mob ? '20px' : '32px' }}>
       <div>
         <Kicker color={T.acentoLight}>{s.num} · {s.section}</Kicker>
-        <h3 style={{ fontFamily: T.serif, fontSize: '27px', fontWeight: 300,
+        <h3 style={{ fontFamily: T.serif, fontSize: mob ? '24px' : '27px', fontWeight: 300,
           color: T.blanco, margin: '10px 0 0', lineHeight: 1.2 }}>{s.title}</h3>
       </div>
       <button onClick={() => go(s.id)}
@@ -307,6 +331,7 @@ const BuzonStrip = ({ s, go }) => (
       </button>
     </div>
   </div>
-);
+  );
+};
 
 Object.assign(window, { Portada, FrontCard });

@@ -332,6 +332,18 @@ const MundoBody = () => {
         </p>
       </div>
 
+      {/* Fotos Ride the Wave */}
+      <div style={{ display: 'grid',
+        gridTemplateColumns: mob ? '1fr' : '1fr 1fr',
+        gap: '10px', marginTop: '28px', marginBottom: '8px' }}>
+        <img src="assets/mundo-foto-1.jpg" alt="Ride the Wave"
+          style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
+            borderRadius: '6px', display: 'block' }} />
+        <img src="assets/mundo-foto-2.jpg" alt="Ride the Wave"
+          style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
+            borderRadius: '6px', display: 'block' }} />
+      </div>
+
       {/* Fundación Verón */}
       <div style={{ borderTop: `1px solid ${T.beige2}`, paddingTop: '36px', marginTop: '36px' }}>
         <Kicker color={T.acento}>La causa</Kicker>
