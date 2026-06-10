@@ -197,4 +197,15 @@ const Slot = ({ id, ratio = '16 / 10', label = 'Sube una imagen', dark = false,
     },
   });
 
-Object.assign(window, { T, Kicker, Ph, TextPh, BrandIcon, Slot, EDITION, SECTIONS, PROMOS, getSection });
+/* ── Hook de breakpoint ── */
+const useIsMobile = () => {
+  const [mobile, setMobile] = React.useState(window.innerWidth < 700);
+  React.useEffect(() => {
+    const h = () => setMobile(window.innerWidth < 700);
+    window.addEventListener('resize', h);
+    return () => window.removeEventListener('resize', h);
+  }, []);
+  return mobile;
+};
+
+Object.assign(window, { T, Kicker, Ph, TextPh, BrandIcon, Slot, EDITION, SECTIONS, PROMOS, getSection, useIsMobile });

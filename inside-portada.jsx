@@ -67,6 +67,7 @@ const FrontListItem = ({ s, go, last }) => {
 
 /* ── Fila editorial grande (imagen subible + texto navegable) ── */
 const LeadRow = ({ s, go, imageSide = 'left', imgId, imgSrc }) => {
+  const mob = useIsMobile();
   const [hov, setHov] = React.useState(false);
   const isVideo = s.kind === 'video';
   const image = (
@@ -93,18 +94,23 @@ const LeadRow = ({ s, go, imageSide = 'left', imgId, imgSrc }) => {
     <div onClick={() => go(s.id)}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        padding: imageSide === 'left' ? '0 0 0 8px' : '0 8px 0 0' }}>
+        padding: mob ? '0' : imageSide === 'left' ? '0 0 0 8px' : '0 8px 0 0' }}>
       <Kicker color={T.acento}>{s.num} · {s.section}</Kicker>
-      <h2 style={{ fontFamily: T.serif, fontSize: 'clamp(30px, 3.4vw, 42px)', fontWeight: 300,
-        lineHeight: 1.12, letterSpacing: '-0.02em', color: T.negro, margin: '14px 0 0',
-        textDecoration: hov ? 'underline' : 'none', textDecorationColor: T.negro20,
-        textUnderlineOffset: '6px' }}>
+      <h2 style={{ fontFamily: T.serif, fontSize: mob ? '26px' : 'clamp(30px, 3.4vw, 42px)',
+        fontWeight: 300, lineHeight: 1.12, letterSpacing: '-0.02em', color: T.negro,
+        margin: '12px 0 0', textDecoration: hov ? 'underline' : 'none',
+        textDecorationColor: T.negro20, textUnderlineOffset: '6px' }}>
         {s.title}
       </h2>
-      <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.65,
-        color: T.negro80, margin: '20px 0 0', maxWidth: '42ch' }}>
+      <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.65,
+        color: T.negro80, margin: '14px 0 0', maxWidth: '42ch' }}>
         {s.dek}
       </p>
+    </div>
+  );
+  if (mob) return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {image}{text}
     </div>
   );
   return (
@@ -118,50 +124,45 @@ const LeadRow = ({ s, go, imageSide = 'left', imgId, imgSrc }) => {
 
 /* ── Banner publicitario de Beneficios (no es noticia) ── */
 const BeneficiosBanner = ({ s, go }) => {
+  const mob = useIsMobile();
   const [hov, setHov] = React.useState(false);
   return (
-    <div style={{ position: 'relative', borderRadius: '6px', overflow: 'hidden',
-      display: 'grid', gridTemplateColumns: '0.92fr 1.08fr', minHeight: '232px',
-      boxShadow: '0 6px 28px rgba(31,29,26,0.14)' }}>
-      {/* Imagen divertida (la suelta el usuario) */}
-      <img src="assets/beneficios.webp" alt=""
-        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-
-      {/* Copy publicitario */}
-      <div onClick={() => go(s.id)}
-        onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-        style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden',
-          background: T.acento, display: 'flex', flexDirection: 'column',
-          justifyContent: 'center', padding: '32px 40px' }}>
-        {/* Destello / badge de descuento */}
-        <div style={{ position: 'absolute', top: '-26px', right: '-26px', width: '128px',
-          height: '128px', borderRadius: '9999px', background: T.beige2,
+    <div onClick={() => go(s.id)}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ cursor: 'pointer', position: 'relative', borderRadius: '6px', overflow: 'hidden',
+        display: 'grid', gridTemplateColumns: mob ? '1fr' : '200px 1fr',
+        minHeight: mob ? 'auto' : '110px',
+        boxShadow: '0 3px 16px rgba(31,29,26,0.12)' }}>
+      {!mob && <img src="assets/beneficios.webp" alt=""
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
+      <div style={{ background: T.acento, display: 'flex', alignItems: 'center',
+        justifyContent: 'space-between', gap: '24px', padding: '18px 32px',
+        position: 'relative', overflow: 'hidden' }}>
+        {/* Badge */}
+        <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '90px',
+          height: '90px', borderRadius: '9999px', background: T.beige2,
           display: 'flex', flexDirection: 'column', alignItems: 'center',
-          justifyContent: 'center', transform: 'rotate(8deg)',
-          boxShadow: '0 6px 18px rgba(31,29,26,0.25)' }}>
-          <span style={{ fontFamily: T.sans, fontSize: '10px', fontWeight: 700,
-            letterSpacing: '0.1em', color: T.negro, marginTop: '20px' }}>HASTA</span>
-          <span style={{ fontFamily: T.serif, fontSize: '34px', fontWeight: 500,
+          justifyContent: 'center', transform: 'rotate(8deg)' }}>
+          <span style={{ fontFamily: T.sans, fontSize: '9px', fontWeight: 700,
+            letterSpacing: '0.1em', color: T.negro, marginTop: '14px' }}>HASTA</span>
+          <span style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 500,
             color: T.acentoDark, lineHeight: 0.9 }}>−60%</span>
         </div>
-
-        <span style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 600,
-          letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(245,243,242,0.78)' }}>
-          Ventajas para empleados
-        </span>
-        <h2 style={{ fontFamily: T.serif, fontSize: 'clamp(28px,3.2vw,42px)', fontWeight: 400,
-          color: T.blanco, margin: '12px 0 10px', lineHeight: 1.06, maxWidth: '13ch' }}>
-          {s.title}
-        </h2>
-        <p style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 400,
-          color: 'rgba(245,243,242,0.85)', margin: '0 0 22px', letterSpacing: '0.06em',
-          textTransform: 'uppercase' }}>
-          Moda · Tecnología · Viajes · Ocio · Formación
-        </p>
-        <span style={{ alignSelf: 'flex-start', fontFamily: T.sans, fontSize: '12px',
-          fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase',
-          color: T.acento, background: hov ? T.beige1 : T.blanco,
-          padding: '13px 28px', borderRadius: '4px', transition: 'background 200ms' }}>
+        <div>
+          <span style={{ fontFamily: T.sans, fontSize: '10px', fontWeight: 600,
+            letterSpacing: '0.18em', textTransform: 'uppercase',
+            color: 'rgba(245,243,242,0.78)' }}>Ventajas para empleados</span>
+          <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 400,
+            color: T.blanco, marginTop: '4px', lineHeight: 1.1 }}>{s.title}</div>
+          <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 400,
+            color: 'rgba(245,243,242,0.75)', marginTop: '4px', letterSpacing: '0.04em' }}>
+            Moda · Tecnología · Viajes · Ocio · Formación
+          </div>
+        </div>
+        <span style={{ flexShrink: 0, fontFamily: T.sans, fontSize: '11px', fontWeight: 600,
+          letterSpacing: '0.12em', textTransform: 'uppercase', color: T.acento,
+          background: hov ? T.beige1 : T.blanco, padding: '10px 22px',
+          borderRadius: '4px', transition: 'background 200ms', marginRight: '16px' }}>
           Ver descuentos →
         </span>
       </div>
@@ -171,6 +172,7 @@ const BeneficiosBanner = ({ s, go }) => {
 
 /* ── Portada ── */
 const Portada = ({ go }) => {
+  const mob = useIsMobile();
   const apertura = getSection('apertura');
   const mundo = getSection('mundo');
   const beneficios = getSection('beneficios');
@@ -181,26 +183,31 @@ const Portada = ({ go }) => {
 
   return (
     <div>
-      {/* Dos primeras secciones — lead alternado */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '48px',
-        paddingBottom: '48px', borderBottom: `1px solid ${T.beige2}`, marginBottom: '44px' }}>
+      {/* Dos primeras secciones */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: mob ? '32px' : '48px',
+        paddingBottom: mob ? '32px' : '48px', borderBottom: `1px solid ${T.beige2}`,
+        marginBottom: mob ? '28px' : '44px' }}>
         <LeadRow s={apertura} go={go} imageSide="left" imgSrc="assets/cristina-thumbnail.jpg" />
-        <LeadRow s={mundo} go={go} imageSide="right" imgSrc="assets/mundo-portada.png" />
+        <div style={{ background: T.beige1, borderRadius: '10px',
+          padding: mob ? '16px' : '28px 32px', border: `1px solid ${T.beige2}` }}>
+          <LeadRow s={mundo} go={go} imageSide="right" imgSrc="assets/mundo-portada.png" />
+        </div>
       </div>
 
-      {/* Banner publicidad — Beneficios (a todo el ancho) */}
+      {/* Banner Beneficios */}
       <BeneficiosBanner s={beneficios} go={go} />
 
       {/* Resto del número */}
       <span style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 500,
         letterSpacing: '0.16em', textTransform: 'uppercase', color: T.negro50,
-        display: 'block', margin: '44px 0 24px' }}>
+        display: 'block', margin: mob ? '28px 0 16px' : '44px 0 24px' }}>
         También en este número
       </span>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: '40px 36px', paddingBottom: '44px',
-        borderBottom: `1px solid ${T.beige2}`, marginBottom: '44px' }}>
-        {grid.map(s => <FrontCard key={s.id} s={s} go={go} size="md"
+      <div style={{ display: 'grid',
+        gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+        gap: mob ? '20px 14px' : '24px 20px', paddingBottom: mob ? '28px' : '44px',
+        borderBottom: `1px solid ${T.beige2}`, marginBottom: mob ? '28px' : '44px' }}>
+        {grid.map(s => <FrontCard key={s.id} s={s} go={go} size="sm"
           imgSrc={
             s.id === 'primera'    ? 'assets/daniel-portada.jpg' :
             s.id === 'wellbeing'  ? 'assets/estres.jpg' :
@@ -209,22 +216,26 @@ const Portada = ({ go }) => {
           } />)}
       </div>
 
-      {/* Banner publicidad — La Nucía One */}
+      {/* Banner La Nucía One */}
       <LaNuciaBanner s={lanucia} go={go} />
 
-      {/* Galería — banda ancha (miniaturas subibles, titular navegable) */}
-      <div style={{ margin: '44px 0' }}>
+      {/* Galería */}
+      <div style={{ margin: mob ? '28px 0' : '44px 0' }}>
         <div onClick={() => go(galeria.id)} style={{ cursor: 'pointer', display: 'inline-block' }}>
           <Kicker color={T.acento}>{galeria.num} · {galeria.section}</Kicker>
-          <h3 style={{ fontFamily: T.serif, fontSize: '28px', fontWeight: 400,
+          <h3 style={{ fontFamily: T.serif, fontSize: mob ? '22px' : '28px', fontWeight: 400,
             lineHeight: 1.15, letterSpacing: '-0.01em', color: T.negro,
             margin: '9px 0 16px', maxWidth: '24ch' }}>{galeria.title}</h3>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
-          {[1, 2, 3, 4].map(i => (
-            <img key={i} src={`assets/galeria/gal-${i}.jpg`} alt=""
+        <div style={{ display: 'grid',
+          gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '8px' }}>
+          {[
+            { n:1, pos:'center 65%' }, { n:2, pos:'center center' },
+            { n:3, pos:'center 40%' }, { n:4, pos:'center 35%' },
+          ].map(({n, pos}) => (
+            <img key={n} src={`assets/galeria/gal-${n}.jpg`} alt=""
               style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover',
-                objectPosition: 'center top', borderRadius: '3px', display: 'block' }} />
+                objectPosition: pos, borderRadius: '3px', display: 'block' }} />
           ))}
         </div>
       </div>
@@ -237,13 +248,16 @@ const Portada = ({ go }) => {
 
 /* ── Banner de promoción (La Nucía One) ── */
 const LaNuciaBanner = ({ s, go }) => {
+  const mob = useIsMobile();
   const [hov, setHov] = React.useState(false);
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr',
+    <div style={{ display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : '1.15fr 1fr',
       background: T.beige1, borderRadius: '6px', overflow: 'hidden',
       border: `1px solid ${T.beige2}` }}>
       <img src="assets/video-lanucia-one.png" alt="La Nucía One"
-        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        style={{ width: '100%', aspectRatio: mob ? '16 / 7' : 'auto',
+          height: mob ? 'auto' : '100%', objectFit: 'cover', display: 'block' }} />
       <div onClick={() => go(s.id)}
         onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
         style={{ cursor: 'pointer', padding: '36px 40px', display: 'flex', flexDirection: 'column',

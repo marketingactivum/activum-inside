@@ -4,8 +4,10 @@
    ============================================================ */
 
 /* ── Cabecera común de artículo ── */
-const ArticleHeader = ({ s, wide = false }) => (
-  <header style={{ maxWidth: wide ? 'none' : '760px', marginBottom: '36px' }}>
+const ArticleHeader = ({ s, wide = false }) => {
+  const mob = useIsMobile();
+  return (
+  <header style={{ maxWidth: wide ? 'none' : '760px', marginBottom: mob ? '24px' : '36px' }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
       {s.num && <span style={{ fontFamily: T.serif, fontSize: '40px', fontWeight: 300,
         color: T.beige2, lineHeight: 1 }}>{s.num}</span>}
@@ -14,16 +16,18 @@ const ArticleHeader = ({ s, wide = false }) => (
         {s.section}{s.promo ? ' · Promoción destacada' : ''}
       </Kicker>
     </div>
-    <h1 style={{ fontFamily: T.serif, fontSize: 'clamp(34px, 4.4vw, 54px)', fontWeight: 300,
-      lineHeight: 1.08, letterSpacing: '-0.02em', color: T.negro, margin: 0 }}>
+    <h1 style={{ fontFamily: T.serif,
+      fontSize: mob ? 'clamp(26px, 7vw, 34px)' : 'clamp(34px, 4.4vw, 54px)',
+      fontWeight: 300, lineHeight: 1.08, letterSpacing: '-0.02em', color: T.negro, margin: 0 }}>
       {s.title}
     </h1>
-    <p style={{ fontFamily: T.serif, fontSize: '20px', fontStyle: 'italic', fontWeight: 300,
-      lineHeight: 1.5, color: T.negro80, margin: '20px 0 0', maxWidth: '60ch' }}>
+    <p style={{ fontFamily: T.serif, fontSize: mob ? '16px' : '20px', fontStyle: 'italic',
+      fontWeight: 300, lineHeight: 1.5, color: T.negro80, margin: '14px 0 0', maxWidth: '60ch' }}>
       {s.dek}
     </p>
   </header>
-);
+  );
+};
 
 /* ── Nota de material pendiente ── */
 const PendingNote = ({ children }) => (
@@ -41,6 +45,7 @@ const PendingNote = ({ children }) => (
 
 /* ════════ 01 · Apertura de Dirección (vídeo + hitos) ════════ */
 const AperturaBody = () => {
+  const mob = useIsMobile();
   const hitos = [
     {
       tag: 'Living',
@@ -65,7 +70,7 @@ const AperturaBody = () => {
     {
       tag: 'Iniciativa solidaria',
       titulo: 'Kilómetros que se convierten en becas comedor para Honduras',
-      texto: 'Próximo lanzamiento de una iniciativa que transformará los kilómetros recorridos por los empleados en una aportación de hasta 1.500 € para becas comedor, de la mano de la Fundación Almas Inquietas y la Fundación Verón.',
+      texto: 'Los kilómetros recorridos por los empleados, con un objetivo de 1.000 km que irán desbloqueando donaciones por hitos, de la mano de Almas Inquietas y la Fundación Verón.',
     },
   ];
 
@@ -86,8 +91,9 @@ const AperturaBody = () => {
       </div>
 
       {/* Autora + texto introductorio */}
-      <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '36px',
-        alignItems: 'start', marginTop: '36px' }}>
+      <div style={{ display: 'grid',
+        gridTemplateColumns: mob ? '1fr' : '200px 1fr',
+        gap: mob ? '20px' : '36px', alignItems: 'start', marginTop: '36px' }}>
         <div style={{ background: T.beige0, border: `1px solid rgba(31,29,26,0.10)`,
           borderRadius: '8px', padding: '24px 20px', textAlign: 'center' }}>
           <img src="assets/cristina-balaguer.jpg" alt="Cristina Balaguer"
@@ -250,6 +256,7 @@ const PhoneTutorial = ({ src }) => {
 };
 
 const MundoBody = () => {
+  const mob = useIsMobile();
   const hitos = [
     { km: '150 km', emoji: '🌊', label: 'Hito 1' },
     { km: '350 km', emoji: '🌊', label: 'Hito 2' },
@@ -332,8 +339,9 @@ const MundoBody = () => {
           margin: '10px 0 14px', lineHeight: 1.2 }}>
           Fundación Verón y las becas comedor de Honduras
         </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 200px', gap: '32px',
-          alignItems: 'start' }}>
+        <div style={{ display: 'grid',
+          gridTemplateColumns: mob ? '1fr' : '1fr 200px',
+          gap: mob ? '16px' : '32px', alignItems: 'start' }}>
           <div>
             <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
               color: T.negro80, margin: '0 0 14px' }}>
@@ -375,8 +383,9 @@ const MundoBody = () => {
           Clubs Deportivos Activum en Strava. Tres espacios, un mismo propósito. Da igual cuál sea
           tu deporte: hay un sitio para ti.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px',
-          marginBottom: '36px' }}>
+        <div style={{ display: 'grid',
+          gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)',
+          gap: '12px', marginBottom: '36px' }}>
           {clubs.map((c, i) => (
             <a key={i} href={c.url} target="_blank" rel="noopener"
               style={{ display: 'block', background: T.beige0,
@@ -515,8 +524,9 @@ const MundoBody = () => {
       </div>
 
       {/* Tutorial vídeo — texto + móvil */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 220px', gap: '36px',
-        alignItems: 'center', marginBottom: '44px' }}>
+      <div style={{ display: 'grid',
+        gridTemplateColumns: mob ? '1fr' : '1fr 220px',
+        gap: mob ? '20px' : '36px', alignItems: 'center', marginBottom: '44px' }}>
         <div>
           <Kicker color={T.acento}>Tutorial</Kicker>
           <h3 style={{ fontFamily: T.serif, fontSize: '24px', fontWeight: 400, color: T.negro,
@@ -547,7 +557,9 @@ const MundoBody = () => {
           entre todos los clubs. Cada vez que alcancemos un hito, Activum libera una parte de su
           donación a la Fundación Verón.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+        <div style={{ display: 'grid',
+          gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap: '12px' }}>
           {hitos.map((h, i) => (
             <div key={i} style={{ background: i === hitos.length - 1 ? T.acento : T.beige1,
               borderRadius: '8px', padding: '22px 16px', textAlign: 'center' }}>
@@ -914,6 +926,7 @@ const CuerpoBody = ({ go }) => (
 
 /* ════════ 05 · Beneficios para Empleados ════════ */
 const BeneficiosBody = () => {
+  const mob = useIsMobile();
   const ofertas = [
     {
       cat: 'Moda y deporte', marca: 'Adidas', img: 'assets/logo-adidas.png',
@@ -962,8 +975,9 @@ const BeneficiosBody = () => {
       </p>
 
       {/* Intro + acceso */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '32px',
-        alignItems: 'start', marginBottom: '44px' }}>
+      <div style={{ display: 'grid',
+        gridTemplateColumns: mob ? '1fr' : '1fr 300px',
+        gap: mob ? '20px' : '32px', alignItems: 'start', marginBottom: '44px' }}>
         <div>
           <p style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 300, lineHeight: 1.75,
             color: T.negro80, margin: '0 0 14px' }}>
@@ -1019,12 +1033,13 @@ const BeneficiosBody = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {ofertas.map((o, i) => (
-          <div key={i} style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '0',
-            background: T.beige0, border: '1px solid rgba(31,29,26,0.10)', borderRadius: '8px',
-            overflow: 'hidden' }}>
+          <div key={i} style={{ display: 'grid',
+            gridTemplateColumns: mob ? '1fr' : '260px 1fr',
+            gap: '0', background: T.beige0, border: '1px solid rgba(31,29,26,0.10)',
+            borderRadius: '8px', overflow: 'hidden' }}>
             <img src={o.img} alt={o.marca}
-              style={{ width: '260px', height: '100%', objectFit: 'cover',
-                display: 'block', flexShrink: 0 }} />
+              style={{ width: '100%', height: mob ? '180px' : '100%', objectFit: 'cover',
+                display: 'block' }} />
             <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column',
               justifyContent: 'center', gap: '10px' }}>
               <Kicker color={T.acento} style={{ fontSize: '10px' }}>{o.cat}</Kicker>
@@ -1073,11 +1088,13 @@ const PrimeraBody = () => {
       a: 'Que fuera valiente y saliera fuera a estudiar o trabajar. Pero sa roqueta (Mallorca) tira mucho: un mallorquín viaja por todo el mundo, pero siempre vuelve a la isla.',
     },
   ];
+  const mob = useIsMobile();
   return (
     <div style={{ maxWidth: '860px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '40px',
-        alignItems: 'start' }}>
-        <div style={{ position: 'sticky', top: '40px' }}>
+      <div style={{ display: 'grid',
+        gridTemplateColumns: mob ? '1fr' : '280px 1fr',
+        gap: mob ? '24px' : '40px', alignItems: 'start' }}>
+        <div style={mob ? {} : { position: 'sticky', top: '40px' }}>
           <img src="assets/daniel-ovejero.jpg" alt="Daniel Ovejero"
             style={{ width: '100%', aspectRatio: '4 / 5', objectFit: 'cover',
               objectPosition: 'center top', display: 'block', borderRadius: '6px' }} />
@@ -1129,6 +1146,7 @@ const QABlock = ({ q, a }) => (
 
 /* ════════ 07 · Bit a Bit (infografía de phishing) ════════ */
 const BitabitBody = () => {
+  const mob = useIsMobile();
   const pasos = [
     'No sigas interactuando: cierra la web o el mensaje abierto.',
     'Elimina el correo (Mayús + Supr lo borra del todo, sin pasar por Eliminados).',
@@ -1209,8 +1227,9 @@ const BitabitBody = () => {
           No lo borres sin más. Reportarlo ayuda a que los filtros de toda la empresa lo
           bloqueen automáticamente en el futuro.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px',
-          marginBottom: '12px' }}>
+        <div style={{ display: 'grid',
+          gridTemplateColumns: mob ? '1fr' : '1fr 1fr',
+          gap: '12px', marginBottom: '12px' }}>
           <div>
             <Screenshot src="assets/bitabit/outlook-informe-boton.png"
               caption="1. Selecciona el correo y haz clic en «Informe» en la barra superior." />
@@ -1225,8 +1244,9 @@ const BitabitBody = () => {
       </div>
 
       {/* Si ya has hecho clic */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px',
-        margin: '0 0 0 0', alignItems: 'start' }}>
+      <div style={{ display: 'grid',
+        gridTemplateColumns: mob ? '1fr' : '1fr 1fr',
+        gap: '20px', margin: '0 0 0 0', alignItems: 'start' }}>
         <div style={{ background: T.beige1, borderRadius: '8px', padding: '26px' }}>
           <Kicker color={T.acento}>Ante la duda</Kicker>
           <p style={{ fontFamily: T.sans, fontSize: '14px', fontWeight: 300, lineHeight: 1.65,
@@ -1282,24 +1302,76 @@ const BitabitBody = () => {
 
 /* ════════ 08 · Galería Activum ════════ */
 const GaleriaBody = () => {
+  const mob = useIsMobile();
+  const [lightbox, setLightbox] = React.useState(null);
   const fotos = [
-    { src: 'assets/galeria/gal-1.jpg', alt: 'Equipo Activum' },
-    { src: 'assets/galeria/gal-2.jpg', alt: 'Equipo Activum' },
-    { src: 'assets/galeria/gal-3.jpg', alt: 'Equipo Activum' },
-    { src: 'assets/galeria/gal-4.jpg', alt: 'Equipo Activum' },
-    { src: 'assets/galeria/gal-5.jpg', alt: 'Equipo Activum' },
-    { src: 'assets/galeria/gal-6.jpg', alt: 'Equipo Activum' },
-    { src: 'assets/galeria/gal-7.jpg', alt: 'Equipo Activum' },
+    { src: 'assets/galeria/gal-1.jpg', pos: 'center 65%' },
+    { src: 'assets/galeria/gal-2.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-3.jpg', pos: 'center 40%' },
+    { src: 'assets/galeria/gal-4.jpg', pos: 'center 35%' },
+    { src: 'assets/galeria/gal-5.jpg', pos: 'center 40%' },
+    { src: 'assets/galeria/gal-6.jpg', pos: 'center 30%' },
   ];
   return (
   <div>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+    <div style={{ display: 'grid',
+      gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+      gap: mob ? '8px' : '12px' }}>
       {fotos.map((f, i) => (
-        <img key={i} src={f.src} alt={f.alt}
-          style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
-            objectPosition: 'center top', borderRadius: '6px', display: 'block' }} />
+        <div key={i} onClick={() => setLightbox(i)}
+          style={{ cursor: 'zoom-in', borderRadius: '6px', overflow: 'hidden',
+            aspectRatio: '4 / 3' }}>
+          <img src={f.src} alt="Equipo Activum"
+            style={{ width: '100%', height: '100%', objectFit: 'cover',
+              objectPosition: f.pos, display: 'block',
+              transition: 'transform 300ms', }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'} />
+        </div>
       ))}
     </div>
+
+    {/* Lightbox */}
+    {lightbox !== null && (
+      <div onClick={() => setLightbox(null)}
+        style={{ position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(31,29,26,0.92)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center' }}>
+        {/* Anterior */}
+        {lightbox > 0 && (
+          <button onClick={e => { e.stopPropagation(); setLightbox(lightbox - 1); }}
+            style={{ position: 'absolute', left: '24px', background: 'rgba(245,243,242,0.15)',
+              border: 'none', borderRadius: '9999px', width: '48px', height: '48px',
+              cursor: 'pointer', color: '#F5F3F2', fontSize: '22px', display: 'flex',
+              alignItems: 'center', justifyContent: 'center' }}>‹</button>
+        )}
+        <img src={fotos[lightbox].src} alt="Equipo Activum"
+          onClick={e => e.stopPropagation()}
+          style={{ maxWidth: '90vw', maxHeight: '88vh', objectFit: 'contain',
+            borderRadius: '6px', boxShadow: '0 8px 60px rgba(0,0,0,0.5)' }} />
+        {/* Siguiente */}
+        {lightbox < fotos.length - 1 && (
+          <button onClick={e => { e.stopPropagation(); setLightbox(lightbox + 1); }}
+            style={{ position: 'absolute', right: '24px', background: 'rgba(245,243,242,0.15)',
+              border: 'none', borderRadius: '9999px', width: '48px', height: '48px',
+              cursor: 'pointer', color: '#F5F3F2', fontSize: '22px', display: 'flex',
+              alignItems: 'center', justifyContent: 'center' }}>›</button>
+        )}
+        {/* Cerrar */}
+        <button onClick={() => setLightbox(null)}
+          style={{ position: 'absolute', top: '20px', right: '20px',
+            background: 'rgba(245,243,242,0.15)', border: 'none', borderRadius: '9999px',
+            width: '40px', height: '40px', cursor: 'pointer', color: '#F5F3F2',
+            fontSize: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+        {/* Contador */}
+        <div style={{ position: 'absolute', bottom: '24px', left: '50%',
+          transform: 'translateX(-50%)', fontFamily: "'Roboto', sans-serif",
+          fontSize: '12px', color: 'rgba(245,243,242,0.6)', letterSpacing: '0.1em' }}>
+          {lightbox + 1} / {fotos.length}
+        </div>
+      </div>
+    )}
+
 
     {/* Llamada a participar — sube tu foto */}
     <div style={{ marginTop: '40px', background: T.negro, borderRadius: '8px',
@@ -1365,8 +1437,8 @@ const BuzonForm = () => {
   return (
     <form onSubmit={submit} style={{ background: T.beige0, border: `1px solid ${T.beige2}`,
       borderRadius: '8px', padding: '28px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px',
-        marginBottom: '16px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth < 700 ? '1fr' : '1fr 1fr',
+        gap: '16px', marginBottom: '16px' }}>
         <div>
           <label style={labelSt}>Tu nombre <span style={{ color: T.negro50 }}>(opcional)</span></label>
           <input type="text" value={nombre} onChange={e => setNombre(e.target.value)}
@@ -1413,7 +1485,9 @@ const BuzonForm = () => {
 };
 
 /* ════════ 09 · Activum Lab (buzón de participación) ════════ */
-const BuzonBody = () => (
+const BuzonBody = () => {
+  const mob = useIsMobile();
+  return (
   <div style={{ maxWidth: '820px' }}>
     <p style={{ fontFamily: T.serif, fontSize: '21px', fontStyle: 'italic', fontWeight: 300,
       lineHeight: 1.55, color: T.negro, margin: '0 0 16px', maxWidth: '60ch' }}>
@@ -1428,8 +1502,9 @@ const BuzonBody = () => (
     </p>
 
     {/* Preguntas que invitan a participar */}
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px',
-      marginBottom: '32px' }}>
+    <div style={{ display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)',
+      gap: '12px', marginBottom: '32px' }}>
       {[
         ['¿Qué cambiarías?', 'Algo que harías diferente mañana mismo.', 'assets/ic-cambio.webp'],
         ['¿Qué potenciar?', 'Lo que funciona bien y deberíamos impulsar.', 'assets/ic-potenciar.png'],
@@ -1462,10 +1537,12 @@ const BuzonBody = () => (
       </a>
     </p>
   </div>
-);
+  );
+};
 
 /* ════════ La Nucía One (promoción / publicidad interna) ════════ */
 const LaNuciaBody = () => {
+  const mob = useIsMobile();
   const datos = [
     ['107', 'viviendas'],
     ['2-4', 'dormitorios'],
@@ -1480,8 +1557,9 @@ const LaNuciaBody = () => {
         style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
           borderRadius: '8px', display: 'block' }} />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px',
-        margin: '28px 0 36px' }}>
+      <div style={{ display: 'grid',
+        gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+        gap: '12px', margin: '28px 0 36px' }}>
         {datos.map(([n, l], i) => (
           <div key={i} style={{ background: T.beige1, borderRadius: '6px', padding: '22px 18px',
             textAlign: 'center' }}>
