@@ -82,7 +82,7 @@ const AperturaBody = () => {
         borderRadius: '8px', overflow: 'hidden', background: T.negro,
         boxShadow: '0 8px 40px rgba(31,29,26,0.14)' }}>
         <iframe
-          src="https://www.youtube.com/embed/tolNFjKYdcQ?rel=0&modestbranding=1"
+          src="https://www.youtube.com/embed/cQYDi9yHUtg?rel=0&modestbranding=1"
           title="Mensaje de Cristina Balaguer — Activum Inside Nº1"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
