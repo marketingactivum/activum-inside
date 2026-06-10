@@ -198,10 +198,11 @@ const App = () => {
     setView(v);
     setMenuOpen(false);
     localStorage.setItem('inside_view', v);
-    const main = document.getElementById('main-scroll');
-    if (main) main.scrollTo({ top: 0 });
-    window.scrollTo({ top: 0 });
   };
+
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [view]);
 
   const headerH = mob ? HEADER_H_MOB : HEADER_H;
 
