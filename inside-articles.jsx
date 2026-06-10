@@ -338,10 +338,10 @@ const MundoBody = () => {
         gap: '10px', marginTop: '28px', marginBottom: '8px' }}>
         <img src="assets/mundo-foto-1.jpg" alt="Ride the Wave"
           style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
-            borderRadius: '6px', display: 'block' }} />
+            objectPosition: 'center 35%', borderRadius: '6px', display: 'block' }} />
         <img src="assets/mundo-foto-2.jpg" alt="Ride the Wave"
           style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover',
-            borderRadius: '6px', display: 'block' }} />
+            objectPosition: 'center 65%', borderRadius: '6px', display: 'block' }} />
       </div>
 
       {/* Fundación Verón */}
