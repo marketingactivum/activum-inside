@@ -1377,7 +1377,6 @@ const GaleriaBody = () => {
   const fotos = [
     { src: 'assets/galeria/gal-7.jpg',  pos: 'center center' },
     { src: 'assets/galeria/gal-2.jpg',  pos: 'center center' },
-    { src: 'assets/galeria/gal-13.jpg', pos: 'center 18%' },
     { src: 'assets/galeria/gal-4.jpg',  pos: 'center 35%' },
     { src: 'assets/galeria/gal-9.jpg',  pos: 'center center' },
     { src: 'assets/galeria/gal-14.jpg', pos: 'center center' },
