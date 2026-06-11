@@ -466,7 +466,7 @@ const MundoBody = () => {
                       style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 400,
                         color: T.acentoLight, textDecoration: 'none',
                         display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      <img src="assets/icono-clic.png" alt="" style={{ width: '14px', height: '14px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+                      <img src="assets/icono-clic.png" alt="" style={{ width: '14px', height: '14px', objectFit: 'contain' }} />
                       {c.nombre}
                     </a>
                   ))}
