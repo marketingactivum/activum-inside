@@ -179,7 +179,7 @@ const Sidebar = ({ view, go, open, setOpen }) => {
           color: T.blanco, padding: '24px 26px 6px' }}>Menú</div>}
         <div style={sectionLabel}>Sumario</div>
         <nav style={{ flexShrink: 0 }}>
-          {SECTIONS.filter(s => s.id !== 'voz').map(s => <NavBtn key={s.id} s={s} />)}
+          {SECTIONS.map(s => <NavBtn key={s.id} s={s} />)}
         </nav>
         <div style={sectionLabel}>Promoción</div>
         {PROMOS.map(s => <NavBtn key={s.id} s={s} mark="◆" />)}

@@ -1076,28 +1076,84 @@ const BeneficiosBody = () => {
 const PrimeraBody = () => {
   const qa = [
     {
-      q: 'Si te hubieran dicho hace años que acabarías siendo responsable de Sistemas, ¿qué habrías pensado?',
-      a: 'En mis dos primeros años como colaborador, ni se me pasaba por la cabeza. Antes de la pandemia pensé «¿y cuándo se jubile Javier, quién hará su trabajo? Podría ser yo». Pero cuando me lo propusieron, no me lo esperaba.',
+      q: 'Si alguien te hubiera dicho hace años que acabarías siendo responsable de Sistemas en Activum, ¿qué habrías pensado?',
+      a: 'En mis 2 primeros años como colaborador ni pasárseme por la cabeza. Pero te voy a dar una exclusiva: antes de la pandemia, un día en esas relaciones de ideas que pasan por mi cabeza, pensé «¿y cuándo se jubile Javier quién va a hacer su trabajo? Pues podría ser yo». Pero la verdad, en el momento que se me propuso, veníamos de la convulsión con InmoCaixa, no me lo esperaba ni pensaba que pudiera ocurrir.',
     },
     {
-      q: 'Llegaste a tener una granja de caracoles. ¿Cómo surgió aquella aventura?',
-      a: 'Ni lo sé. En Mallorca se consume mucho caracol todo el año. Se había montado una granja grande en un pueblo cercano, en alguna conversación saldría el tema, me puse a investigar y al poco estaba presentando papeles y el plan de negocio en el banco.',
+      q: 'Hubo un momento en tu vida en el que incluso llegaste a tener una granja de caracoles. ¿Cómo surgió aquella aventura y qué recuerdas de esa etapa?',
+      a: 'Ni lo sé. Intento recordar qué me llevó a esa decisión y no lo recuerdo. En Mallorca se consume mucho caracol, no solo el día de San Marcos, todo el año: caragolades, tapas, en arrós brut… En aquel momento se había montado una granja grande en un pueblo cercano y supongo que en alguna conversación saldría el tema. Me puse a investigar y al poco estaba presentando papeles en la Conselleria y el plan de negocio en el banco.',
     },
     {
-      q: 'Mirándolo con perspectiva, ¿qué aprendizaje te dejó?',
-      a: 'A ser constante y a priorizar. Los caracoles comían cada día, eso no podías dejar de hacerlo. Los demás trabajos los ibas encajando, pero ese sí o sí se tenía que hacer.',
+      q: 'Mirándolo con perspectiva, ¿qué aprendizaje te dejó aquella experiencia y qué sigues aplicando hoy en tu trabajo?',
+      a: 'A ser constante y a priorizar. Los caracoles comían cada día, no podías dejar de hacer eso. En la granja había muchos otros trabajos que hacer también, pero ese, sí o sí, se tenía que hacer. Lo podías hacer por la mañana, a mediodía o a última hora, pero había que hacerlo. Los demás trabajos los ibas encajando.',
+    },
+    {
+      q: 'Tu trayectoria profesional ha pasado por distintas etapas y reinvenciones. ¿Cómo definirías ese recorrido?',
+      a: 'No te sabría decir, creo que no he sido consciente de ello. Han venido y las he ido asumiendo, era lo que tocaba. Ahora que me lo haces pensar, no sé si he sido a lo mejor algo inconsciente. De 4 horitas para ayudar a los comerciales de Mallorca y sacarme un dinero extra —pues con la granja no llegaba— a estar ahora aquí como sujeto de esta primera entrevista.',
+    },
+    {
+      q: '¿Hay alguna decisión o cambio profesional que haya marcado un antes y un después en tu carrera?',
+      a: 'Dos. El primero cuando mi amiga me llamó para preguntarme si me interesaría trabajar como administrativo. Activum estaba en una sala pequeña oscura cuadrada junto al patio de luces y la cocina, y Juan Trocóniz le preguntó a mi amiga si estaría interesado. No sé qué vio Montse Ribó en mí, pero me contrató. Y la segunda, el paso de comercial de CAB a controlar los más de 6.000 activos que tenía en aquel momento InmoCaixa. Se marchaba Natalia Castelló y pensaron en mí para dar el salto a las 9 provincias en las que Activum gestionaba el producto de InmoCaixa. Durante algo más de 5 años fui «Producto InmoCaixa».',
     },
     {
       q: '¿Qué es lo que más disfrutas de tu trabajo al frente del área de Sistemas?',
-      a: 'Que tengo contacto con todas las áreas, trato con mucha gente y tengo una visión más completa del trabajo de los demás. Antes, como administrativo de producto, estaba más limitado.',
+      a: 'Que tengo contacto con todas las áreas, trato con mucha gente y tengo una visión más completa del trabajo de los demás. Antes, como administrativo de producto adjudicado, estaba más limitado al trato con el equipo comercial y administración de ventas.',
     },
     {
-      q: 'Fuera del trabajo, ¿cómo es Daniel?',
-      a: 'Soy muy casero. Para desconectar al 100%, casa, sofá y tele. Y si hablamos del Dani fuera del trabajo: familia, amigos, mi proyecto de domótica en casa, una cena. Y, en secreto, las series de abogados y los libros de John Grisham.',
+      q: 'Muchas veces el trabajo de Sistemas sucede «entre bambalinas». ¿Qué parte del trabajo del equipo crees que no se ve y merece más reconocimiento?',
+      a: 'No sé si estoy de acuerdo con esa afirmación. Supongo que todo el mundo entiende que, si tiene acceso a SharePoint, su cuenta le permite acceder al correo, a los programas ofimáticos, puede hacer llamadas, tiene un ordenador y un teléfono con los que trabajar… que todo eso no es por arte de magia y hay gente detrás trabajando para ello. Pero si no se lo habían planteado, lo reivindico ahora: estamos aquí desde Sistemas haciendo que todo esto funcione.',
     },
     {
-      q: 'Si pudieras darle un consejo al Daniel de hace 20 años, ¿cuál sería?',
-      a: 'Que fuera valiente y saliera fuera a estudiar o trabajar. Pero sa roqueta (Mallorca) tira mucho: un mallorquín viaja por todo el mundo, pero siempre vuelve a la isla.',
+      q: '¿Cómo ha evolucionado el área de Sistemas en los últimos años y hacia dónde crees que va?',
+      a: 'Llevo relativamente poco, pero sí que tenemos que ir hacia una gestión más tecnológica. Muchos procesos son manuales, mucha información guardada en Excel del que hay que ir tirando para buscar algunos datos. Tenemos que darle una vuelta al departamento.',
+    },
+    {
+      q: '¿Cuál ha sido el proyecto, reto o momento profesional que más te ha marcado dentro de Activum?',
+      a: 'Me han marcado la elección para llevar el producto de InmoCaixa, el premio «Mejor Actitud 2021» elegido por los compañeros —déjame dar las gracias de nuevo, soy muy hablador pero en ese momento no supe qué decir y creo que no di suficientemente las gracias. GRACIAS—. Y para acabar, este último cambio a Sistemas.',
+    },
+    {
+      q: 'Desde tu punto de vista, ¿cómo ayuda el área de Sistemas al día a día del resto de equipos?',
+      a: 'Intentamos que todo funcione lo mejor posible. Hay problemas que escapan a nuestro control —dependemos de proveedores telefónicos, informáticos, de software…— pero en lo que depende de Activum, se intenta que esté todo a punto para que cada uno pueda desempeñar su trabajo.',
+    },
+    {
+      q: '¿Qué proyecto o reto te hace especial ilusión de cara al futuro?',
+      a: 'Conseguir implementar herramientas MDM o EMM. Para no andar con tecnicismos: herramientas que permiten al departamento configurar ordenadores y móviles en remoto, ahorrando horas de trabajo. Creas los perfiles necesarios —por ejemplo, Comerciales— y todos los usuarios bajo ese perfil tienen una configuración pensada para ellos.',
+    },
+    {
+      q: 'Fuera del trabajo, ¿cómo es Daniel? ¿Qué te gusta hacer para desconectar?',
+      a: 'Soy muy casero. Si estamos hablando de desconectar al 100%, casa, sofá y tele. Si hablamos del Dani fuera del trabajo: familia, amigos, mi proyecto de domótica en casa, una cena.',
+    },
+    {
+      q: '¿Tienes alguna afición, hobby o pasión que poca gente conozca?',
+      a: 'Las series de abogados. Y los libros de John Grisham.',
+    },
+    {
+      q: 'Si pudieras volver atrás y darle un consejo al Daniel de hace 20 años, ¿qué le dirías?',
+      a: 'Que fuera valiente y saliera fuera a estudiar y/o trabajar. Pero sa roqueta (Mallorca) tira mucho. Un mallorquín saldrá de viaje, irá por todo el mundo, pero vuelve a sa roqueta.',
+    },
+    {
+      q: '¿Qué valor o palabra crees que define mejor a Activum?',
+      a: 'Familia.',
+    },
+    {
+      q: '¿Qué te gustaría que el resto de compañeros pensara cuando escucha «equipo de Sistemas»?',
+      a: 'Mejor si no lo piensan, eso es que tienen algún problema y me llaman, jajaja. Pues que estamos aquí para ayudarles en sus problemas y hacerles el día más fácil.',
+    },
+    {
+      q: '¿Hay algún compañero, equipo o área que te haya sorprendido especialmente durante tu etapa en Activum?',
+      a: 'No voy a dar nombres. Mi abuela decía que se dice el pecado, pero no el pecador. Esas personas ya lo saben. Las llevo muy muy dentro. Gracias.',
+    },
+    {
+      q: '¿Qué destacarías de trabajar en una compañía como Activum?',
+      a: 'La cercanía y el trato con los demás. No me he encontrado aún con nadie con quien no puedas hablar. De abajo hacia arriba y al revés.',
+    },
+    {
+      q: 'Si tuvieras que resumir tu trayectoria profesional en una frase, ¿cuál sería?',
+      a: 'Siempre abierto a los cambios y aprovechando las coyunturas que la vida te ofrece.',
+    },
+    {
+      q: 'Y para terminar: después de todas las etapas, cambios y reinvenciones vividas… ¿qué has aprendido del camino?',
+      a: 'A adaptarse. A cambiar el chip y ponerse cuanto antes con las exigencias del puesto. No crear resistencias. Lo conocido nos es fácil, los cambios cuestan, y si encima no ponemos de nuestra parte, peor.',
     },
   ];
   const mob = useIsMobile();
@@ -1124,15 +1180,15 @@ const PrimeraBody = () => {
             por proyectos inesperados, cambios profesionales y muchas reinvenciones hasta
             convertirse en una de las personas con mayor visión transversal de Activum.
           </p>
-          {qa.slice(0, 3).map((item, i) => <QABlock key={i} {...item} />)}
+          {qa.slice(0, 4).map((item, i) => <QABlock key={i} {...item} />)}
 
           <blockquote style={{ fontFamily: T.serif, fontSize: '27px', fontStyle: 'italic',
             fontWeight: 300, lineHeight: 1.35, color: T.negro, margin: '14px 0 32px',
             paddingLeft: '22px', borderLeft: `3px solid ${T.acento}` }}>
-            «Siempre abierto a los cambios y aprovechando las coyunturas que la vida te ofrece.»
+            «De 4 horitas para ayudar a los comerciales… a estar aquí como sujeto de esta primera entrevista.»
           </blockquote>
 
-          {qa.slice(3).map((item, i) => <QABlock key={i} {...item} />)}
+          {qa.slice(4).map((item, i) => <QABlock key={i+4} {...item} />)}
 
           <div style={{ background: T.negro, borderRadius: '8px', padding: '28px 32px',
             marginTop: '12px', textAlign: 'center' }}>
