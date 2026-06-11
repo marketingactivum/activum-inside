@@ -14,12 +14,14 @@ const FrontCard = ({ s, go, size = 'md', imgId, imgSrc }) => {
   }[size];
   return (
     <article style={{ display: 'flex', flexDirection: 'column' }}>
-      {imgSrc
-        ? <img src={imgSrc} alt={s.title} style={{ width: '100%', aspectRatio: conf.ratio,
-            objectFit: 'cover', display: 'block', borderRadius: '4px' }} />
-        : <Slot id={imgId || `front-${s.id}`} ratio={conf.ratio} dark={s.tone === 'dark'}
-            radius={4} label="Sube una imagen" />
-      }
+      <div onClick={() => go(s.id)} style={{ cursor: 'pointer' }}>
+        {imgSrc
+          ? <img src={imgSrc} alt={s.title} style={{ width: '100%', aspectRatio: conf.ratio,
+              objectFit: 'cover', display: 'block', borderRadius: '4px' }} />
+          : <Slot id={imgId || `front-${s.id}`} ratio={conf.ratio} dark={s.tone === 'dark'}
+              radius={4} label="Sube una imagen" />
+        }
+      </div>
       <div onClick={() => go(s.id)}
         onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
         style={{ paddingTop: '14px', cursor: 'pointer' }}>
@@ -71,7 +73,7 @@ const LeadRow = ({ s, go, imageSide = 'left', imgId, imgSrc }) => {
   const [hov, setHov] = React.useState(false);
   const isVideo = s.kind === 'video';
   const image = (
-    <div style={{ position: 'relative', borderRadius: '4px', overflow: 'hidden' }}>
+    <div onClick={() => go(s.id)} style={{ position: 'relative', borderRadius: '4px', overflow: 'hidden', cursor: 'pointer' }}>
       {imgSrc
         ? <img src={imgSrc} alt={s.title} style={{ width: '100%', aspectRatio: '16 / 10',
             objectFit: 'cover', display: 'block', borderRadius: '4px' }} />
