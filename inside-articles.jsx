@@ -464,8 +464,13 @@ const MundoBody = () => {
                   {clubs.map((c, i) => (
                     <a key={i} href={c.url} target="_blank" rel="noopener"
                       style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 400,
-                        color: T.acentoLight, textDecoration: 'none' }}>
-                      {c.nombre} →
+                        color: T.acentoLight, textDecoration: 'none',
+                        display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill={T.acentoLight}
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 3a2 2 0 0 0-2 2v7.586l-1.293-1.293a2 2 0 0 0-2.828 2.828l4.5 4.5A6 6 0 0 0 11.627 21H13a6 6 0 0 0 6-6v-4a2 2 0 0 0-2-2 2 2 0 0 0-2-2 2 2 0 0 0-2-2H9zm0 2h4v5h2V9a1 1 0 0 1 1 1v1h1a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-1.373A4 4 0 0 1 9.12 18.88l-4.5-4.5a.5.5 0 0 1 .035-.743.5.5 0 0 1 .672.036L7.5 15.828A1 1 0 0 0 9 15V5z"/>
+                      </svg>
+                      {c.nombre}
                     </a>
                   ))}
                 </div>
