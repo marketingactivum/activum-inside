@@ -1375,16 +1375,21 @@ const GaleriaBody = () => {
   const mob = useIsMobile();
   const [lightbox, setLightbox] = React.useState(null);
   const fotos = [
-    { src: 'assets/galeria/gal-1.jpg', pos: 'center 65%' },
-    { src: 'assets/galeria/gal-2.jpg', pos: 'center center' },
-    { src: 'assets/galeria/gal-3.jpg', pos: 'center 40%' },
-    { src: 'assets/galeria/gal-4.jpg', pos: 'center 35%' },
-    { src: 'assets/galeria/gal-5.jpg', pos: 'center 40%' },
-    { src: 'assets/galeria/gal-6.jpg', pos: 'center 30%' },
-    { src: 'assets/galeria/gal-7.jpg', pos: 'center center' },
-    { src: 'assets/galeria/gal-8.jpg', pos: 'center center' },
-    { src: 'assets/galeria/gal-9.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-7.jpg',  pos: 'center center' },
+    { src: 'assets/galeria/gal-2.jpg',  pos: 'center center' },
+    { src: 'assets/galeria/gal-13.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-4.jpg',  pos: 'center 35%' },
+    { src: 'assets/galeria/gal-9.jpg',  pos: 'center center' },
+    { src: 'assets/galeria/gal-14.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-1.jpg',  pos: 'center 65%' },
+    { src: 'assets/galeria/gal-11.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-5.jpg',  pos: 'center 40%' },
     { src: 'assets/galeria/gal-10.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-3.jpg',  pos: 'center 40%' },
+    { src: 'assets/galeria/gal-15.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-8.jpg',  pos: 'center center' },
+    { src: 'assets/galeria/gal-6.jpg',  pos: 'center 30%' },
+    { src: 'assets/galeria/gal-12.jpg', pos: 'center center' },
   ];
   return (
   <div>
