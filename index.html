@@ -191,7 +191,7 @@ const Sidebar = ({ view, go, open, setOpen }) => {
 /* ════════ App shell ════════ */
 const App = () => {
   const mob = useIsMobile();
-  const [view, setView] = React.useState(() => localStorage.getItem('inside_view') || 'portada');
+  const [view, setView] = React.useState('portada');
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   const go = v => {
