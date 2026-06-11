@@ -1381,6 +1381,10 @@ const GaleriaBody = () => {
     { src: 'assets/galeria/gal-4.jpg', pos: 'center 35%' },
     { src: 'assets/galeria/gal-5.jpg', pos: 'center 40%' },
     { src: 'assets/galeria/gal-6.jpg', pos: 'center 30%' },
+    { src: 'assets/galeria/gal-7.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-8.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-9.jpg', pos: 'center center' },
+    { src: 'assets/galeria/gal-10.jpg', pos: 'center center' },
   ];
   return (
   <div>
