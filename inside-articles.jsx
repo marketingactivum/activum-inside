@@ -1542,6 +1542,18 @@ const BuzonForm = () => {
           onFocus={e => e.target.style.borderColor = T.acento}
           onBlur={e => e.target.style.borderColor = 'rgba(31,29,26,0.18)'} />
       </div>
+      {/* Cláusula informativa RGPD — Art. 13 Reglamento (UE) 2016/679 */}
+      <p style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 300, color: T.negro50,
+        lineHeight: 1.55, margin: '0 0 16px', padding: '12px 14px',
+        background: T.beige1, borderRadius: '6px', borderLeft: `3px solid ${T.beige2}` }}>
+        <b style={{ fontWeight: 500 }}>Protección de datos (Art. 13 RGPD):</b> los datos que
+        facilitas serán tratados por Activum para gestionar tu participación en la revista interna,
+        bajo la base legal de interés legítimo (Art. 6.1.f RGPD). Tu nombre es opcional. Puedes
+        ejercer tus derechos de acceso, rectificación y supresión escribiendo a{' '}
+        <a href="mailto:comunicacion@activum.es" style={{ color: T.acento }}>
+          comunicacion@activum.es
+        </a>.
+      </p>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         gap: '16px', flexWrap: 'wrap' }}>
         <span style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 300, color: T.negro50,

@@ -472,6 +472,11 @@
         this._setError('Drop a PNG, JPEG, WebP, or AVIF image.');
         return;
       }
+      const MAX_BYTES = 20 * 1024 * 1024; // 20 MB
+      if (file.size > MAX_BYTES) {
+        this._setError('Image too large — maximum 20 MB.');
+        return;
+      }
       // toDataUrl can take hundreds of ms on a large photo. A Clear or a
       // newer drop during that window would be clobbered when this await
       // resumes — bump + capture a generation so stale encodes bail.

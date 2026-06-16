@@ -4,8 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Activum Inside — Revista interna</title>
-<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@500&display=swap" rel="stylesheet">
 <style>
+/* Albert Sans — self-hosted, sin transferencia a Google */
+@font-face {
+  font-family: 'Albert Sans';
+  src: url('vendor/fonts/albert-sans-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
 @font-face {
   font-family: 'Roboto Serif';
   src: url('fonts/RobotoSerif-VariableFont_GRAD_opsz_wdth_wght.ttf') format('truetype');
@@ -33,289 +38,44 @@ body { background: #F5F3F2; font-family: 'Roboto', sans-serif; -webkit-font-smoo
 ::-webkit-scrollbar-track { background: #EBE3DB; }
 ::-webkit-scrollbar-thumb { background: #D4C3B3; border-radius: 4px; }
 ::selection { background: rgba(142,45,68,0.18); }
-/* image-slot — estética Activum */
 image-slot::part(frame) { background: var(--slot-bg, #EBE3DB) !important; }
 image-slot::part(empty) { color: var(--slot-ink, #8F8D8C) !important; font-family: 'Roboto', sans-serif; }
 image-slot::part(ring) { border-color: rgba(31,29,26,0.22) !important; }
+#edit-toggle { position: fixed; right: 18px; bottom: 18px; z-index: 200;
+  font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; background: #1F1D1A; color: #F5F3F2; border: none;
+  border-radius: 9999px; padding: 12px 22px; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(31,29,26,0.28); transition: background 200ms; }
+#edit-toggle:hover { background: #8E2D44; }
+body.editing #edit-toggle { background: #8E2D44; }
 body.editing [contenteditable="true"] { outline: 1px dashed rgba(142,45,68,0.45);
   outline-offset: 3px; border-radius: 2px; cursor: text; transition: outline-color 150ms; }
 body.editing [contenteditable="true"]:hover { outline-color: rgba(142,45,68,0.85); }
 body.editing [contenteditable="true"]:focus { outline: 2px solid #8E2D44;
   background: rgba(142,45,68,0.05); }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 </style>
-<!-- Persistence polyfill: provides window.omelette via localStorage so image
-     uploads and text edits survive page reloads outside the design tool. -->
+<!-- Polyfill localStorage (imágenes + textos editables, sin servidor) -->
 <script src="omelette-polyfill.js"></script>
+<!-- Componente image-slot (subida de imágenes drag & drop) -->
 <script src="image-slot.js"></script>
+<!-- Sanitizador HTML (prevención XSS en modo edición) -->
+<script src="vendor/dompurify.js"></script>
+<!-- React 18 + ReactDOM (self-hosted) -->
 <script src="vendor/react.js"></script>
 <script src="vendor/react-dom.js"></script>
-<script src="vendor/babel.min.js"></script>
 </head>
 <body>
 <div id="root"></div>
 
-<script type="text/babel" src="inside-core.jsx"></script>
-<script type="text/babel" src="inside-portada.jsx"></script>
-<script type="text/babel" src="inside-articles.jsx"></script>
-<script type="text/babel">
+<!-- Módulos compilados (JSX → JS, sin Babel en runtime) -->
+<script src="inside-core.js"></script>
+<script src="inside-portada.js"></script>
+<script src="inside-articles.js"></script>
+<script src="inside-shell.js"></script>
 
-const HEADER_H = 92;
-const HEADER_H_MOB = 60;
-const NAV_W = 290;
-
-/* ════════ Cabecera superior ════════ */
-const Masthead = ({ go, menuOpen, setMenuOpen }) => {
-  const mob = useIsMobile();
-  return (
-    <header style={{ position: 'fixed', top: 0, left: 0, right: 0,
-      height: (mob ? HEADER_H_MOB : HEADER_H) + 'px',
-      zIndex: 60, background: T.blanco, borderBottom: `1px solid ${T.beige2}`,
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: mob ? '0 16px' : '0' }}>
-
-      {mob ? (
-        /* ── Mobile header ── */
-        <>
-          <div onClick={() => go('portada')} style={{ cursor: 'pointer', display: 'flex',
-            alignItems: 'baseline', gap: '6px' }}>
-            <span style={{ fontFamily: T.albert, fontSize: '22px', fontWeight: 500,
-              letterSpacing: '0.08em', textTransform: 'uppercase', color: T.negro }}>Activum</span>
-            <span style={{ fontFamily: T.serif, fontSize: '22px', fontWeight: 300,
-              fontStyle: 'italic', color: T.negro }}>Inside</span>
-          </div>
-          <button onClick={() => setMenuOpen(!menuOpen)}
-            style={{ background: 'none', border: 'none', cursor: 'pointer',
-              padding: '8px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
-            {menuOpen
-              ? <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                  stroke={T.negro} strokeWidth="2" strokeLinecap="round">
-                  <path d="M3 3l16 16M19 3L3 19"/>
-                </svg>
-              : [0,1,2].map(i => <span key={i} style={{ display: 'block', width: '22px',
-                  height: '2px', background: T.negro, borderRadius: '2px' }} />)
-            }
-          </button>
-        </>
-      ) : (
-        /* ── Desktop header ── */
-        <>
-          <div onClick={() => go('portada')}
-            style={{ width: NAV_W + 'px', flexShrink: 0, display: 'flex', alignItems: 'center',
-              padding: '0 26px', cursor: 'pointer' }}>
-            <img src="assets/logo-positive.svg" alt="Activum" style={{ height: '54px', display: 'block' }} />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',
-            alignItems: 'flex-end', textAlign: 'right', padding: '0 36px' }}>
-            <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 500,
-              letterSpacing: '0.14em', textTransform: 'uppercase', color: T.negro,
-              whiteSpace: 'nowrap' }}>Edición {EDITION.num}</div>
-            <div style={{ fontFamily: T.sans, fontSize: '11px', fontWeight: 300,
-              color: T.negro50, marginTop: '4px', whiteSpace: 'nowrap' }}>{EDITION.date}</div>
-          </div>
-          <div onClick={() => go('portada')}
-            style={{ position: 'absolute', left: '50%', top: '50%',
-              transform: 'translate(-50%,-50%)', cursor: 'pointer',
-              display: 'flex', alignItems: 'baseline', gap: '9px' }}>
-            <span style={{ fontFamily: T.albert, fontSize: '32px', fontWeight: 500,
-              letterSpacing: '0.08em', textTransform: 'uppercase', color: T.negro }}>Activum</span>
-            <span style={{ fontFamily: T.serif, fontSize: '32px', fontWeight: 300,
-              fontStyle: 'italic', color: T.negro, letterSpacing: '0.01em' }}>Inside</span>
-          </div>
-        </>
-      )}
-    </header>
-  );
-};
-
-/* ════════ Menú lateral ════════ */
-const navItemStyle = (active) => ({
-  width: '100%', textAlign: 'left', display: 'flex', gap: '12px', alignItems: 'baseline',
-  background: active ? 'rgba(142,45,68,0.28)' : 'transparent', border: 'none',
-  borderLeft: active ? `3px solid ${T.acento}` : '3px solid transparent',
-  cursor: 'pointer', padding: '11px 23px', transition: 'background 200ms',
-});
-const sectionLabel = {
-  fontFamily: T.sans, fontSize: '9px', fontWeight: 600, letterSpacing: '0.18em',
-  textTransform: 'uppercase', color: 'rgba(245,243,242,0.4)', padding: '16px 26px 8px',
-};
-
-const Sidebar = ({ view, go, open, setOpen }) => {
-  const mob = useIsMobile();
-  const NavBtn = ({ s, mark }) => {
-    const active = view === s.id;
-    return (
-      <button onClick={() => { go(s.id); if (mob) setOpen(false); }}
-        style={navItemStyle(active)}
-        onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(245,243,242,0.06)'; }}
-        onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent'; }}>
-        <span style={{ fontFamily: T.serif, fontSize: '13px', fontWeight: 400,
-          color: active ? T.acentoLight : (mark ? T.acentoLight : 'rgba(245,243,242,0.45)'),
-          minWidth: '18px', fontVariantNumeric: 'tabular-nums' }}>{mark || s.num}</span>
-        <span style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: active ? 500 : 300,
-          color: active ? T.blanco : 'rgba(245,243,242,0.78)', lineHeight: 1.3 }}>
-          {s.section}
-        </span>
-      </button>
-    );
-  };
-
-  if (mob && !open) return null;
-
-  const sidebarStyle = mob
-    ? { position: 'fixed', top: HEADER_H_MOB + 'px', left: 0, right: 0, bottom: 0,
-        zIndex: 55, background: T.negro,
-        backgroundImage: 'url("assets/pattern-dark.svg")', backgroundSize: '420px' }
-    : { position: 'fixed', top: HEADER_H + 'px', left: 0, bottom: 0, width: NAV_W + 'px',
-        background: T.negro, backgroundImage: 'url("assets/pattern-dark.svg")',
-        backgroundSize: '420px', zIndex: 50 };
-
-  return (
-    <aside style={sidebarStyle}>
-      <div style={{ position: 'absolute', inset: 0, background: 'rgba(31,29,26,0.90)' }} />
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column',
-        height: '100%', overflowY: 'auto', paddingBottom: '24px' }}>
-        {!mob && <div style={{ fontFamily: T.serif, fontSize: '20px', fontWeight: 300,
-          color: T.blanco, padding: '24px 26px 6px' }}>Menú</div>}
-        <div style={sectionLabel}>Sumario</div>
-        <nav style={{ flexShrink: 0 }}>
-          {SECTIONS.map(s => <NavBtn key={s.id} s={s} />)}
-        </nav>
-        <div style={sectionLabel}>Promoción</div>
-        {PROMOS.map(s => <NavBtn key={s.id} s={s} mark="◆" />)}
-      </div>
-    </aside>
-  );
-};
-
-/* ════════ App shell ════════ */
-const App = () => {
-  const mob = useIsMobile();
-  const [view, setView] = React.useState('portada');
-  const [menuOpen, setMenuOpen] = React.useState(false);
-
-  const go = v => {
-    setView(v);
-    setMenuOpen(false);
-    localStorage.setItem('inside_view', v);
-  };
-
-  React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [view]);
-
-  const headerH = mob ? HEADER_H_MOB : HEADER_H;
-
-  return (
-    <div>
-      <Masthead go={go} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Sidebar view={view} go={go} open={menuOpen} setOpen={setMenuOpen} />
-      <main id="main-scroll" style={{
-        marginLeft: mob ? 0 : NAV_W + 'px',
-        paddingTop: headerH + 'px',
-        minHeight: '100vh', background: T.blanco }}>
-        <div key={view} style={{
-          maxWidth: '1080px', margin: '0 auto',
-          padding: mob ? '24px 16px 60px' : '44px 56px 80px' }}>
-          {view === 'portada'
-            ? <Portada go={go} />
-            : <Article id={view} go={go} />}
-        </div>
-      </main>
-    </div>
-  );
-};
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
-
-
-<!-- ════════ Edición directa de textos (persistente) ════════ -->
-<script>
-(function () {
-  const FILE = '.text-edits.state.json';
-  let store = {};
-  const canWrite = () => !!(window.omelette && window.omelette.writeFile);
-
-  fetch(FILE).then(r => r.ok ? r.json() : null).then(j => {
-    if (j && typeof j === 'object') store = j;
-    instrument();
-  }).catch(() => {});
-
-  let saveT = null;
-  function save() {
-    if (!canWrite()) return;
-    clearTimeout(saveT);
-    saveT = setTimeout(() => { try { window.omelette.writeFile(FILE, JSON.stringify(store)); } catch (e) {} }, 400);
-  }
-
-  const INLINE = new Set(['A','B','I','EM','STRONG','SPAN','BR','U','SMALL','SUP','SUB','MARK']);
-  function collect(node, out) {
-    for (const el of node.children) {
-      const tag = el.tagName;
-      if (tag === 'IMAGE-SLOT' || tag === 'IMG' || tag === 'SVG' || tag === 'INPUT' ||
-          tag === 'TEXTAREA' || tag === 'SELECT') continue;
-      const kids = [...el.children];
-      const inlineOnly = kids.every(c => INLINE.has(c.tagName));
-      const hasText = [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim());
-      if (hasText && inlineOnly) out.push(el);
-      else collect(el, out);
-    }
-    return out;
-  }
-  const viewKey = () => localStorage.getItem('inside_view') || 'portada';
-  const content = () => { const m = document.getElementById('main-scroll'); return m && m.firstElementChild; };
-
-  let applying = false;
-  function instrument() {
-    const root = content(); if (!root) return;
-    const editing = canWrite() && document.body.classList.contains('editing');
-    const vk = viewKey();
-    applying = true;
-    collect(root, []).forEach((el, i) => {
-      const tid = vk + '::' + i;
-      el.dataset.tid = tid;
-      if (store[tid] != null && document.activeElement !== el && el.innerHTML !== store[tid]) {
-        el.innerHTML = store[tid];
-      }
-      if (editing) el.setAttribute('contenteditable', 'true');
-      else el.removeAttribute('contenteditable');
-    });
-    applying = false;
-  }
-
-  // Guardar al escribir
-  document.addEventListener('input', e => {
-    const el = e.target.closest && e.target.closest('[data-tid][contenteditable="true"]');
-    if (el) { store[el.dataset.tid] = el.innerHTML; save(); }
-  });
-
-  // En modo edición, el clic en un texto editable no navega
-  document.addEventListener('click', e => {
-    if (!document.body.classList.contains('editing')) return;
-    const t = e.target;
-    if (t.closest && t.closest('[contenteditable="true"]')) {
-      e.stopPropagation();
-      const a = t.closest('a'); if (a) e.preventDefault();
-    }
-  }, true);
-
-  // Reaplicar tras cambios de vista o re-render de React
-  let obsT = null;
-  function watch() {
-    const m = document.getElementById('main-scroll');
-    if (!m) { setTimeout(watch, 150); return; }
-    new MutationObserver(() => {
-      if (applying) return;
-      clearTimeout(obsT);
-      obsT = setTimeout(instrument, 80);
-    }).observe(m, { childList: true, subtree: true, characterData: true });
-    instrument();
-  }
-  watch();
-
-  // Botón de edición desactivado — los cambios se gestionan desde Claude Code
-})();
-</script>
+<!-- Edición directa de textos (persistente, con DOMPurify) -->
+<script src="text-edit.js"></script>
+<!-- Vercel Web Analytics (@vercel/analytics) -->
+<script src="vendor/vercel-analytics.js" defer></script>
 </body>
 </html>
