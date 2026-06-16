@@ -272,6 +272,5 @@ var generic_default = {
   track
 });
 //# sourceMappingURL=index.js.map
-  // Auto-init on Vercel
   if(typeof module.exports.inject==='function') module.exports.inject();
 })();
