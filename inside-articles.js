@@ -8,56 +8,59 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
 const ArticleHeader = ({
   s,
   wide = false
-}) => /*#__PURE__*/React.createElement("header", {
-  style: {
-    maxWidth: wide ? 'none' : '760px',
-    marginBottom: '36px'
-  }
-}, /*#__PURE__*/React.createElement("div", {
-  style: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '14px',
-    marginBottom: '20px'
-  }
-}, s.num && /*#__PURE__*/React.createElement("span", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: '40px',
-    fontWeight: 300,
-    color: T.beige2,
-    lineHeight: 1
-  }
-}, s.num), s.num && /*#__PURE__*/React.createElement("div", {
-  style: {
-    height: '28px',
-    width: '1px',
-    background: T.beige2
-  }
-}), /*#__PURE__*/React.createElement(Kicker, {
-  color: T.acento
-}, s.section, s.promo ? ' · Promoción destacada' : '')), /*#__PURE__*/React.createElement("h1", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: 'clamp(34px, 4.4vw, 54px)',
-    fontWeight: 300,
-    lineHeight: 1.08,
-    letterSpacing: '-0.02em',
-    color: T.negro,
-    margin: 0
-  }
-}, s.title), /*#__PURE__*/React.createElement("p", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: '20px',
-    fontStyle: 'italic',
-    fontWeight: 300,
-    lineHeight: 1.5,
-    color: T.negro80,
-    margin: '20px 0 0',
-    maxWidth: '60ch'
-  }
-}, s.dek));
+}) => {
+  const mob = useIsMobile();
+  return /*#__PURE__*/React.createElement("header", {
+    style: {
+      maxWidth: wide ? 'none' : '760px',
+      marginBottom: mob ? '24px' : '36px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '14px',
+      marginBottom: '20px'
+    }
+  }, s.num && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '40px',
+      fontWeight: 300,
+      color: T.beige2,
+      lineHeight: 1
+    }
+  }, s.num), s.num && /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: '28px',
+      width: '1px',
+      background: T.beige2
+    }
+  }), /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, s.section, s.promo ? ' · Promoción destacada' : '')), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: mob ? 'clamp(26px, 7vw, 34px)' : 'clamp(34px, 4.4vw, 54px)',
+      fontWeight: 300,
+      lineHeight: 1.08,
+      letterSpacing: '-0.02em',
+      color: T.negro,
+      margin: 0
+    }
+  }, s.title), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: mob ? '16px' : '20px',
+      fontStyle: 'italic',
+      fontWeight: 300,
+      lineHeight: 1.5,
+      color: T.negro80,
+      margin: '14px 0 0',
+      maxWidth: '60ch'
+    }
+  }, s.dek));
+};
 
 /* ── Nota de material pendiente ── */
 const PendingNote = ({
@@ -100,18 +103,27 @@ const PendingNote = ({
 
 /* ════════ 01 · Apertura de Dirección (vídeo + hitos) ════════ */
 const AperturaBody = () => {
+  const mob = useIsMobile();
   const hitos = [{
-    mes: 'Ene 2026',
-    titulo: 'Título del hito (máx. 6 palabras)'
+    tag: 'Living',
+    titulo: 'Dos activos operativos y rumbo a las 1.000 camas en 2027',
+    texto: 'Activum ya cuenta con dos activos preparados para operar dentro del segmento Living y avanza en la hoja de ruta que marca como objetivo las 1.000 camas operativas en 2027.'
   }, {
-    mes: 'Feb 2026',
-    titulo: 'Título del hito (máx. 6 palabras)'
+    tag: 'Asset Management',
+    titulo: 'Residencia de estudiantes en Sevilla con Straco y Yugo',
+    texto: 'La compañía desarrolla trabajos de asset management en una residencia de estudiantes en Sevilla, propiedad de Straco y operada por Yugo, optimizando su gestión y maximizando su valor.'
   }, {
-    mes: 'Mar 2026',
-    titulo: 'Título del hito (máx. 6 palabras)'
+    tag: 'Build to Sell',
+    titulo: 'Nuevo proyecto BTS en A Xubias, A Coruña',
+    texto: 'Se abre una nueva oportunidad en el modelo Build to Sell con el desarrollo previsto en A Xubias (A Coruña), ampliando la presencia de Activum en mercados estratégicos.'
   }, {
-    mes: 'Abr 2026',
-    titulo: 'Título del hito (máx. 6 palabras)'
+    tag: 'Carteras en alquiler',
+    titulo: 'Privatización de la cartera residencial de Argis',
+    texto: 'Activum está comercializando la privatización de una importante cartera de viviendas en alquiler propiedad de Argis, reforzando su capacidad para acompañar a propietarios institucionales en procesos complejos.'
+  }, {
+    tag: 'Iniciativa solidaria',
+    titulo: 'Kilómetros que se convierten en becas comedor para Honduras',
+    texto: 'Los kilómetros recorridos por los empleados, con un objetivo de 1.000 km que irán desbloqueando donaciones por hitos, de la mano de Almas Inquietas y la Fundación Verón.'
   }];
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -119,76 +131,61 @@ const AperturaBody = () => {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      position: 'relative'
+      position: 'relative',
+      width: '100%',
+      aspectRatio: '16 / 9',
+      borderRadius: '8px',
+      overflow: 'hidden',
+      background: T.negro,
+      boxShadow: '0 8px 40px rgba(31,29,26,0.14)'
     }
-  }, /*#__PURE__*/React.createElement(Slot, {
-    id: "aperturaMain",
-    ratio: "4 / 3",
-    dark: true,
-    radius: 6,
-    label: "Sube el p\xF3ster del v\xEDdeo"
-  }), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("iframe", {
+    src: "https://www.youtube.com/embed/cQYDi9yHUtg?rel=0&modestbranding=1",
+    title: "Mensaje de Cristina Balaguer \u2014 Activum Inside N\xBA1",
+    allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+    allowFullScreen: true,
     style: {
       position: 'absolute',
       inset: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      pointerEvents: 'none'
+      width: '100%',
+      height: '100%',
+      border: 'none'
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: '74px',
-      height: '74px',
-      borderRadius: '9999px',
-      background: T.acento,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      boxShadow: '0 8px 30px rgba(31,29,26,0.28)'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 0,
-      height: 0,
-      marginLeft: '6px',
-      borderTop: '13px solid transparent',
-      borderBottom: '13px solid transparent',
-      borderLeft: `21px solid ${T.blanco}`
-    }
-  })))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: '220px 1fr',
-      gap: '32px',
+      gridTemplateColumns: mob ? '1fr' : '200px 1fr',
+      gap: mob ? '20px' : '36px',
       alignItems: 'start',
-      marginTop: '32px'
+      marginTop: '36px'
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       background: T.beige0,
-      border: '1px solid rgba(31,29,26,0.10)',
-      borderRadius: '6px',
-      padding: '20px',
+      border: `1px solid rgba(31,29,26,0.10)`,
+      borderRadius: '8px',
+      padding: '24px 20px',
       textAlign: 'center'
     }
-  }, /*#__PURE__*/React.createElement(Slot, {
-    id: "aperturaFoto",
-    ratio: "1 / 1",
-    shape: "circle",
-    radius: 9999,
-    label: "Foto",
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/cristina-balaguer.jpg",
+    alt: "Cristina Balaguer",
     style: {
-      width: '150px',
-      height: '150px',
+      width: '130px',
+      height: '130px',
+      borderRadius: '9999px',
+      objectFit: 'cover',
+      objectPosition: 'center top',
+      display: 'block',
       margin: '0 auto 16px'
     }
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: T.serif,
-      fontSize: '20px',
+      fontSize: '18px',
       fontWeight: 400,
-      color: T.negro
+      color: T.negro,
+      lineHeight: 1.25
     }
   }, "Cristina Balaguer"), /*#__PURE__*/React.createElement(Kicker, {
     color: T.negro50,
@@ -196,40 +193,90 @@ const AperturaBody = () => {
       fontSize: '10px',
       marginTop: '6px'
     }
-  }, "Direcci\xF3n")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+  }, "Directora General")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
     style: {
       fontFamily: T.serif,
-      fontSize: '21px',
+      fontSize: '22px',
       fontStyle: 'italic',
       fontWeight: 300,
       lineHeight: 1.55,
       color: T.negro,
-      margin: '0 0 20px'
+      margin: '0 0 24px'
     }
-  }, "Texto de apoyo del mensaje de esta edici\xF3n (m\xE1x. 3-4 l\xEDneas). Tono cercano, inspirador y directo."), /*#__PURE__*/React.createElement(TextPh, {
-    lines: 4
-  }), /*#__PURE__*/React.createElement(PendingNote, null, "Material a aportar por Comunicaci\xF3n: ", /*#__PURE__*/React.createElement("b", null, "v\xEDdeo"), " (\u22481 min 30 s), ", /*#__PURE__*/React.createElement("b", null, "foto del protagonista"), " y ", /*#__PURE__*/React.createElement("b", null, "t\xEDtulo del mensaje"), ". Sustituyo el reproductor por el embed de YouTube/Vimeo cuando me pases el enlace."))), /*#__PURE__*/React.createElement("div", {
+  }, "La primera edici\xF3n de Activum Inside llega en un momento especialmente relevante para la compa\xF1\xEDa."), /*#__PURE__*/React.createElement("p", {
     style: {
-      marginTop: '48px',
-      paddingTop: '40px',
+      fontFamily: T.sans,
+      fontSize: '16px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 16px'
+    }
+  }, "Durante los \xFAltimos meses, Activum ha continuado avanzando en su estrategia de crecimiento, ampliando su presencia en nuevos mercados y consolidando nuevas l\xEDneas de actividad que marcar\xE1n el futuro de la organizaci\xF3n."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '16px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 16px'
+    }
+  }, "Uno de los \xE1mbitos que est\xE1 adquiriendo un peso cada vez m\xE1s relevante es el ", /*#__PURE__*/React.createElement("em", null, "Living"), ". La transformaci\xF3n de las formas de habitar, la movilidad profesional y el auge de nuevos modelos residenciales est\xE1n generando oportunidades que Activum lleva tiempo incorporando a su estrategia."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '16px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: 0
+    }
+  }, "Esta diversificaci\xF3n responde a una estrategia clara: seguir ampliando las capacidades de la compa\xF1\xEDa para acompa\xF1ar a inversores, propietarios y operadores en distintos momentos del ciclo inmobiliario, reforzando al mismo tiempo el posicionamiento de Activum como socio de referencia en el \xE1mbito residencial."))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: '36px',
+      padding: '32px 36px',
+      background: T.beige0,
+      borderRadius: '8px',
+      border: `1px solid rgba(31,29,26,0.08)`
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '16px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 16px'
+    }
+  }, "Pero el crecimiento de la compa\xF1\xEDa no se mide \xFAnicamente en proyectos y operaciones. Cristina tambi\xE9n aprovecha este primer n\xFAmero de Activum Inside para poner en valor uno de los aspectos que considera fundamentales para el futuro de la organizaci\xF3n: ", /*#__PURE__*/React.createElement("strong", null, "las personas"), "."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '16px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: 0
+    }
+  }, "Con el lanzamiento de Activum Inside, la compa\xF1\xEDa da un paso m\xE1s en su apuesta por la comunicaci\xF3n interna, creando un espacio para compartir proyectos, reconocer el trabajo de los equipos y reforzar una cultura corporativa basada en la colaboraci\xF3n, el conocimiento y una visi\xF3n compartida de futuro.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: '56px',
+      paddingTop: '44px',
       borderTop: `1px solid ${T.beige2}`
     }
   }, /*#__PURE__*/React.createElement(Kicker, {
     color: T.acento
-  }, "Los hitos del trimestre"), /*#__PURE__*/React.createElement("h3", {
+  }, "Hitos del trimestre"), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontFamily: T.serif,
-      fontSize: '27px',
+      fontSize: '28px',
       fontWeight: 400,
       color: T.negro,
-      margin: '10px 0 28px',
-      lineHeight: 1.2,
-      maxWidth: '24ch'
+      margin: '12px 0 36px',
+      lineHeight: 1.2
     }
   }, "Un trimestre en movimiento"), /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'relative',
-      paddingLeft: '34px'
+      paddingLeft: '36px'
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -244,146 +291,983 @@ const AperturaBody = () => {
     key: i,
     style: {
       position: 'relative',
-      paddingBottom: i === hitos.length - 1 ? 0 : '38px'
+      paddingBottom: i === hitos.length - 1 ? 0 : '40px'
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
-      left: '-34px',
-      top: '4px',
+      left: '-36px',
+      top: '5px',
       width: '16px',
       height: '16px',
       borderRadius: '9999px',
       background: T.acento,
       border: `3px solid ${T.blanco}`,
-      boxShadow: '0 0 0 1px ' + T.beige2
+      boxShadow: `0 0 0 1px ${T.beige2}`
     }
   }), /*#__PURE__*/React.createElement(Kicker, {
     color: T.acento,
     style: {
       fontSize: '10px'
     }
-  }, h.mes), /*#__PURE__*/React.createElement("h4", {
+  }, h.tag), /*#__PURE__*/React.createElement("h4", {
     style: {
       fontFamily: T.serif,
-      fontSize: '23px',
+      fontSize: '22px',
       fontWeight: 400,
       color: T.negro,
-      margin: '6px 0 12px',
-      lineHeight: 1.2
+      margin: '7px 0 10px',
+      lineHeight: 1.25
     }
-  }, h.titulo), /*#__PURE__*/React.createElement("div", {
+  }, h.titulo), /*#__PURE__*/React.createElement("p", {
     style: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 180px',
-      gap: '24px',
-      alignItems: 'start'
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.7,
+      color: T.negro80,
+      margin: 0,
+      maxWidth: '68ch'
     }
-  }, /*#__PURE__*/React.createElement(TextPh, {
-    lines: 2
-  }), /*#__PURE__*/React.createElement(Slot, {
-    id: `accionHito${i}`,
-    ratio: "4 / 3",
-    radius: 4,
-    label: "Imagen (opcional)"
-  }))))), /*#__PURE__*/React.createElement(PendingNote, null, "Material a aportar por Comunicaci\xF3n: listado de ", /*#__PURE__*/React.createElement("b", null, "3 a 5 hitos"), " con fecha, t\xEDtulo (m\xE1x. 6 palabras) y descripci\xF3n (2-3 l\xEDneas). Im\xE1genes opcionales por hito.")));
+  }, h.texto))))));
 };
 
-/* ════════ 03 · Activum en el Mundo (RSC) ════════ */
-const MundoBody = () => /*#__PURE__*/React.createElement("div", {
+/* ════════ 02 · Activum en el Mundo (RSC — Ride the Wave) ════════ */
+
+/* Vídeo tutorial con marco de teléfono móvil + botón pantalla completa */
+const PhoneFrame = ({
+  src,
+  width
+}) => /*#__PURE__*/React.createElement("div", {
   style: {
-    maxWidth: '900px'
+    position: 'relative',
+    width
   }
-}, /*#__PURE__*/React.createElement(Slot, {
-  id: "mundoMain",
-  ratio: "4 / 3",
-  radius: 6,
-  label: "Sube la imagen del reto"
-}), /*#__PURE__*/React.createElement("div", {
+}, /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 260 486",
+  xmlns: "http://www.w3.org/2000/svg",
   style: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '16px',
-    margin: '28px 0 36px'
+    width: '100%',
+    display: 'block',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 2,
+    pointerEvents: 'none'
   }
-}, [['—', 'Kilómetros recorridos'], ['—', 'Becas escolares'], ['—', 'Personas implicadas']].map(([n, l], i) => /*#__PURE__*/React.createElement("div", {
-  key: i,
+}, /*#__PURE__*/React.createElement("rect", {
+  x: "5",
+  y: "5",
+  width: "250",
+  height: "476",
+  rx: "32",
+  ry: "32",
+  fill: "none",
+  stroke: T.negro,
+  strokeWidth: "10"
+}), /*#__PURE__*/React.createElement("rect", {
+  x: "14",
+  y: "14",
+  width: "232",
+  height: "458",
+  rx: "24",
+  ry: "24",
+  fill: "none",
+  stroke: T.beige2,
+  strokeWidth: "2"
+}), /*#__PURE__*/React.createElement("rect", {
+  x: "98",
+  y: "19",
+  width: "64",
+  height: "9",
+  rx: "4.5",
+  fill: T.beige2
+}), /*#__PURE__*/React.createElement("rect", {
+  x: "92",
+  y: "455",
+  width: "76",
+  height: "9",
+  rx: "4.5",
+  fill: T.beige2
+})), /*#__PURE__*/React.createElement("div", {
   style: {
-    background: T.beige1,
-    borderRadius: '6px',
-    padding: '24px 20px',
-    textAlign: 'center'
+    margin: '38px 24px 34px',
+    borderRadius: '18px',
+    overflow: 'hidden',
+    position: 'relative',
+    zIndex: 1,
+    background: T.negro
   }
-}, /*#__PURE__*/React.createElement("div", {
+}, /*#__PURE__*/React.createElement("video", {
+  src: src,
+  controls: true,
+  playsInline: true,
   style: {
-    fontFamily: T.serif,
-    fontSize: '40px',
-    fontWeight: 300,
-    color: T.acento,
-    lineHeight: 1
+    width: '100%',
+    height: '100%',
+    display: 'block',
+    objectFit: 'cover',
+    objectPosition: 'center center'
   }
-}, n), /*#__PURE__*/React.createElement(Kicker, {
-  color: T.negro50,
-  style: {
-    fontSize: '10px',
-    marginTop: '8px'
-  }
-}, l)))), /*#__PURE__*/React.createElement("p", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: '21px',
-    fontStyle: 'italic',
-    fontWeight: 300,
-    lineHeight: 1.55,
-    color: T.negro,
-    maxWidth: '60ch',
-    margin: '0 0 22px'
-  }
-}, "Cada kil\xF3metro que recorremos se transforma en becas escolares para Honduras. Un reto solidario que une al equipo en torno a un prop\xF3sito com\xFAn."), /*#__PURE__*/React.createElement(TextPh, {
-  lines: 4
-}), /*#__PURE__*/React.createElement("div", {
-  style: {
-    marginTop: '32px',
-    paddingTop: '24px',
-    borderTop: `1px solid ${T.beige2}`
-  }
-}, /*#__PURE__*/React.createElement(Kicker, {
-  color: T.negro50,
-  style: {
-    fontSize: '10px'
-  }
-}, "Entidades colaboradoras"), /*#__PURE__*/React.createElement("div", {
-  style: {
-    display: 'flex',
-    gap: '16px',
-    marginTop: '14px'
-  }
-}, [0, 1].map(i => /*#__PURE__*/React.createElement("div", {
-  key: i,
-  style: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    background: T.beige0,
-    border: '1px solid rgba(31,29,26,0.10)',
-    borderRadius: '6px',
-    padding: '12px 18px'
-  }
-}, /*#__PURE__*/React.createElement(Slot, {
-  id: `mundoEnt${i}`,
-  ratio: "1 / 1",
-  radius: 4,
-  label: "Logo",
-  style: {
-    width: '40px'
-  }
-}), /*#__PURE__*/React.createElement("span", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: '15px',
-    color: T.negro50
-  }
-}, "Entidad pendiente"))))), /*#__PURE__*/React.createElement(PendingNote, null, "Me falta el texto completo de ", /*#__PURE__*/React.createElement("b", null, "Activum en el Mundo"), " (descripci\xF3n del reto, datos de impacto, entidades colaboradoras y fotos). Esta p\xE1gina queda preparada con esa estructura."));
+})));
+const PhoneTutorial = ({
+  src
+}) => {
+  const [open, setOpen] = React.useState(false);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '12px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement(PhoneFrame, {
+    src: src,
+    width: "200px"
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setOpen(true),
+    title: "Pantalla completa",
+    style: {
+      position: 'absolute',
+      bottom: '44px',
+      right: '-12px',
+      zIndex: 10,
+      width: '36px',
+      height: '36px',
+      borderRadius: '9999px',
+      background: T.negro,
+      border: `2px solid ${T.beige2}`,
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 2px 10px rgba(31,29,26,0.22)'
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 14 14",
+    fill: "none",
+    stroke: T.blanco,
+    strokeWidth: "1.6",
+    strokeLinecap: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M1 5V1h4M9 1h4v4M13 9v4H9M5 13H1V9"
+  })))), open && /*#__PURE__*/React.createElement("div", {
+    onClick: () => setOpen(false),
+    style: {
+      position: 'fixed',
+      inset: 0,
+      zIndex: 9999,
+      background: 'rgba(31,29,26,0.88)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: e => e.stopPropagation(),
+    style: {
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement(PhoneFrame, {
+    src: src,
+    width: "min(280px, 44vh)"
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setOpen(false),
+    style: {
+      position: 'absolute',
+      top: '-16px',
+      right: '-16px',
+      width: '36px',
+      height: '36px',
+      borderRadius: '9999px',
+      background: T.blanco,
+      border: 'none',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 2px 12px rgba(31,29,26,0.3)',
+      zIndex: 1
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "12",
+    height: "12",
+    viewBox: "0 0 12 12",
+    fill: "none",
+    stroke: T.negro,
+    strokeWidth: "2",
+    strokeLinecap: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M1 1l10 10M11 1L1 11"
+  }))))));
+};
+const MundoBody = () => {
+  const mob = useIsMobile();
+  const hitos = [{
+    km: '150 km',
+    emoji: '🌊',
+    label: 'Hito 1'
+  }, {
+    km: '350 km',
+    emoji: '🌊',
+    label: 'Hito 2'
+  }, {
+    km: '650 km',
+    emoji: '🌊',
+    label: 'Hito 3'
+  }, {
+    km: '1.000 km',
+    emoji: '🏁',
+    label: 'Meta'
+  }];
+  const clubs = [{
+    nombre: 'Activum Sobre Ruedas',
+    deporte: 'Ciclistas',
+    url: 'https://www.strava.com/clubs/2165995'
+  }, {
+    nombre: 'Activum en Ruta',
+    deporte: 'Runners, senderistas y caminantes',
+    url: 'https://www.strava.com/clubs/2165992'
+  }, {
+    nombre: 'Activum Bajo el Agua',
+    deporte: 'Nadadores',
+    url: 'https://www.strava.com/clubs/2165990'
+  }];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: '900px'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/mundo-portada.png",
+    alt: "Ride the Wave \u2014 S\xFAbete a la Ola",
+    style: {
+      width: '100%',
+      aspectRatio: '16 / 7',
+      objectFit: 'cover',
+      objectPosition: 'center top',
+      borderRadius: '8px',
+      display: 'block'
+    }
+  }), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '12px',
+      fontWeight: 500,
+      letterSpacing: '0.14em',
+      textTransform: 'uppercase',
+      color: T.negro50,
+      margin: '28px 0 0'
+    }
+  }, "Primera entrega \xB7 Verano 2026"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '22px',
+      fontStyle: 'italic',
+      fontWeight: 300,
+      lineHeight: 1.55,
+      color: T.negro,
+      margin: '14px 0 22px',
+      maxWidth: '62ch'
+    }
+  }, "Este verano, cada paso que damos tiene un destino. Y ese destino est\xE1 en Honduras."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 14px',
+      maxWidth: '70ch'
+    }
+  }, "Hay personas que un d\xEDa se dan cuenta de que vivir es urgente. Que el tiempo pasa y las excusas tambi\xE9n. Y entonces deciden que s\xED. Que merece la pena. Que el cuerpo aguanta y el prop\xF3sito empuja. Alejandro es una de esas personas. El 4 de julio sale de Praga en bicicleta. Su destino es Madrid. Son 4.000 kil\xF3metros. Setenta d\xEDas. Solo \xE9l, la bici y el camino."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 14px',
+      maxWidth: '70ch'
+    }
+  }, "Pero detr\xE1s de ese reto hay algo que lo hace diferente a cualquier aventura deportiva: cada kil\xF3metro que Alejandro recorra tiene un destinatario. Diecis\xE9is ni\xF1os y ni\xF1as en Honduras que este a\xF1o, gracias a lo que se recaude, tendr\xE1n asegurada su beca comedor durante un curso entero."), /*#__PURE__*/React.createElement("blockquote", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '26px',
+      fontStyle: 'italic',
+      fontWeight: 300,
+      lineHeight: 1.35,
+      color: T.negro,
+      margin: '28px 0 36px',
+      paddingLeft: '22px',
+      borderLeft: `3px solid ${T.acento}`
+    }
+  }, "\xABUn kil\xF3metro. Una beca. Un curso. Una vida que cambia de direcci\xF3n.\xBB"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: `1px solid ${T.beige2}`,
+      paddingTop: '36px',
+      marginTop: '8px'
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, "Almas Inquietas"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '26px',
+      fontWeight: 400,
+      color: T.negro,
+      margin: '10px 0 14px',
+      lineHeight: 1.2
+    }
+  }, "La asociaci\xF3n que convierte movimiento en impacto"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 14px',
+      maxWidth: '70ch'
+    }
+  }, "Alejandro pertenece a Almas Inquietas, una asociaci\xF3n que naci\xF3 con una idea tan sencilla como transformadora: el movimiento une. No hace falta ser deportista de \xE9lite. No hace falta cruzar Europa. Hace falta creer que cuando nos movemos juntos, el mundo se mueve con nosotros."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: 0,
+      maxWidth: '70ch'
+    }
+  }, "Han organizado retos solidarios, torneos, rutas. Y ahora lanzan su iniciativa m\xE1s ambiciosa: ", /*#__PURE__*/React.createElement("strong", null, "Ride the Wave"), ". Un reto que une deporte, comunidad y causa en una sola ola.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : '1fr 1fr',
+      gap: '10px',
+      marginTop: '28px',
+      marginBottom: '8px'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/mundo-foto-1.jpg",
+    alt: "Ride the Wave",
+    style: {
+      width: '100%',
+      aspectRatio: '4 / 3',
+      objectFit: 'cover',
+      objectPosition: 'center 35%',
+      borderRadius: '6px',
+      display: 'block'
+    }
+  }), /*#__PURE__*/React.createElement("img", {
+    src: "assets/mundo-foto-2.jpg",
+    alt: "Ride the Wave",
+    style: {
+      width: '100%',
+      aspectRatio: '4 / 3',
+      objectFit: 'cover',
+      objectPosition: 'center 65%',
+      borderRadius: '6px',
+      display: 'block'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: `1px solid ${T.beige2}`,
+      paddingTop: '36px',
+      marginTop: '36px'
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, "La causa"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '26px',
+      fontWeight: 400,
+      color: T.negro,
+      margin: '10px 0 14px',
+      lineHeight: 1.2
+    }
+  }, "Fundaci\xF3n Ver\xF3n y las becas comedor de Honduras"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : '1fr 200px',
+      gap: mob ? '16px' : '32px',
+      alignItems: 'start'
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 14px'
+    }
+  }, "Al otro lado del oc\xE9ano, la Fundaci\xF3n Ver\xF3n trabaja en Honduras para que la educaci\xF3n sea una puerta abierta para todos. Su programa de Beca Comedor garantiza que los alumnos puedan ir al colegio con las condiciones que necesitan para aprender. Porque a veces lo que un ni\xF1o necesita para llegar lejos es, simplemente, que alguien le asegure el punto de partida."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: 0
+    }
+  }, "El objetivo de Ride the Wave es recaudar ", /*#__PURE__*/React.createElement("strong", null, "4.000 euros"), ": una cifra que cubre las becas comedor de diecis\xE9is alumnos durante un a\xF1o completo.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1fr',
+      gap: '12px'
+    }
+  }, [['4.000 €', 'Objetivo de recaudación'], ['16', 'Becas comedor'], ['1 año', 'Cobertura completa']].map(([n, l], i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      background: T.beige1,
+      borderRadius: '6px',
+      padding: '18px 16px',
+      textAlign: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '28px',
+      fontWeight: 300,
+      color: T.acento,
+      lineHeight: 1
+    }
+  }, n), /*#__PURE__*/React.createElement(Kicker, {
+    color: T.negro50,
+    style: {
+      fontSize: '9px',
+      marginTop: '6px'
+    }
+  }, l)))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: `1px solid ${T.beige2}`,
+      paddingTop: '36px',
+      marginTop: '36px'
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, "Y aqu\xED entramos nosotros"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '26px',
+      fontWeight: 400,
+      color: T.negro,
+      margin: '10px 0 14px',
+      lineHeight: 1.2
+    }
+  }, "Los Clubs Deportivos Activum en Strava"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 22px',
+      maxWidth: '70ch'
+    }
+  }, "Activum se suma a Ride the Wave como empresa colaboradora. Por eso este verano nacen los Clubs Deportivos Activum en Strava. Tres espacios, un mismo prop\xF3sito. Da igual cu\xE1l sea tu deporte: hay un sitio para ti."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)',
+      gap: '12px',
+      marginBottom: '36px'
+    }
+  }, clubs.map((c, i) => /*#__PURE__*/React.createElement("a", {
+    key: i,
+    href: c.url,
+    target: "_blank",
+    rel: "noopener",
+    style: {
+      display: 'block',
+      background: T.beige0,
+      border: '1px solid rgba(31,29,26,0.10)',
+      borderRadius: '8px',
+      padding: '22px 18px',
+      textDecoration: 'none'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '17px',
+      fontWeight: 400,
+      color: T.negro,
+      marginBottom: '6px',
+      lineHeight: 1.2
+    }
+  }, c.nombre), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '12px',
+      fontWeight: 300,
+      color: T.negro50,
+      marginBottom: '14px'
+    }
+  }, c.deporte), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '11px',
+      fontWeight: 500,
+      color: T.acento,
+      letterSpacing: '0.06em'
+    }
+  }, "Unirse al club \u2192"))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: T.negro,
+      borderRadius: '10px',
+      overflow: 'hidden',
+      boxShadow: '0 4px 28px rgba(31,29,26,0.16)',
+      margin: '0 0 44px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '36px 40px 32px',
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      inset: 0,
+      background: T.negro
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      zIndex: 1
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acentoLight
+  }, "\xDAnete ahora"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '28px',
+      fontWeight: 400,
+      color: T.blanco,
+      margin: '10px 0 28px',
+      lineHeight: 1.2
+    }
+  }, "C\xF3mo unirte en 3 pasos"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '48px 1fr',
+      gap: '16px',
+      alignItems: 'start',
+      marginBottom: '28px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '48px',
+      height: '48px',
+      borderRadius: '9999px',
+      background: T.acento,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '22px',
+      fontWeight: 300,
+      color: T.blanco
+    }
+  }, "1")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '20px',
+      fontWeight: 400,
+      color: T.blanco,
+      marginBottom: '6px'
+    }
+  }, "Descarga Strava"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '14px',
+      fontWeight: 300,
+      lineHeight: 1.65,
+      color: 'rgba(245,243,242,0.78)',
+      margin: 0
+    }
+  }, "Si a\xFAn no la tienes, descarga la app gratuita en App Store o Google Play y crea tu cuenta."))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '48px 1fr',
+      gap: '16px',
+      alignItems: 'start',
+      marginBottom: '28px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '48px',
+      height: '48px',
+      borderRadius: '9999px',
+      background: T.acento,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '22px',
+      fontWeight: 300,
+      color: T.blanco
+    }
+  }, "2")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '20px',
+      fontWeight: 400,
+      color: T.blanco,
+      marginBottom: '6px'
+    }
+  }, "\xDAnete a tu club"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '14px',
+      fontWeight: 300,
+      lineHeight: 1.65,
+      color: 'rgba(245,243,242,0.78)',
+      margin: '0 0 12px'
+    }
+  }, "Accede al club que corresponda a tu deporte principal (o a los tres, que todo suma):"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '6px'
+    }
+  }, clubs.map((c, i) => /*#__PURE__*/React.createElement("a", {
+    key: i,
+    href: c.url,
+    target: "_blank",
+    rel: "noopener",
+    style: {
+      fontFamily: T.sans,
+      fontSize: '13px',
+      fontWeight: 400,
+      color: T.acentoLight,
+      textDecoration: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '6px'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/icono-clic.png",
+    alt: "",
+    style: {
+      width: '14px',
+      height: '14px',
+      objectFit: 'contain'
+    }
+  }), c.nombre))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '48px 1fr',
+      gap: '16px',
+      alignItems: 'start'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '48px',
+      height: '48px',
+      borderRadius: '9999px',
+      background: T.acento,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '22px',
+      fontWeight: 300,
+      color: T.blanco
+    }
+  }, "3")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '20px',
+      fontWeight: 400,
+      color: T.blanco,
+      marginBottom: '6px'
+    }
+  }, "Registra tus actividades"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '14px',
+      fontWeight: 300,
+      lineHeight: 1.65,
+      color: 'rgba(245,243,242,0.78)',
+      margin: '0 0 12px'
+    }
+  }, "Tienes dos opciones:"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: 'rgba(245,243,242,0.07)',
+      borderRadius: '6px',
+      padding: '14px 16px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '12px',
+      fontWeight: 600,
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      color: T.acentoLight,
+      marginBottom: '4px'
+    }
+  }, "En directo"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '13px',
+      fontWeight: 300,
+      lineHeight: 1.6,
+      color: 'rgba(245,243,242,0.75)',
+      margin: 0
+    }
+  }, "Abre Strava antes de empezar, pulsa el bot\xF3n de grabaci\xF3n y deja que registre tu recorrido autom\xE1ticamente.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: 'rgba(245,243,242,0.07)',
+      borderRadius: '6px',
+      padding: '14px 16px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '12px',
+      fontWeight: 600,
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      color: T.acentoLight,
+      marginBottom: '4px'
+    }
+  }, "A posteriori"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '13px',
+      fontWeight: 300,
+      lineHeight: 1.6,
+      color: 'rgba(245,243,242,0.75)',
+      margin: 0
+    }
+  }, "Si has salido sin el m\xF3vil, ve a \xAB+\xBB en la app, selecciona \xABRegistrar actividad manualmente\xBB, elige el tipo de deporte, a\xF1ade la distancia y la fecha."))), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '13px',
+      fontWeight: 400,
+      lineHeight: 1.6,
+      color: T.acentoLight,
+      margin: '14px 0 0'
+    }
+  }, "En ambos casos, a\xF1ade ", /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: T.blanco
+    }
+  }, "#ActivumRidesTheWave"), " en la descripci\xF3n de tu actividad."))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: '28px',
+      paddingTop: '24px',
+      borderTop: '1px solid rgba(245,243,242,0.12)'
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '13px',
+      fontWeight: 300,
+      lineHeight: 1.65,
+      color: 'rgba(245,243,242,0.65)',
+      margin: 0
+    }
+  }, "El contador oficial arranca el ", /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: T.blanco
+    }
+  }, "4 de julio"), ", pero no esperes hasta entonces. Desc\xE1rgate Strava ahora, \xFAnete a tu club y familiar\xEDzate con la app. \xA1As\xED el d\xEDa que Alejandro salga de Praga, t\xFA ya estar\xE1s listo para sumar desde el primer kil\xF3metro!"))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : '1fr 220px',
+      gap: mob ? '20px' : '36px',
+      alignItems: 'center',
+      marginBottom: '44px'
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, "Tutorial"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '24px',
+      fontWeight: 400,
+      color: T.negro,
+      margin: '10px 0 14px',
+      lineHeight: 1.2
+    }
+  }, "\xBFTienes dudas con Strava?"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '14px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: 0
+    }
+  }, "Hemos preparado un v\xEDdeo tutorial paso a paso para que no te quedes sin sumar. Aprender\xE1s a descargarte la app, unirte a los clubs y registrar actividades sin complicaciones.")), /*#__PURE__*/React.createElement(PhoneTutorial, {
+    src: "assets/tutorial-strava.mp4"
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: `1px solid ${T.beige2}`,
+      paddingTop: '36px',
+      marginTop: '8px'
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, "Nuestro reto colectivo"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '26px',
+      fontWeight: 400,
+      color: T.negro,
+      margin: '10px 0 14px',
+      lineHeight: 1.2
+    }
+  }, "1.000 km entre todos"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 28px',
+      maxWidth: '70ch'
+    }
+  }, "Mientras Alejandro pedalea de Praga a Madrid, nosotros pedaleamos, corremos y nadamos desde aqu\xED. El objetivo del equipo Activum este verano es llegar a 1.000 km colectivos entre todos los clubs. Cada vez que alcancemos un hito, Activum libera una parte de su donaci\xF3n a la Fundaci\xF3n Ver\xF3n."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+      gap: '12px'
+    }
+  }, hitos.map((h, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      background: i === hitos.length - 1 ? T.acento : T.beige1,
+      borderRadius: '8px',
+      padding: '22px 16px',
+      textAlign: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: i === hitos.length - 1 ? 'assets/icono-meta.png' : 'assets/hito.png',
+    alt: "",
+    style: {
+      height: '28px',
+      objectFit: 'contain',
+      display: 'block',
+      margin: '0 auto 8px',
+      filter: i === hitos.length - 1 ? 'brightness(0) invert(1)' : 'none'
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '10px',
+      fontWeight: 600,
+      letterSpacing: '0.14em',
+      textTransform: 'uppercase',
+      color: i === hitos.length - 1 ? 'rgba(245,243,242,0.75)' : T.negro50,
+      marginBottom: '6px'
+    }
+  }, h.label), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '26px',
+      fontWeight: 300,
+      color: i === hitos.length - 1 ? T.blanco : T.negro,
+      lineHeight: 1
+    }
+  }, h.km))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: T.beige1,
+      borderRadius: '8px',
+      padding: '32px 36px',
+      marginTop: '36px',
+      textAlign: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '22px',
+      fontStyle: 'italic',
+      fontWeight: 300,
+      color: T.negro,
+      margin: '0 0 14px',
+      lineHeight: 1.4
+    }
+  }, "Porque cada kil\xF3metro que recorremos se transforma en algo real."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '10px',
+      flexWrap: 'wrap',
+      marginBottom: '28px'
+    }
+  }, ['#RideTheWave', '#ActivumRidesTheWave', '#CadaKMSuma'].map(tag => /*#__PURE__*/React.createElement("span", {
+    key: tag,
+    style: {
+      fontFamily: T.sans,
+      fontSize: '12px',
+      fontWeight: 500,
+      color: T.acento,
+      background: 'rgba(142,45,68,0.09)',
+      borderRadius: '9999px',
+      padding: '6px 14px'
+    }
+  }, tag))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: `1px solid ${T.beige2}`,
+      paddingTop: '24px'
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.negro50,
+    style: {
+      fontSize: '9px'
+    }
+  }, "Entidades colaboradoras"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: '40px',
+      marginTop: '18px',
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/logo-almas-inquietas.png",
+    alt: "Almas Inquietas",
+    style: {
+      height: '60px',
+      objectFit: 'contain',
+      display: 'block'
+    }
+  }), /*#__PURE__*/React.createElement("img", {
+    src: "assets/logo-fundacion-veron.png",
+    alt: "Fundaci\xF3n Ver\xF3n",
+    style: {
+      height: '80px',
+      objectFit: 'contain',
+      display: 'block'
+    }
+  })))));
+};
 
 /* ════════ 04 · Wellbeing ════════ */
 const wbHeadCell = {
@@ -643,11 +1527,16 @@ const WellbeingBody = ({
   style: {
     maxWidth: '860px'
   }
-}, /*#__PURE__*/React.createElement(Slot, {
-  id: "wellbeingMain",
-  ratio: "4 / 3",
-  radius: 6,
-  label: "Imagen de apoyo"
+}, /*#__PURE__*/React.createElement("img", {
+  src: "assets/estres.jpg",
+  alt: "",
+  style: {
+    width: '100%',
+    aspectRatio: '4 / 3',
+    objectFit: 'cover',
+    borderRadius: '6px',
+    display: 'block'
+  }
 }), /*#__PURE__*/React.createElement("p", {
   style: {
     fontFamily: T.serif,
@@ -752,11 +1641,16 @@ const CuerpoBody = ({
   style: {
     maxWidth: '860px'
   }
-}, /*#__PURE__*/React.createElement(Slot, {
-  id: "cuerpoMain",
-  ratio: "4 / 3",
-  radius: 6,
-  label: "Imagen de apoyo"
+}, /*#__PURE__*/React.createElement("img", {
+  src: "assets/estirar.jpg",
+  alt: "",
+  style: {
+    width: '100%',
+    aspectRatio: '4 / 3',
+    objectFit: 'cover',
+    borderRadius: '6px',
+    display: 'block'
+  }
 }), /*#__PURE__*/React.createElement("p", {
   style: {
     fontFamily: T.serif,
@@ -848,22 +1742,27 @@ const CuerpoBody = ({
 
 /* ════════ 05 · Beneficios para Empleados ════════ */
 const BeneficiosBody = () => {
+  const mob = useIsMobile();
   const ofertas = [{
     cat: 'Moda y deporte',
     marca: 'Adidas',
-    desc: '30% en artículos seleccionados de la tienda online oficial y un 5% adicional en outlet ya rebajado. Ideal para nuestro reto de convertir km en becas.'
+    img: 'assets/logo-adidas.png',
+    desc: 'Prepárate para nuestro reto de convertir km en becas comedor en Honduras con este descuento del 30% en artículos seleccionados en la tienda online oficial de Adidas y un 5% adicional en artículos outlet ya rebajados. La actitud y las ganas de ayudar ya las tenemos… ahora sólo te faltan las zapatillas y la ropa. Corre (y nunca mejor dicho) y no dejes escapar este descuento.'
   }, {
     cat: 'Tecnología',
     marca: 'Samsung',
-    desc: 'Hasta un 29% en televisores seleccionados y hasta un 62% en otros modelos y barras de sonido. El Mundial, mejor en grande.'
+    img: 'assets/samsung.png',
+    desc: 'El Mundial, mejor en grande. Aprovecha los descuentos exclusivos de Samsung para empleados y disfruta de hasta un 29% en televisores seleccionados y hasta un 62% en otros modelos y barras de sonido. Porque hay goles, paradas… y polémicas arbitrales que merecen verse con la mejor calidad posible.'
   }, {
     cat: 'Viajes',
     marca: 'lastminute.com',
-    desc: 'Descuento exclusivo en vuelos y escapadas. Para esa escapada improvisada o el viaje que llevas tiempo queriendo hacer.'
+    img: 'assets/lastminute.jpg',
+    desc: 'Seguro que ya hay muchos de vosotros que ya tienen cerrado el verano… y luego estamos el resto, mirando vuelos un martes a las 23:47 "solo por curiosidad". Sea para una escapada improvisada, unas vacaciones en la playa o ese viaje que llevas tiempo queriendo hacer, aprovecha este descuento exclusivo de lastminute.com y empieza a preparar la maleta. Ámsterdam, Baleares, Nueva York… el problema no será encontrar destino, sino decidir cuál elegir.'
   }, {
     cat: 'Formación · Idiomas',
     marca: 'Babbel',
-    desc: 'Hasta un 60% en el aprendizaje de idiomas. Solo necesitas 10 minutos al día… y un poco de valentía.'
+    img: 'assets/babbel.jpg',
+    desc: 'Siempre decimos que algún día aprenderemos inglés, italiano o francés… hasta que llega el verano y acabamos comunicándonos con un "thank you", una sonrisa y lenguaje de signos. Aunque, viendo que hasta Antonio Lodeiro se ha lanzado ya con el holandés, quizá ha llegado el momento de dejar las excusas atrás. Aprovecha este descuento de hasta el 60% en Babbel. Solo necesitas 10 minutos al día… y un poco de valentía.'
   }];
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -919,13 +1818,24 @@ const BeneficiosBody = () => {
       marginTop: '26px',
       opacity: 0.92
     }
-  }))), /*#__PURE__*/React.createElement("div", {
+  }))), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '26px',
+      fontWeight: 400,
+      fontStyle: 'italic',
+      lineHeight: 1.35,
+      color: T.negro,
+      margin: '40px 0 20px',
+      maxWidth: '60ch'
+    }
+  }, "\xBFTodav\xEDa no conoces la plataforma de descuentos para empleados de Activum?"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: '1fr 300px',
-      gap: '32px',
-      alignItems: 'center',
-      margin: '36px 0 40px'
+      gridTemplateColumns: mob ? '1fr' : '1fr 300px',
+      gap: mob ? '20px' : '32px',
+      alignItems: 'start',
+      marginBottom: '44px'
     }
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -934,22 +1844,31 @@ const BeneficiosBody = () => {
       fontWeight: 300,
       lineHeight: 1.75,
       color: T.negro80,
-      margin: '0 0 12px'
+      margin: '0 0 14px'
     }
-  }, "Todos los empleados tenemos acceso gratuito a una plataforma exclusiva con descuentos y ventajas en primeras marcas de moda, tecnolog\xEDa, viajes, ocio y formaci\xF3n. Solo necesitas registrarte con tu ", /*#__PURE__*/React.createElement("b", null, "correo corporativo"), " y empezar a disfrutar."), /*#__PURE__*/React.createElement("p", {
+  }, "Desde hace unas semanas todos los empleados tenemos acceso gratuito a una plataforma exclusiva con descuentos y ventajas en primeras marcas de moda, tecnolog\xEDa, viajes, ocio, formaci\xF3n y mucho m\xE1s."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontFamily: T.sans,
-      fontSize: '13px',
+      fontSize: '15px',
       fontWeight: 300,
-      lineHeight: 1.6,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 14px'
+    }
+  }, "El acceso es muy sencillo: solo necesitas registrarte con tu ", /*#__PURE__*/React.createElement("strong", null, "correo corporativo"), " y comenzar a disfrutar de todas las ventajas disponibles."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '14px',
+      fontWeight: 300,
+      lineHeight: 1.7,
       color: T.negro50,
       margin: 0
     }
-  }, "Cada mes se incorporan nuevas ofertas: merece la pena echar un vistazo antes de reservar vacaciones, renovar tecnolog\xEDa o darte un capricho.")), /*#__PURE__*/React.createElement("div", {
+  }, "Adem\xE1s, cada mes se incorporan nuevas ofertas y promociones, por lo que merece la pena echarle un vistazo de vez en cuando\u2026 especialmente antes de reservar unas vacaciones, renovar tecnolog\xEDa o darte alg\xFAn capricho.")), /*#__PURE__*/React.createElement("div", {
     style: {
       background: T.beige1,
       borderRadius: '8px',
-      padding: '24px'
+      padding: '26px'
     }
   }, /*#__PURE__*/React.createElement(Kicker, {
     color: T.acento,
@@ -961,11 +1880,34 @@ const BeneficiosBody = () => {
       fontFamily: T.sans,
       fontSize: '13px',
       fontWeight: 300,
-      lineHeight: 1.55,
+      lineHeight: 1.6,
       color: T.negro80,
-      margin: '10px 0 16px'
+      margin: '12px 0 8px'
     }
-  }, "Desde la web o el apartado de enlaces de Factorial."), /*#__PURE__*/React.createElement("a", {
+  }, "Desde la web:"), /*#__PURE__*/React.createElement("a", {
+    href: "https://activum.benefitsatwork.es",
+    target: "_blank",
+    rel: "noopener",
+    style: {
+      display: 'block',
+      fontFamily: T.sans,
+      fontSize: '13px',
+      fontWeight: 500,
+      color: T.acento,
+      textDecoration: 'none',
+      marginBottom: '16px',
+      wordBreak: 'break-all'
+    }
+  }, "activum.benefitsatwork.es \u2192"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '13px',
+      fontWeight: 300,
+      lineHeight: 1.6,
+      color: T.negro80,
+      margin: '0 0 20px'
+    }
+  }, "O directamente desde el apartado de enlaces de la pantalla de inicio de ", /*#__PURE__*/React.createElement("strong", null, "Factorial"), "."), /*#__PURE__*/React.createElement("a", {
     href: "https://activum.benefitsatwork.es",
     target: "_blank",
     rel: "noopener",
@@ -986,35 +1928,49 @@ const BeneficiosBody = () => {
     }
   }, "Ir a la plataforma \u2192"))), /*#__PURE__*/React.createElement(Kicker, {
     color: T.acento
-  }, "Descuentos destacados de esta edici\xF3n"), /*#__PURE__*/React.createElement("div", {
+  }, "Descuentos destacados de esta edici\xF3n"), /*#__PURE__*/React.createElement("p", {
     style: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gap: '18px',
-      marginTop: '18px'
+      fontFamily: T.sans,
+      fontSize: '14px',
+      fontWeight: 300,
+      lineHeight: 1.65,
+      color: T.negro80,
+      margin: '12px 0 28px',
+      maxWidth: '70ch'
+    }
+  }, "Y para pon\xE9rtelo todav\xEDa m\xE1s f\xE1cil, hemos seleccionado algunos de los descuentos destacados que puedes encontrar ahora mismo en la plataforma:"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px'
     }
   }, ofertas.map((o, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     style: {
       display: 'grid',
-      gridTemplateColumns: '130px 1fr',
+      gridTemplateColumns: mob ? '1fr' : '260px 1fr',
+      gap: '0',
       background: T.beige0,
       border: '1px solid rgba(31,29,26,0.10)',
       borderRadius: '8px',
       overflow: 'hidden'
     }
-  }, /*#__PURE__*/React.createElement(Slot, {
-    id: `benLogo${i}`,
-    ratio: "1 / 1",
-    shape: "rect",
-    radius: 0,
-    label: "Logo",
+  }, /*#__PURE__*/React.createElement("img", {
+    src: o.img,
+    alt: o.marca,
     style: {
-      height: '100%'
+      width: '100%',
+      height: mob ? '180px' : '100%',
+      objectFit: 'cover',
+      display: 'block'
     }
   }), /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: '18px 20px'
+      padding: '28px 32px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: '10px'
     }
   }, /*#__PURE__*/React.createElement(Kicker, {
     color: T.acento,
@@ -1024,17 +1980,17 @@ const BeneficiosBody = () => {
   }, o.cat), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: T.serif,
-      fontSize: '20px',
+      fontSize: '24px',
       fontWeight: 400,
       color: T.negro,
-      margin: '7px 0 9px'
+      lineHeight: 1.1
     }
   }, o.marca), /*#__PURE__*/React.createElement("p", {
     style: {
       fontFamily: T.sans,
-      fontSize: '13px',
+      fontSize: '14px',
       fontWeight: 300,
-      lineHeight: 1.55,
+      lineHeight: 1.65,
       color: T.negro80,
       margin: 0
     }
@@ -1044,33 +2000,76 @@ const BeneficiosBody = () => {
       fontSize: '12px',
       fontWeight: 300,
       color: T.negro50,
-      margin: '20px 0 0',
+      margin: '24px 0 0',
       textAlign: 'center'
     }
-  }, "Cada empleado encuentra el c\xF3digo de descuento en su cuenta personal de la plataforma."));
+  }, "Encuentra el c\xF3digo de descuento en tu cuenta personal de la plataforma."));
 };
 
 /* ════════ 06 · En Primera Persona (entrevista) ════════ */
 const PrimeraBody = () => {
   const qa = [{
-    q: 'Si te hubieran dicho hace años que acabarías siendo responsable de Sistemas, ¿qué habrías pensado?',
-    a: 'En mis dos primeros años como colaborador, ni se me pasaba por la cabeza. Antes de la pandemia pensé «¿y cuándo se jubile Javier, quién hará su trabajo? Podría ser yo». Pero cuando me lo propusieron, no me lo esperaba.'
+    q: 'Si alguien te hubiera dicho hace años que acabarías siendo responsable de Sistemas en Activum, ¿qué habrías pensado?',
+    a: 'En mis 2 primeros años como colaborador ni pasárseme por la cabeza. Pero te voy a dar una exclusiva: antes de la pandemia, un día en esas relaciones de ideas que pasan por mi cabeza, pensé «¿y cuándo se jubile Javier quién va a hacer su trabajo? Pues podría ser yo». Pero la verdad, en el momento que se me propuso, veníamos de la convulsión con InmoCaixa, no me lo esperaba ni pensaba que pudiera ocurrir.'
   }, {
-    q: 'Llegaste a tener una granja de caracoles. ¿Cómo surgió aquella aventura?',
-    a: 'Ni lo sé. En Mallorca se consume mucho caracol todo el año. Se había montado una granja grande en un pueblo cercano, en alguna conversación saldría el tema, me puse a investigar y al poco estaba presentando papeles y el plan de negocio en el banco.'
+    q: 'Hubo un momento en tu vida en el que incluso llegaste a tener una granja de caracoles. ¿Cómo surgió aquella aventura y qué recuerdas de esa etapa?',
+    a: 'Ni lo sé. Intento recordar qué me llevó a esa decisión y no lo recuerdo. En Mallorca se consume mucho caracol, no solo el día de San Marcos, todo el año: caragolades, tapas, en arrós brut… En aquel momento se había montado una granja grande en un pueblo cercano y supongo que en alguna conversación saldría el tema. Me puse a investigar y al poco estaba presentando papeles en la Conselleria y el plan de negocio en el banco.'
   }, {
-    q: 'Mirándolo con perspectiva, ¿qué aprendizaje te dejó?',
-    a: 'A ser constante y a priorizar. Los caracoles comían cada día, eso no podías dejar de hacerlo. Los demás trabajos los ibas encajando, pero ese sí o sí se tenía que hacer.'
+    q: 'Mirándolo con perspectiva, ¿qué aprendizaje te dejó aquella experiencia y qué sigues aplicando hoy en tu trabajo?',
+    a: 'A ser constante y a priorizar. Los caracoles comían cada día, no podías dejar de hacer eso. En la granja había muchos otros trabajos que hacer también, pero ese, sí o sí, se tenía que hacer. Lo podías hacer por la mañana, a mediodía o a última hora, pero había que hacerlo. Los demás trabajos los ibas encajando.'
+  }, {
+    q: 'Tu trayectoria profesional ha pasado por distintas etapas y reinvenciones. ¿Cómo definirías ese recorrido?',
+    a: 'No te sabría decir, creo que no he sido consciente de ello. Han venido y las he ido asumiendo, era lo que tocaba. Ahora que me lo haces pensar, no sé si he sido a lo mejor algo inconsciente. De 4 horitas para ayudar a los comerciales de Mallorca y sacarme un dinero extra —pues con la granja no llegaba— a estar ahora aquí como sujeto de esta primera entrevista.'
+  }, {
+    q: '¿Hay alguna decisión o cambio profesional que haya marcado un antes y un después en tu carrera?',
+    a: 'Dos. El primero cuando mi amiga me llamó para preguntarme si me interesaría trabajar como administrativo. Activum estaba en una sala pequeña oscura cuadrada junto al patio de luces y la cocina, y Juan Trocóniz le preguntó a mi amiga si estaría interesado. No sé qué vio Montse Ribó en mí, pero me contrató. Y la segunda, el paso de comercial de CAB a controlar los más de 6.000 activos que tenía en aquel momento InmoCaixa. Se marchaba Natalia Castelló y pensaron en mí para dar el salto a las 9 provincias en las que Activum gestionaba el producto de InmoCaixa. Durante algo más de 5 años fui «Producto InmoCaixa».'
   }, {
     q: '¿Qué es lo que más disfrutas de tu trabajo al frente del área de Sistemas?',
-    a: 'Que tengo contacto con todas las áreas, trato con mucha gente y tengo una visión más completa del trabajo de los demás. Antes, como administrativo de producto, estaba más limitado.'
+    a: 'Que tengo contacto con todas las áreas, trato con mucha gente y tengo una visión más completa del trabajo de los demás. Antes, como administrativo de producto adjudicado, estaba más limitado al trato con el equipo comercial y administración de ventas.'
   }, {
-    q: 'Fuera del trabajo, ¿cómo es Daniel?',
-    a: 'Soy muy casero. Para desconectar al 100%, casa, sofá y tele. Y si hablamos del Dani fuera del trabajo: familia, amigos, mi proyecto de domótica en casa, una cena. Y, en secreto, las series de abogados y los libros de John Grisham.'
+    q: 'Muchas veces el trabajo de Sistemas sucede «entre bambalinas». ¿Qué parte del trabajo del equipo crees que no se ve y merece más reconocimiento?',
+    a: 'No sé si estoy de acuerdo con esa afirmación. Supongo que todo el mundo entiende que, si tiene acceso a SharePoint, su cuenta le permite acceder al correo, a los programas ofimáticos, puede hacer llamadas, tiene un ordenador y un teléfono con los que trabajar… que todo eso no es por arte de magia y hay gente detrás trabajando para ello. Pero si no se lo habían planteado, lo reivindico ahora: estamos aquí desde Sistemas haciendo que todo esto funcione.'
   }, {
-    q: 'Si pudieras darle un consejo al Daniel de hace 20 años, ¿cuál sería?',
-    a: 'Que fuera valiente y saliera fuera a estudiar o trabajar. Pero sa roqueta (Mallorca) tira mucho: un mallorquín viaja por todo el mundo, pero siempre vuelve a la isla.'
+    q: '¿Cómo ha evolucionado el área de Sistemas en los últimos años y hacia dónde crees que va?',
+    a: 'Llevo relativamente poco, pero sí que tenemos que ir hacia una gestión más tecnológica. Muchos procesos son manuales, mucha información guardada en Excel del que hay que ir tirando para buscar algunos datos. Tenemos que darle una vuelta al departamento.'
+  }, {
+    q: '¿Cuál ha sido el proyecto, reto o momento profesional que más te ha marcado dentro de Activum?',
+    a: 'Me han marcado la elección para llevar el producto de InmoCaixa, el premio «Mejor Actitud 2021» elegido por los compañeros —déjame dar las gracias de nuevo, soy muy hablador pero en ese momento no supe qué decir y creo que no di suficientemente las gracias. GRACIAS—. Y para acabar, este último cambio a Sistemas.'
+  }, {
+    q: 'Desde tu punto de vista, ¿cómo ayuda el área de Sistemas al día a día del resto de equipos?',
+    a: 'Intentamos que todo funcione lo mejor posible. Hay problemas que escapan a nuestro control —dependemos de proveedores telefónicos, informáticos, de software…— pero en lo que depende de Activum, se intenta que esté todo a punto para que cada uno pueda desempeñar su trabajo.'
+  }, {
+    q: '¿Qué proyecto o reto te hace especial ilusión de cara al futuro?',
+    a: 'Conseguir implementar herramientas MDM o EMM. Para no andar con tecnicismos: herramientas que permiten al departamento configurar ordenadores y móviles en remoto, ahorrando horas de trabajo. Creas los perfiles necesarios —por ejemplo, Comerciales— y todos los usuarios bajo ese perfil tienen una configuración pensada para ellos.'
+  }, {
+    q: 'Fuera del trabajo, ¿cómo es Daniel? ¿Qué te gusta hacer para desconectar?',
+    a: 'Soy muy casero. Si estamos hablando de desconectar al 100%, casa, sofá y tele. Si hablamos del Dani fuera del trabajo: familia, amigos, mi proyecto de domótica en casa, una cena.'
+  }, {
+    q: '¿Tienes alguna afición, hobby o pasión que poca gente conozca?',
+    a: 'Las series de abogados. Y los libros de John Grisham.'
+  }, {
+    q: 'Si pudieras volver atrás y darle un consejo al Daniel de hace 20 años, ¿qué le dirías?',
+    a: 'Que fuera valiente y saliera fuera a estudiar y/o trabajar. Pero sa roqueta (Mallorca) tira mucho. Un mallorquín saldrá de viaje, irá por todo el mundo, pero vuelve a sa roqueta.'
+  }, {
+    q: '¿Qué valor o palabra crees que define mejor a Activum?',
+    a: 'Familia.'
+  }, {
+    q: '¿Qué te gustaría que el resto de compañeros pensara cuando escucha «equipo de Sistemas»?',
+    a: 'Mejor si no lo piensan, eso es que tienen algún problema y me llaman, jajaja. Pues que estamos aquí para ayudarles en sus problemas y hacerles el día más fácil.'
+  }, {
+    q: '¿Hay algún compañero, equipo o área que te haya sorprendido especialmente durante tu etapa en Activum?',
+    a: 'No voy a dar nombres. Mi abuela decía que se dice el pecado, pero no el pecador. Esas personas ya lo saben. Las llevo muy muy dentro. Gracias.'
+  }, {
+    q: '¿Qué destacarías de trabajar en una compañía como Activum?',
+    a: 'La cercanía y el trato con los demás. No me he encontrado aún con nadie con quien no puedas hablar. De abajo hacia arriba y al revés.'
+  }, {
+    q: 'Si tuvieras que resumir tu trayectoria profesional en una frase, ¿cuál sería?',
+    a: 'Siempre abierto a los cambios y aprovechando las coyunturas que la vida te ofrece.'
+  }, {
+    q: 'Y para terminar: después de todas las etapas, cambios y reinvenciones vividas… ¿qué has aprendido del camino?',
+    a: 'A adaptarse. A cambiar el chip y ponerse cuanto antes con las exigencias del puesto. No crear resistencias. Lo conocido nos es fácil, los cambios cuestan, y si encima no ponemos de nuestra parte, peor.'
   }];
+  const mob = useIsMobile();
   return /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: '860px'
@@ -1078,20 +2077,26 @@ const PrimeraBody = () => {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: '280px 1fr',
-      gap: '40px',
+      gridTemplateColumns: mob ? '1fr' : '280px 1fr',
+      gap: mob ? '24px' : '40px',
       alignItems: 'start'
     }
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
+    style: mob ? {} : {
       position: 'sticky',
       top: '40px'
     }
-  }, /*#__PURE__*/React.createElement(Slot, {
-    id: "primeraMain",
-    ratio: "4 / 5",
-    radius: 6,
-    label: "Foto de Daniel"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/daniel-ovejero.jpg",
+    alt: "Daniel Ovejero",
+    style: {
+      width: '100%',
+      aspectRatio: '4 / 5',
+      objectFit: 'cover',
+      objectPosition: 'center top',
+      display: 'block',
+      borderRadius: '6px'
+    }
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: '16px'
@@ -1118,7 +2123,7 @@ const PrimeraBody = () => {
       color: T.negro80,
       margin: '0 0 30px'
     }
-  }, "No todos los caminos son lineales. El de Daniel Ovejero, nuestro Dani, ha pasado por proyectos inesperados, cambios profesionales y muchas reinvenciones hasta convertirse en una de las personas con mayor visi\xF3n transversal de Activum."), qa.slice(0, 3).map((item, i) => /*#__PURE__*/React.createElement(QABlock, _extends({
+  }, "No todos los caminos son lineales. El de Daniel Ovejero, nuestro Dani, ha pasado por proyectos inesperados, cambios profesionales y muchas reinvenciones hasta convertirse en una de las personas con mayor visi\xF3n transversal de Activum."), qa.slice(0, 4).map((item, i) => /*#__PURE__*/React.createElement(QABlock, _extends({
     key: i
   }, item))), /*#__PURE__*/React.createElement("blockquote", {
     style: {
@@ -1132,8 +2137,8 @@ const PrimeraBody = () => {
       paddingLeft: '22px',
       borderLeft: `3px solid ${T.acento}`
     }
-  }, "\xABSiempre abierto a los cambios y aprovechando las coyunturas que la vida te ofrece.\xBB"), qa.slice(3).map((item, i) => /*#__PURE__*/React.createElement(QABlock, _extends({
-    key: i
+  }, "\xABDe 4 horitas para ayudar a los comerciales\u2026 a estar aqu\xED como sujeto de esta primera entrevista.\xBB"), qa.slice(4).map((item, i) => /*#__PURE__*/React.createElement(QABlock, _extends({
+    key: i + 4
   }, item))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: T.negro,
@@ -1186,21 +2191,35 @@ const QABlock = ({
 
 /* ════════ 07 · Bit a Bit (infografía de phishing) ════════ */
 const BitabitBody = () => {
-  const alertas = [{
-    n: '1',
-    t: 'El remitente improbable',
-    d: '¿Realmente esa persona se pondría en contacto conmigo para pedirme esto? Dirección no te pide comprar tarjetas regalo ni enviar dinero.'
-  }, {
-    n: '2',
-    t: 'La composición del mensaje',
-    d: 'Qué dice, cómo lo dice, quién lo manda y el @dominio desde el que se envía. Todo el conjunto importa.'
-  }, {
-    n: '3',
-    t: 'Enlaces y peticiones',
-    d: 'La inclusión de enlaces y cualquier petición de dinero o de datos personales debe ponerte en alerta.'
-  }];
-  const senales = [['El remitente', 'Antes de escribirte a ti, Dirección se escribiría entre ellos. Si algo no es lógico, sospecha.'], ['El dominio (tras la @)', 'Fíjate en lo que aparece detrás —y a veces delante— de la @. En el 95% de los casos no tiene sentido.'], ['El cuerpo del correo', 'Escueto, sin formato, con faltas de ortografía, palabras poco habituales o traducciones literales del inglés.'], ['La urgencia', '«Actúa ya», «último aviso», «tu cuenta será bloqueada». Buscan que actúes sin pensar. Tómate un minuto.']];
+  const mob = useIsMobile();
   const pasos = ['No sigas interactuando: cierra la web o el mensaje abierto.', 'Elimina el correo (Mayús + Supr lo borra del todo, sin pasar por Eliminados).', 'Pasa un examen completo con Defender (Seguridad de Windows).', 'Avísanos para cerrar sesiones, revisar el doble factor y cambiar contraseñas.'];
+  const Screenshot = ({
+    src,
+    caption
+  }) => /*#__PURE__*/React.createElement("figure", {
+    style: {
+      margin: 0
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: src,
+    alt: caption,
+    style: {
+      width: '100%',
+      display: 'block',
+      borderRadius: '6px',
+      border: '1px solid rgba(31,29,26,0.12)',
+      boxShadow: '0 2px 12px rgba(31,29,26,0.08)'
+    }
+  }), caption && /*#__PURE__*/React.createElement("figcaption", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '11px',
+      fontWeight: 300,
+      color: T.negro50,
+      marginTop: '6px',
+      letterSpacing: '0.02em'
+    }
+  }, caption));
   return /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: '900px'
@@ -1223,118 +2242,137 @@ const BitabitBody = () => {
       fontWeight: 300,
       lineHeight: 1.7,
       color: T.negro80,
-      maxWidth: '62ch',
-      margin: '0 0 36px'
+      maxWidth: '66ch',
+      margin: '0 0 44px'
     }
-  }, "El ", /*#__PURE__*/React.createElement("b", null, "phishing"), " (del ingl\xE9s, \xABpescar\xBB) es el enga\xF1o para robar informaci\xF3n haci\xE9ndose pasar por alguien de confianza \u2014por correo, SMS o WhatsApp\u2014. La buena noticia: casi siempre deja pistas. Aprender a verlas evita incidentes."), /*#__PURE__*/React.createElement(Kicker, {
+  }, "El ", /*#__PURE__*/React.createElement("strong", null, "phishing"), " es el enga\xF1o para robar informaci\xF3n haci\xE9ndose pasar por alguien de confianza. La buena noticia: casi siempre deja pistas. Aprender a verlas evita incidentes. Aqu\xED tienes ejemplos reales que han llegado a nuestros buzones."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: '44px'
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
     color: T.acento
-  }, "Tres alertas rojas"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      gap: '16px',
-      margin: '16px 0 40px'
-    }
-  }, alertas.map(a => /*#__PURE__*/React.createElement("div", {
-    key: a.n,
-    style: {
-      background: T.negro,
-      borderRadius: '8px',
-      padding: '24px',
-      position: 'relative',
-      overflow: 'hidden'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, "Se\xF1al 1 \u2014 El remitente"), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontFamily: T.serif,
-      fontSize: '52px',
-      fontWeight: 300,
-      color: T.acentoLight,
-      lineHeight: 0.9,
-      marginBottom: '12px'
-    }
-  }, a.n), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: T.serif,
-      fontSize: '18px',
-      fontWeight: 400,
-      color: T.blanco,
-      marginBottom: '8px',
-      lineHeight: 1.25
-    }
-  }, a.t), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontFamily: T.sans,
-      fontSize: '13px',
-      fontWeight: 300,
-      lineHeight: 1.6,
-      color: 'rgba(245,243,242,0.7)',
-      margin: 0
-    }
-  }, a.d)))), /*#__PURE__*/React.createElement(Kicker, {
-    color: T.acento
-  }, "D\xF3nde fijarse"), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      fontFamily: T.serif,
-      fontSize: '26px',
+      fontSize: '24px',
       fontWeight: 400,
       color: T.negro,
-      margin: '10px 0 20px'
+      margin: '10px 0 12px'
     }
-  }, "Anatom\xEDa de un correo sospechoso"), /*#__PURE__*/React.createElement("div", {
+  }, "\xBFQui\xE9n te escribe realmente?"), /*#__PURE__*/React.createElement("p", {
     style: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gap: '14px',
-      marginBottom: '20px'
+      fontFamily: T.sans,
+      fontSize: '14px',
+      fontWeight: 300,
+      lineHeight: 1.7,
+      color: T.negro80,
+      margin: '0 0 20px',
+      maxWidth: '66ch'
     }
-  }, senales.map(([t, d], i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
+  }, "F\xEDjate en el dominio que aparece entre los s\xEDmbolos ", /*#__PURE__*/React.createElement("code", {
+    style: {
+      background: T.beige1,
+      padding: '1px 5px',
+      borderRadius: '3px',
+      fontSize: '13px'
+    }
+  }, "< >"), ". En el 95% de los casos no tiene ninguna relaci\xF3n con la empresa que supuestamente te escribe."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
-      gap: '14px',
-      alignItems: 'flex-start',
-      background: T.beige0,
-      border: '1px solid rgba(31,29,26,0.10)',
-      borderRadius: '6px',
-      padding: '18px 20px'
+      flexDirection: 'column',
+      gap: '10px'
     }
-  }, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement(Screenshot, {
+    src: "assets/bitabit/remitente-1-grupovia.png",
+    caption: "Grupo V\xEDa escribe a Daniel Ovejero desde @grupovia.eu \u2014 dominio desconocido."
+  }), /*#__PURE__*/React.createElement(Screenshot, {
+    src: "assets/bitabit/remitente-2-vikasrana.png",
+    caption: "vikasrana880@yahoo.com \u2014 una cuenta personal de Yahoo haci\xE9ndose pasar por empresa."
+  }), /*#__PURE__*/React.createElement(Screenshot, {
+    src: "assets/bitabit/remitente-3-advancedfleet.png",
+    caption: "Advanced Fleet Management Consulting desde @advancedfleetmanagementconsult.mdrctr.com \u2014 dominio largo y sin sentido."
+  }))), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontFamily: T.sans,
-      fontSize: '11px',
-      fontWeight: 600,
-      color: T.acento,
-      fontVariantNumeric: 'tabular-nums',
-      marginTop: '2px'
+      marginBottom: '44px'
     }
-  }, "0", i + 1), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, "Se\xF1al 2 \u2014 El cuerpo del mensaje"), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontFamily: T.serif,
-      fontSize: '17px',
+      fontSize: '24px',
       fontWeight: 400,
-      color: T.negro
+      color: T.negro,
+      margin: '10px 0 12px'
     }
-  }, t), /*#__PURE__*/React.createElement("p", {
+  }, "Escueto, en ingl\xE9s y lleno de enlaces raros"), /*#__PURE__*/React.createElement("p", {
     style: {
       fontFamily: T.sans,
-      fontSize: '13px',
+      fontSize: '14px',
       fontWeight: 300,
-      lineHeight: 1.55,
+      lineHeight: 1.7,
       color: T.negro80,
-      margin: '4px 0 0'
+      margin: '0 0 20px',
+      maxWidth: '66ch'
     }
-  }, d))))), /*#__PURE__*/React.createElement(Slot, {
-    id: "bitabitEj",
-    ratio: "16 / 6",
-    radius: 6,
-    label: "Ejemplo de dominio sospechoso"
-  }), /*#__PURE__*/React.createElement("div", {
+  }, "Los mensajes de phishing suelen ser muy cortos, mal redactados o directamente en otro idioma. Si incluyen enlaces largos o piden datos personales, para y sospecha."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px'
+    }
+  }, /*#__PURE__*/React.createElement(Screenshot, {
+    src: "assets/bitabit/cuerpo-email.png",
+    caption: "Mensaje en ingl\xE9s, tono formal forzado. Nadie leg\xEDtimo te escribe as\xED en fr\xEDo."
+  }), /*#__PURE__*/React.createElement(Screenshot, {
+    src: "assets/bitabit/cuerpo-email-completo.png",
+    caption: "El mismo correo completo: URLs de tracking, cursos FUNDAE inventados y tel\xE9fono de contacto falso."
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: '44px'
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, "Qu\xE9 hacer"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '24px',
+      fontWeight: 400,
+      color: T.negro,
+      margin: '10px 0 12px'
+    }
+  }, "Rep\xF3rtalo en Outlook en tres clics"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '14px',
+      fontWeight: 300,
+      lineHeight: 1.7,
+      color: T.negro80,
+      margin: '0 0 20px',
+      maxWidth: '66ch'
+    }
+  }, "No lo borres sin m\xE1s. Reportarlo ayuda a que los filtros de toda la empresa lo bloqueen autom\xE1ticamente en el futuro."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
+      gridTemplateColumns: mob ? '1fr' : '1fr 1fr',
+      gap: '12px',
+      marginBottom: '12px'
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Screenshot, {
+    src: "assets/bitabit/outlook-informe-boton.png",
+    caption: "1. Selecciona el correo y haz clic en \xABInforme\xBB en la barra superior."
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Screenshot, {
+    src: "assets/bitabit/outlook-informe-desplegable.png",
+    caption: "2. En el desplegable, elige \xABInformar de suplantaci\xF3n de identidad (phishing)\xBB."
+  }))), /*#__PURE__*/React.createElement(Screenshot, {
+    src: "assets/bitabit/outlook-confirmar-eliminar.png",
+    caption: "3. Confirma y el correo se eliminar\xE1 de forma permanente del buz\xF3n."
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : '1fr 1fr',
       gap: '20px',
-      margin: '40px 0 0',
+      margin: '0 0 0 0',
       alignItems: 'start'
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -1354,7 +2392,7 @@ const BitabitBody = () => {
       color: T.negro80,
       margin: '12px 0 14px'
     }
-  }, "No contestes al mensaje. Llama a tu responsable o al CAU para aclararlo, e inf\xF3rmalo como suplantaci\xF3n de identidad (bot\xF3n derecho \u2192 ", /*#__PURE__*/React.createElement("i", null, "Informar de phishing"), ")."), /*#__PURE__*/React.createElement("div", {
+  }, "No contestes al mensaje. Llama a tu responsable o al CAU para aclararlo."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'inline-flex',
       alignItems: 'center',
@@ -1392,8 +2430,7 @@ const BitabitBody = () => {
     style: {
       margin: '14px 0 0',
       padding: 0,
-      listStyle: 'none',
-      counterReset: 'step'
+      listStyle: 'none'
     }
   }, pasos.map((p, i) => /*#__PURE__*/React.createElement("li", {
     key: i,
@@ -1463,88 +2500,243 @@ const BitabitBody = () => {
 };
 
 /* ════════ 08 · Galería Activum ════════ */
-const GaleriaBody = () => /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-  style: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '12px'
-  }
-}, Array.from({
-  length: 9
-}).map((_, i) => /*#__PURE__*/React.createElement(Slot, {
-  key: i,
-  id: `gal${i}`,
-  ratio: "4 / 3",
-  radius: 4,
-  label: "Foto"
-}))), /*#__PURE__*/React.createElement(PendingNote, null, "Material a aportar por Comunicaci\xF3n: selecci\xF3n de ", /*#__PURE__*/React.createElement("b", null, "6 a 12 fotos"), " en alta resoluci\xF3n y pies de foto opcionales (m\xE1x. 10 palabras). Priorizar fotos de personas."), /*#__PURE__*/React.createElement("div", {
-  style: {
-    marginTop: '40px',
-    background: T.negro,
-    borderRadius: '8px',
-    padding: '40px 44px',
-    position: 'relative',
-    overflow: 'hidden'
-  }
-}, /*#__PURE__*/React.createElement("div", {
-  style: {
-    position: 'absolute',
-    inset: 0,
-    backgroundImage: 'url("assets/pattern-dark.svg")',
-    backgroundSize: '420px',
-    opacity: 0.16,
-    pointerEvents: 'none'
-  }
-}), /*#__PURE__*/React.createElement("div", {
-  style: {
-    position: 'relative',
-    maxWidth: '640px'
-  }
-}, /*#__PURE__*/React.createElement(Kicker, {
-  color: T.acento
-}, "Participa"), /*#__PURE__*/React.createElement("h3", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: '27px',
-    fontWeight: 400,
-    color: T.blanco,
-    margin: '10px 0 16px',
-    lineHeight: 1.2
-  }
-}, "\xBFTienes una foto que merezca estar aqu\xED?"), /*#__PURE__*/React.createElement("p", {
-  style: {
-    fontFamily: T.sans,
-    fontSize: '15px',
-    fontWeight: 300,
-    lineHeight: 1.75,
-    color: 'rgba(245,243,242,0.78)',
-    margin: '0 0 26px'
-  }
-}, "Esta galer\xEDa est\xE1 abierta a todos los equipos. Si tienes fotograf\xEDas de proyectos, eventos, hitos, visitas, reuniones o momentos que reflejen nuestro trabajo y nuestra cultura, comp\xE1rtelas con nosotros para futuras ediciones."), /*#__PURE__*/React.createElement("a", {
-  href: "mailto:comunicacion@activum.es?subject=Foto%20para%20la%20Galer%C3%ADa%20Activum",
-  style: {
-    display: 'inline-block',
-    fontFamily: T.sans,
-    fontSize: '11px',
-    fontWeight: 500,
-    letterSpacing: '0.1em',
-    textTransform: 'uppercase',
-    color: T.negro,
-    background: T.blanco,
-    padding: '14px 30px',
-    borderRadius: '4px',
-    textDecoration: 'none',
-    transition: 'background 200ms, color 200ms'
-  },
-  onMouseEnter: e => {
-    e.currentTarget.style.background = T.acento;
-    e.currentTarget.style.color = T.blanco;
-  },
-  onMouseLeave: e => {
-    e.currentTarget.style.background = T.blanco;
-    e.currentTarget.style.color = T.negro;
-  }
-}, "Env\xEDa tu foto a comunicacion@activum.es"))));
+const GaleriaBody = () => {
+  const mob = useIsMobile();
+  const [lightbox, setLightbox] = React.useState(null);
+  const fotos = [{
+    src: 'assets/galeria/gal-7.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-2.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-4.jpg',
+    pos: 'center 35%'
+  }, {
+    src: 'assets/galeria/gal-9.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-14.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-1.jpg',
+    pos: 'center 65%'
+  }, {
+    src: 'assets/galeria/gal-11.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-5.jpg',
+    pos: 'center 40%'
+  }, {
+    src: 'assets/galeria/gal-10.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-3.jpg',
+    pos: 'center 40%'
+  }, {
+    src: 'assets/galeria/gal-15.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-8.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-6.jpg',
+    pos: 'center 30%'
+  }, {
+    src: 'assets/galeria/gal-12.jpg',
+    pos: 'center center'
+  }, {
+    src: 'assets/galeria/gal-16.jpg',
+    pos: 'center center'
+  }];
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+      gap: mob ? '8px' : '12px'
+    }
+  }, fotos.map((f, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    onClick: () => setLightbox(i),
+    style: {
+      cursor: 'zoom-in',
+      borderRadius: '6px',
+      overflow: 'hidden',
+      aspectRatio: '4 / 3'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: f.src,
+    alt: "Equipo Activum",
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      objectPosition: f.pos,
+      display: 'block',
+      transition: 'transform 300ms'
+    },
+    onMouseEnter: e => e.currentTarget.style.transform = 'scale(1.03)',
+    onMouseLeave: e => e.currentTarget.style.transform = 'scale(1)'
+  })))), lightbox !== null && /*#__PURE__*/React.createElement("div", {
+    onClick: () => setLightbox(null),
+    style: {
+      position: 'fixed',
+      inset: 0,
+      zIndex: 9999,
+      background: 'rgba(31,29,26,0.92)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, lightbox > 0 && /*#__PURE__*/React.createElement("button", {
+    onClick: e => {
+      e.stopPropagation();
+      setLightbox(lightbox - 1);
+    },
+    style: {
+      position: 'absolute',
+      left: '24px',
+      background: 'rgba(245,243,242,0.15)',
+      border: 'none',
+      borderRadius: '9999px',
+      width: '48px',
+      height: '48px',
+      cursor: 'pointer',
+      color: '#F5F3F2',
+      fontSize: '22px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, "\u2039"), /*#__PURE__*/React.createElement("img", {
+    src: fotos[lightbox].src,
+    alt: "Equipo Activum",
+    onClick: e => e.stopPropagation(),
+    style: {
+      maxWidth: '90vw',
+      maxHeight: '88vh',
+      objectFit: 'contain',
+      borderRadius: '6px',
+      boxShadow: '0 8px 60px rgba(0,0,0,0.5)'
+    }
+  }), lightbox < fotos.length - 1 && /*#__PURE__*/React.createElement("button", {
+    onClick: e => {
+      e.stopPropagation();
+      setLightbox(lightbox + 1);
+    },
+    style: {
+      position: 'absolute',
+      right: '24px',
+      background: 'rgba(245,243,242,0.15)',
+      border: 'none',
+      borderRadius: '9999px',
+      width: '48px',
+      height: '48px',
+      cursor: 'pointer',
+      color: '#F5F3F2',
+      fontSize: '22px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, "\u203A"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setLightbox(null),
+    style: {
+      position: 'absolute',
+      top: '20px',
+      right: '20px',
+      background: 'rgba(245,243,242,0.15)',
+      border: 'none',
+      borderRadius: '9999px',
+      width: '40px',
+      height: '40px',
+      cursor: 'pointer',
+      color: '#F5F3F2',
+      fontSize: '18px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, "\u2715"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      bottom: '24px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      fontFamily: "'Roboto', sans-serif",
+      fontSize: '12px',
+      color: 'rgba(245,243,242,0.6)',
+      letterSpacing: '0.1em'
+    }
+  }, lightbox + 1, " / ", fotos.length)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: '40px',
+      background: T.negro,
+      borderRadius: '8px',
+      padding: '40px 44px',
+      position: 'relative',
+      overflow: 'hidden'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      inset: 0,
+      backgroundImage: 'url("assets/pattern-dark.svg")',
+      backgroundSize: '420px',
+      opacity: 0.16,
+      pointerEvents: 'none'
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      maxWidth: '640px'
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acento
+  }, "Participa"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '27px',
+      fontWeight: 400,
+      color: T.blanco,
+      margin: '10px 0 16px',
+      lineHeight: 1.2
+    }
+  }, "\xBFTienes una foto que merezca estar aqu\xED?"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: 'rgba(245,243,242,0.78)',
+      margin: '0 0 26px'
+    }
+  }, "Esta galer\xEDa est\xE1 abierta a todos los equipos. Si tienes fotograf\xEDas de proyectos, eventos, hitos, visitas, reuniones o momentos que reflejen nuestro trabajo y nuestra cultura, comp\xE1rtelas con nosotros para futuras ediciones."), /*#__PURE__*/React.createElement("a", {
+    href: "mailto:comunicacion@activum.es?subject=Foto%20para%20la%20Galer%C3%ADa%20Activum",
+    style: {
+      display: 'inline-block',
+      fontFamily: T.sans,
+      fontSize: '11px',
+      fontWeight: 500,
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      color: T.negro,
+      background: T.blanco,
+      padding: '14px 30px',
+      borderRadius: '4px',
+      textDecoration: 'none',
+      transition: 'background 200ms, color 200ms'
+    },
+    onMouseEnter: e => {
+      e.currentTarget.style.background = T.acento;
+      e.currentTarget.style.color = T.blanco;
+    },
+    onMouseLeave: e => {
+      e.currentTarget.style.background = T.blanco;
+      e.currentTarget.style.color = T.negro;
+    }
+  }, "Env\xEDa tu foto a comunicacion@activum.es"))));
+};
 
 /* ── Formulario del buzón (envía por correo a comunicación) ── */
 const BuzonForm = () => {
@@ -1590,7 +2782,7 @@ const BuzonForm = () => {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
+      gridTemplateColumns: window.innerWidth < 700 ? '1fr' : '1fr 1fr',
       gap: '16px',
       marginBottom: '16px'
     }
@@ -1700,119 +2892,128 @@ const BuzonForm = () => {
 };
 
 /* ════════ 09 · Activum Lab (buzón de participación) ════════ */
-const BuzonBody = () => /*#__PURE__*/React.createElement("div", {
-  style: {
-    maxWidth: '820px'
-  }
-}, /*#__PURE__*/React.createElement("p", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: '21px',
-    fontStyle: 'italic',
-    fontWeight: 300,
-    lineHeight: 1.55,
-    color: T.negro,
-    margin: '0 0 16px',
-    maxWidth: '60ch'
-  }
-}, "Las mejores ideas no siempre nacen en los despachos o en las reuniones. Muchas veces surgen en el d\xEDa a d\xEDa, en el contacto con los equipos, los clientes o los procesos."), /*#__PURE__*/React.createElement("p", {
-  style: {
-    fontFamily: T.sans,
-    fontSize: '15px',
-    fontWeight: 300,
-    lineHeight: 1.75,
-    color: T.negro80,
-    margin: '0 0 32px',
-    maxWidth: '60ch'
-  }
-}, "Por eso nace ", /*#__PURE__*/React.createElement("b", null, "Activum Lab"), ", un espacio abierto para compartir ideas, propuestas y sugerencias que nos ayuden a seguir mejorando como compa\xF1\xEDa. Ya sea una gran idea o una peque\xF1a sugerencia, queremos escucharte."), /*#__PURE__*/React.createElement("div", {
-  style: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '14px',
-    marginBottom: '32px'
-  }
-}, [['¿Qué cambiarías?', 'Algo que harías diferente mañana mismo.', 'assets/ic-cambio.webp'], ['¿Qué potenciar?', 'Lo que funciona bien y deberíamos impulsar.', 'assets/ic-potenciar.png'], ['¿Qué te gustaría ver?', 'Un tema para la newsletter o una iniciativa interna.', null]].map(([t, d, img], i) => /*#__PURE__*/React.createElement("div", {
-  key: i,
-  style: {
-    background: T.beige0,
-    border: '1px solid rgba(31,29,26,0.10)',
-    borderRadius: '6px',
-    padding: '20px'
-  }
-}, /*#__PURE__*/React.createElement("div", {
-  style: {
-    width: '46px',
-    height: '46px',
-    borderRadius: '9999px',
-    background: T.beige2,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-}, img ? /*#__PURE__*/React.createElement("img", {
-  src: img,
-  alt: "",
-  style: {
-    width: '26px',
-    height: '26px',
-    objectFit: 'contain'
-  }
-}) : /*#__PURE__*/React.createElement(BrandIcon, {
-  n: i % 5 + 1,
-  size: 26,
-  color: T.negro
-})), /*#__PURE__*/React.createElement("div", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: '18px',
-    fontWeight: 400,
-    color: T.negro,
-    margin: '14px 0 5px'
-  }
-}, t), /*#__PURE__*/React.createElement("div", {
-  style: {
-    fontFamily: T.sans,
-    fontSize: '12px',
-    fontWeight: 300,
-    color: T.negro80,
-    lineHeight: 1.5
-  }
-}, d)))), /*#__PURE__*/React.createElement(BuzonForm, null), /*#__PURE__*/React.createElement("p", {
-  style: {
-    fontFamily: T.sans,
-    fontSize: '13px',
-    fontWeight: 300,
-    color: T.negro50,
-    margin: '22px 0 0',
-    textAlign: 'center'
-  }
-}, "Tambi\xE9n puedes escribirnos directamente a", ' ', /*#__PURE__*/React.createElement("a", {
-  href: "mailto:comunicacion@activum.es",
-  style: {
-    color: T.acento,
-    fontWeight: 500
-  }
-}, "comunicacion@activum.es")));
+const BuzonBody = () => {
+  const mob = useIsMobile();
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: '820px'
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '21px',
+      fontStyle: 'italic',
+      fontWeight: 300,
+      lineHeight: 1.55,
+      color: T.negro,
+      margin: '0 0 16px',
+      maxWidth: '60ch'
+    }
+  }, "Las mejores ideas no siempre nacen en los despachos o en las reuniones. Muchas veces surgen en el d\xEDa a d\xEDa, en el contacto con los equipos, los clientes o los procesos."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.75,
+      color: T.negro80,
+      margin: '0 0 32px',
+      maxWidth: '60ch'
+    }
+  }, "Por eso nace ", /*#__PURE__*/React.createElement("b", null, "Activum Lab"), ", un espacio abierto para compartir ideas, propuestas y sugerencias que nos ayuden a seguir mejorando como compa\xF1\xEDa. Ya sea una gran idea o una peque\xF1a sugerencia, queremos escucharte."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)',
+      gap: '12px',
+      marginBottom: '32px'
+    }
+  }, [['¿Qué cambiarías?', 'Algo que harías diferente mañana mismo.', 'assets/ic-cambio.webp'], ['¿Qué potenciar?', 'Lo que funciona bien y deberíamos impulsar.', 'assets/ic-potenciar.png'], ['¿Qué te gustaría ver?', 'Un tema para la newsletter o una iniciativa interna.', null]].map(([t, d, img], i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      background: T.beige0,
+      border: '1px solid rgba(31,29,26,0.10)',
+      borderRadius: '6px',
+      padding: '20px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '46px',
+      height: '46px',
+      borderRadius: '9999px',
+      background: T.beige2,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, img ? /*#__PURE__*/React.createElement("img", {
+    src: img,
+    alt: "",
+    style: {
+      width: '26px',
+      height: '26px',
+      objectFit: 'contain'
+    }
+  }) : /*#__PURE__*/React.createElement(BrandIcon, {
+    n: i % 5 + 1,
+    size: 26,
+    color: T.negro
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '18px',
+      fontWeight: 400,
+      color: T.negro,
+      margin: '14px 0 5px'
+    }
+  }, t), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '12px',
+      fontWeight: 300,
+      color: T.negro80,
+      lineHeight: 1.5
+    }
+  }, d)))), /*#__PURE__*/React.createElement(BuzonForm, null), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '13px',
+      fontWeight: 300,
+      color: T.negro50,
+      margin: '22px 0 0',
+      textAlign: 'center'
+    }
+  }, "Tambi\xE9n puedes escribirnos directamente a", ' ', /*#__PURE__*/React.createElement("a", {
+    href: "mailto:comunicacion@activum.es",
+    style: {
+      color: T.acento,
+      fontWeight: 500
+    }
+  }, "comunicacion@activum.es")));
+};
 
 /* ════════ La Nucía One (promoción / publicidad interna) ════════ */
 const LaNuciaBody = () => {
+  const mob = useIsMobile();
   const datos = [['107', 'viviendas'], ['2-4', 'dormitorios'], ['280.000 €', 'precio de salida'], ['Garaje', '+ trastero incluidos']];
   const comunes = ['Piscina infinity', 'Gimnasio', 'Gastrobar', 'Espacio de coworking', 'Áreas infantiles', 'Zonas ajardinadas'];
   return /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: '960px'
     }
-  }, /*#__PURE__*/React.createElement(Slot, {
-    id: "lanuciaMain",
-    ratio: "4 / 3",
-    radius: 8,
-    label: "Sube el render de La Nuc\xEDa One"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/video-lanucia-one.png",
+    alt: "La Nuc\xEDa One",
+    style: {
+      width: '100%',
+      aspectRatio: '4 / 3',
+      objectFit: 'cover',
+      borderRadius: '8px',
+      display: 'block'
+    }
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      gap: '14px',
+      gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+      gap: '12px',
       margin: '28px 0 36px'
     }
   }, datos.map(([n, l], i) => /*#__PURE__*/React.createElement("div", {

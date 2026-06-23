@@ -9,7 +9,8 @@ const FrontCard = ({
   s,
   go,
   size = 'md',
-  imgId
+  imgId,
+  imgSrc
 }) => {
   const [hov, setHov] = React.useState(false);
   const conf = {
@@ -34,13 +35,28 @@ const FrontCard = ({
       display: 'flex',
       flexDirection: 'column'
     }
-  }, /*#__PURE__*/React.createElement(Slot, {
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: () => go(s.id),
+    style: {
+      cursor: 'pointer'
+    }
+  }, imgSrc ? /*#__PURE__*/React.createElement("img", {
+    src: imgSrc,
+    alt: s.title,
+    style: {
+      width: '100%',
+      aspectRatio: conf.ratio,
+      objectFit: 'cover',
+      display: 'block',
+      borderRadius: '4px'
+    }
+  }) : /*#__PURE__*/React.createElement(Slot, {
     id: imgId || `front-${s.id}`,
     ratio: conf.ratio,
     dark: s.tone === 'dark',
     radius: 4,
     label: "Sube una imagen"
-  }), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("div", {
     onClick: () => go(s.id),
     onMouseEnter: () => setHov(true),
     onMouseLeave: () => setHov(false),
@@ -131,17 +147,31 @@ const LeadRow = ({
   s,
   go,
   imageSide = 'left',
-  imgId
+  imgId,
+  imgSrc
 }) => {
+  const mob = useIsMobile();
   const [hov, setHov] = React.useState(false);
   const isVideo = s.kind === 'video';
   const image = /*#__PURE__*/React.createElement("div", {
+    onClick: () => go(s.id),
     style: {
       position: 'relative',
       borderRadius: '4px',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      cursor: 'pointer'
     }
-  }, /*#__PURE__*/React.createElement(Slot, {
+  }, imgSrc ? /*#__PURE__*/React.createElement("img", {
+    src: imgSrc,
+    alt: s.title,
+    style: {
+      width: '100%',
+      aspectRatio: '16 / 10',
+      objectFit: 'cover',
+      display: 'block',
+      borderRadius: '4px'
+    }
+  }) : /*#__PURE__*/React.createElement(Slot, {
     id: imgId,
     ratio: "16 / 10",
     dark: s.tone === 'dark',
@@ -187,19 +217,19 @@ const LeadRow = ({
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      padding: imageSide === 'left' ? '0 0 0 8px' : '0 8px 0 0'
+      padding: mob ? '0' : imageSide === 'left' ? '0 0 0 8px' : '0 8px 0 0'
     }
   }, /*#__PURE__*/React.createElement(Kicker, {
     color: T.acento
   }, s.num, " \xB7 ", s.section), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: T.serif,
-      fontSize: 'clamp(30px, 3.4vw, 42px)',
+      fontSize: mob ? '26px' : 'clamp(30px, 3.4vw, 42px)',
       fontWeight: 300,
       lineHeight: 1.12,
       letterSpacing: '-0.02em',
       color: T.negro,
-      margin: '14px 0 0',
+      margin: '12px 0 0',
       textDecoration: hov ? 'underline' : 'none',
       textDecorationColor: T.negro20,
       textUnderlineOffset: '6px'
@@ -207,14 +237,21 @@ const LeadRow = ({
   }, s.title), /*#__PURE__*/React.createElement("p", {
     style: {
       fontFamily: T.sans,
-      fontSize: '15px',
+      fontSize: '14px',
       fontWeight: 300,
       lineHeight: 1.65,
       color: T.negro80,
-      margin: '20px 0 0',
+      margin: '14px 0 0',
       maxWidth: '42ch'
     }
   }, s.dek));
+  if (mob) return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '16px'
+    }
+  }, image, text);
   return /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
@@ -230,116 +267,134 @@ const BeneficiosBanner = ({
   s,
   go
 }) => {
+  const mob = useIsMobile();
   const [hov, setHov] = React.useState(false);
   return /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'relative',
-      borderRadius: '6px',
-      overflow: 'hidden',
-      display: 'grid',
-      gridTemplateColumns: '0.92fr 1.08fr',
-      minHeight: '232px',
-      boxShadow: '0 6px 28px rgba(31,29,26,0.14)'
-    }
-  }, /*#__PURE__*/React.createElement("image-slot", {
-    id: "ben-banner-img",
-    shape: "rect",
-    fit: "cover",
-    placeholder: "Suelta aqu\xED una imagen divertida (compras, ahorro\u2026)",
-    style: {
-      width: '100%',
-      height: '100%',
-      display: 'block'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
     onClick: () => go(s.id),
     onMouseEnter: () => setHov(true),
     onMouseLeave: () => setHov(false),
     style: {
       cursor: 'pointer',
       position: 'relative',
+      borderRadius: '6px',
       overflow: 'hidden',
+      display: 'grid',
+      gridTemplateColumns: mob ? '1fr' : '200px 1fr',
+      minHeight: mob ? 'auto' : '110px',
+      boxShadow: '0 3px 16px rgba(31,29,26,0.12)'
+    }
+  }, !mob && /*#__PURE__*/React.createElement("img", {
+    src: "assets/beneficios.webp",
+    alt: "",
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: 'block'
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
       background: T.acento,
       display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      padding: '32px 40px'
+      flexDirection: mob ? 'column' : 'row',
+      alignItems: mob ? 'flex-start' : 'center',
+      justifyContent: 'space-between',
+      gap: mob ? '14px' : '24px',
+      padding: mob ? '20px 24px 20px' : '18px 32px',
+      position: 'relative',
+      overflow: 'hidden'
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, !mob && /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
-      top: '-26px',
-      right: '-26px',
-      width: '128px',
-      height: '128px',
+      top: '-20px',
+      right: '-20px',
+      width: '90px',
+      height: '90px',
       borderRadius: '9999px',
       background: T.beige2,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      transform: 'rotate(8deg)',
-      boxShadow: '0 6px 18px rgba(31,29,26,0.25)'
+      transform: 'rotate(8deg)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: T.sans,
+      fontSize: '9px',
+      fontWeight: 700,
+      letterSpacing: '0.1em',
+      color: T.negro,
+      marginTop: '14px'
+    }
+  }, "HASTA"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: '24px',
+      fontWeight: 500,
+      color: T.acentoDark,
+      lineHeight: 0.9
+    }
+  }, "\u221260%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+      flexWrap: 'wrap'
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
       fontFamily: T.sans,
       fontSize: '10px',
-      fontWeight: 700,
-      letterSpacing: '0.1em',
-      color: T.negro,
-      marginTop: '20px'
+      fontWeight: 600,
+      letterSpacing: mob ? '0.06em' : '0.18em',
+      textTransform: 'uppercase',
+      color: 'rgba(245,243,242,0.78)',
+      whiteSpace: mob ? 'normal' : 'nowrap'
     }
-  }, "HASTA"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: T.serif,
-      fontSize: '34px',
-      fontWeight: 500,
-      color: T.acentoDark,
-      lineHeight: 0.9
-    }
-  }, "\u221260%")), /*#__PURE__*/React.createElement("span", {
+  }, "Ventajas para empleados"), mob && /*#__PURE__*/React.createElement("span", {
     style: {
       fontFamily: T.sans,
       fontSize: '11px',
-      fontWeight: 600,
-      letterSpacing: '0.18em',
-      textTransform: 'uppercase',
-      color: 'rgba(245,243,242,0.78)'
+      fontWeight: 700,
+      color: T.acentoDark,
+      background: T.beige2,
+      padding: '2px 8px',
+      borderRadius: '4px'
     }
-  }, "Ventajas para empleados"), /*#__PURE__*/React.createElement("h2", {
+  }, "HASTA \u221260%")), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: T.serif,
-      fontSize: 'clamp(28px,3.2vw,42px)',
+      fontSize: mob ? '18px' : '20px',
       fontWeight: 400,
       color: T.blanco,
-      margin: '12px 0 10px',
-      lineHeight: 1.06,
-      maxWidth: '13ch'
+      marginTop: '4px',
+      lineHeight: 1.1
     }
-  }, s.title), /*#__PURE__*/React.createElement("p", {
+  }, s.title), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: T.sans,
-      fontSize: '13px',
+      fontSize: '11px',
       fontWeight: 400,
-      color: 'rgba(245,243,242,0.85)',
-      margin: '0 0 22px',
-      letterSpacing: '0.06em',
-      textTransform: 'uppercase'
+      color: 'rgba(245,243,242,0.75)',
+      marginTop: '4px',
+      letterSpacing: '0.04em'
     }
-  }, "Moda \xB7 Tecnolog\xEDa \xB7 Viajes \xB7 Ocio \xB7 Formaci\xF3n"), /*#__PURE__*/React.createElement("span", {
+  }, "Moda \xB7 Tecnolog\xEDa \xB7 Viajes \xB7 Ocio \xB7 Formaci\xF3n")), /*#__PURE__*/React.createElement("span", {
     style: {
-      alignSelf: 'flex-start',
+      flexShrink: 0,
       fontFamily: T.sans,
-      fontSize: '12px',
+      fontSize: '11px',
       fontWeight: 600,
       letterSpacing: '0.12em',
       textTransform: 'uppercase',
       color: T.acento,
       background: hov ? T.beige1 : T.blanco,
-      padding: '13px 28px',
+      padding: '10px 22px',
       borderRadius: '4px',
-      transition: 'background 200ms'
+      transition: 'background 200ms',
+      marginRight: mob ? '0' : '16px'
     }
   }, "Ver descuentos \u2192")));
 };
@@ -348,6 +403,7 @@ const BeneficiosBanner = ({
 const Portada = ({
   go
 }) => {
+  const mob = useIsMobile();
   const apertura = getSection('apertura');
   const mundo = getSection('mundo');
   const beneficios = getSection('beneficios');
@@ -359,22 +415,29 @@ const Portada = ({
     style: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '48px',
-      paddingBottom: '48px',
+      gap: mob ? '32px' : '48px',
+      paddingBottom: mob ? '32px' : '48px',
       borderBottom: `1px solid ${T.beige2}`,
-      marginBottom: '44px'
+      marginBottom: mob ? '28px' : '44px'
     }
   }, /*#__PURE__*/React.createElement(LeadRow, {
     s: apertura,
     go: go,
     imageSide: "left",
-    imgId: "aperturaMain"
-  }), /*#__PURE__*/React.createElement(LeadRow, {
+    imgSrc: "assets/cristina-thumbnail.jpg"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: T.beige1,
+      borderRadius: '10px',
+      padding: mob ? '16px' : '28px 32px',
+      border: `1px solid ${T.beige2}`
+    }
+  }, /*#__PURE__*/React.createElement(LeadRow, {
     s: mundo,
     go: go,
     imageSide: "right",
-    imgId: "mundoMain"
-  })), /*#__PURE__*/React.createElement(BeneficiosBanner, {
+    imgSrc: "assets/mundo-portada.png"
+  }))), /*#__PURE__*/React.createElement(BeneficiosBanner, {
     s: beneficios,
     go: go
   }), /*#__PURE__*/React.createElement("span", {
@@ -386,29 +449,29 @@ const Portada = ({
       textTransform: 'uppercase',
       color: T.negro50,
       display: 'block',
-      margin: '44px 0 24px'
+      margin: mob ? '28px 0 16px' : '44px 0 24px'
     }
   }, "Tambi\xE9n en este n\xFAmero"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gap: '40px 36px',
-      paddingBottom: '44px',
+      gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+      gap: mob ? '20px 14px' : '24px 20px',
+      paddingBottom: mob ? '28px' : '44px',
       borderBottom: `1px solid ${T.beige2}`,
-      marginBottom: '44px'
+      marginBottom: mob ? '28px' : '44px'
     }
   }, grid.map(s => /*#__PURE__*/React.createElement(FrontCard, {
     key: s.id,
     s: s,
     go: go,
-    size: "md",
-    imgId: `${s.id}Main`
+    size: "sm",
+    imgSrc: s.id === 'primera' ? 'assets/daniel-portada.jpg' : s.id === 'wellbeing' ? 'assets/estres.jpg' : s.id === 'cuerpo' ? 'assets/estirar.jpg' : s.id === 'bitabit' ? 'assets/ciberseguridad.jpg' : undefined
   }))), /*#__PURE__*/React.createElement(LaNuciaBanner, {
     s: lanucia,
     go: go
   }), /*#__PURE__*/React.createElement("div", {
     style: {
-      margin: '44px 0'
+      margin: mob ? '28px 0' : '44px 0'
     }
   }, /*#__PURE__*/React.createElement("div", {
     onClick: () => go(galeria.id),
@@ -421,7 +484,7 @@ const Portada = ({
   }, galeria.num, " \xB7 ", galeria.section), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontFamily: T.serif,
-      fontSize: '28px',
+      fontSize: mob ? '22px' : '28px',
       fontWeight: 400,
       lineHeight: 1.15,
       letterSpacing: '-0.01em',
@@ -432,15 +495,36 @@ const Portada = ({
   }, galeria.title)), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      gap: '10px'
+      gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+      gap: '8px'
     }
-  }, [0, 1, 2, 3].map(i => /*#__PURE__*/React.createElement(Slot, {
-    key: i,
-    id: `gal${i}`,
-    ratio: "1 / 1",
-    radius: 3,
-    label: "Foto"
+  }, [{
+    n: 1,
+    pos: 'center 65%'
+  }, {
+    n: 2,
+    pos: 'center center'
+  }, {
+    n: 3,
+    pos: 'center 40%'
+  }, {
+    n: 4,
+    pos: 'center 35%'
+  }].map(({
+    n,
+    pos
+  }) => /*#__PURE__*/React.createElement("img", {
+    key: n,
+    src: `assets/galeria/gal-${n}.jpg`,
+    alt: "",
+    style: {
+      width: '100%',
+      aspectRatio: '1 / 1',
+      objectFit: 'cover',
+      objectPosition: pos,
+      borderRadius: '3px',
+      display: 'block'
+    }
   })))), /*#__PURE__*/React.createElement(BuzonStrip, {
     s: voz,
     go: go
@@ -452,23 +536,26 @@ const LaNuciaBanner = ({
   s,
   go
 }) => {
+  const mob = useIsMobile();
   const [hov, setHov] = React.useState(false);
   return /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
-      gridTemplateColumns: '1.15fr 1fr',
+      gridTemplateColumns: mob ? '1fr' : '1.15fr 1fr',
       background: T.beige1,
       borderRadius: '6px',
       overflow: 'hidden',
       border: `1px solid ${T.beige2}`
     }
-  }, /*#__PURE__*/React.createElement(Slot, {
-    id: "lanuciaMain",
-    ratio: "16 / 10",
-    radius: 0,
-    label: "Sube el render de La Nuc\xEDa One",
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/video-lanucia-one.png",
+    alt: "La Nuc\xEDa One",
     style: {
-      height: '100%'
+      width: '100%',
+      aspectRatio: mob ? '16 / 7' : 'auto',
+      height: mob ? 'auto' : '100%',
+      objectFit: 'cover',
+      display: 'block'
     }
   }), /*#__PURE__*/React.createElement("div", {
     onClick: () => go(s.id),
@@ -526,64 +613,68 @@ const LaNuciaBanner = ({
 const BuzonStrip = ({
   s,
   go
-}) => /*#__PURE__*/React.createElement("div", {
-  style: {
-    position: 'relative',
-    borderRadius: '4px',
-    overflow: 'hidden',
-    background: T.negro,
-    backgroundImage: 'url("assets/activum-lab.png")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center'
-  }
-}, /*#__PURE__*/React.createElement("div", {
-  style: {
-    position: 'absolute',
-    inset: 0,
-    background: 'linear-gradient(90deg, rgba(31,29,26,0.9) 0%, rgba(31,29,26,0.55) 38%, rgba(31,29,26,0.15) 60%, rgba(31,29,26,0.45) 100%)'
-  }
-}), /*#__PURE__*/React.createElement("div", {
-  style: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '44px 44px',
-    minHeight: '150px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: '32px'
-  }
-}, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Kicker, {
-  color: T.acentoLight
-}, s.num, " \xB7 ", s.section), /*#__PURE__*/React.createElement("h3", {
-  style: {
-    fontFamily: T.serif,
-    fontSize: '27px',
-    fontWeight: 300,
-    color: T.blanco,
-    margin: '10px 0 0',
-    lineHeight: 1.2
-  }
-}, s.title)), /*#__PURE__*/React.createElement("button", {
-  onClick: () => go(s.id),
-  style: {
-    flexShrink: 0,
-    fontFamily: T.sans,
-    fontSize: '11px',
-    fontWeight: 500,
-    letterSpacing: '0.12em',
-    textTransform: 'uppercase',
-    background: T.acento,
-    color: T.blanco,
-    padding: '14px 28px',
-    borderRadius: '4px',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'background 200ms'
-  },
-  onMouseEnter: e => e.currentTarget.style.background = T.acentoDark,
-  onMouseLeave: e => e.currentTarget.style.background = T.acento
-}, "Participar")));
+}) => {
+  const mob = useIsMobile();
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      borderRadius: '4px',
+      overflow: 'hidden',
+      background: T.negro,
+      backgroundImage: 'url("assets/activum-lab.png")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      inset: 0,
+      background: mob ? 'rgba(31,29,26,0.82)' : 'linear-gradient(90deg, rgba(31,29,26,0.9) 0%, rgba(31,29,26,0.55) 38%, rgba(31,29,26,0.15) 60%, rgba(31,29,26,0.45) 100%)'
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      zIndex: 1,
+      padding: mob ? '28px 24px' : '44px 44px',
+      minHeight: mob ? 'auto' : '150px',
+      display: 'flex',
+      flexDirection: mob ? 'column' : 'row',
+      justifyContent: 'space-between',
+      alignItems: mob ? 'flex-start' : 'center',
+      gap: mob ? '20px' : '32px'
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Kicker, {
+    color: T.acentoLight
+  }, s.num, " \xB7 ", s.section), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: T.serif,
+      fontSize: mob ? '24px' : '27px',
+      fontWeight: 300,
+      color: T.blanco,
+      margin: '10px 0 0',
+      lineHeight: 1.2
+    }
+  }, s.title)), /*#__PURE__*/React.createElement("button", {
+    onClick: () => go(s.id),
+    style: {
+      flexShrink: 0,
+      fontFamily: T.sans,
+      fontSize: '11px',
+      fontWeight: 500,
+      letterSpacing: '0.12em',
+      textTransform: 'uppercase',
+      background: T.acento,
+      color: T.blanco,
+      padding: '14px 28px',
+      borderRadius: '4px',
+      border: 'none',
+      cursor: 'pointer',
+      transition: 'background 200ms'
+    },
+    onMouseEnter: e => e.currentTarget.style.background = T.acentoDark,
+    onMouseLeave: e => e.currentTarget.style.background = T.acento
+  }, "Participar")));
+};
 Object.assign(window, {
   Portada,
   FrontCard
