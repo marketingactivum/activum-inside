@@ -296,9 +296,13 @@ const Sidebar = ({
 /* ════════ App ════════ */
 const App = () => {
   const mob = useIsMobile();
-  const [view, setView] = React.useState(() => localStorage.getItem('inside_view') || 'portada');
+  const [view, setView] = React.useState('portada');
   const [menuOpen, setMenuOpen] = React.useState(false);
   React.useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
     if (window.va) window.va('pageview', {
       route: '/' + view
     });
@@ -306,11 +310,6 @@ const App = () => {
   const go = v => {
     setView(v);
     setMenuOpen(false);
-    localStorage.setItem('inside_view', v);
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
   };
   const headerH = mob ? HEADER_H_MOB : HEADER_H;
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Masthead, {

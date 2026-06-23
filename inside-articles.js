@@ -3163,6 +3163,10 @@ const Article = ({
 }) => {
   const s = getSection(id);
   const Body = BODIES[id];
+  if (!s || !Body) {
+    go('portada');
+    return null;
+  }
   const idx = SECTIONS.findIndex(x => x.id === id);
   const prev = SECTIONS[idx - 1];
   const next = SECTIONS[idx + 1];
